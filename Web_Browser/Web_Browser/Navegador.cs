@@ -10,17 +10,11 @@ using System.Windows.Forms;
 
 namespace Web_Browser
 {
-    public partial class Home : Form
+    public partial class Navegador : Form
     {
-        public Home()
+        public Navegador()
         {
             InitializeComponent();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            TabPage myTabPage = new TabPage("Nueva Pestaña");
-            tc_pestanas.TabPages.Add(myTabPage);
         }
     }
 }
