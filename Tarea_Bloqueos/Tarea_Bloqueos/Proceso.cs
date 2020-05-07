@@ -49,6 +49,8 @@ namespace Tarea_Bloqueos
                 tinanicion = random.Next(0, 10);
             for (int i = 0; i < recursos.Length; i++)
                 necesarios[i] = random.Next(0, recursos[i] + 1);
+            for (int i = 0; i < asignados.Length; i++)
+                asignados[i] = 0;
         }
 
         public Boolean puedeEjecutarse()
@@ -69,6 +71,23 @@ namespace Tarea_Bloqueos
             {
                 libres[i] -= asignados[i];
             }
+        }
+
+        public void cargarAsignados(int[] libres)
+        {
+            int aux = 0;
+            var random = new Random();
+            for (int i = 0; i < libres.Length; i++)
+            {
+                aux = random.Next(0, libres[i] + 1);
+                if (aux > asignados[i] && aux <= necesarios[i])
+                {
+                    asignados[i] = aux;
+                    libres[i] -= aux;
+                }
+                    
+
+            }   
         }
     }
 }
