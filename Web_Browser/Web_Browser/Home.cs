@@ -20,7 +20,18 @@ namespace Web_Browser
         private void button1_Click(object sender, EventArgs e)
         {
             TabPage myTabPage = new TabPage("Nueva Pestaña");
+            Navegador nav = new Navegador();
+            nav.TopLevel = false;
+            myTabPage.Controls.Add(nav);
+            myTabPage.Tag = nav;
+            nav.Show();
             tc_pestanas.TabPages.Add(myTabPage);
+
+        }
+
+        private void Home_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
