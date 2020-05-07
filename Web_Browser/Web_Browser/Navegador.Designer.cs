@@ -89,7 +89,7 @@
             this.webBrowser1.Location = new System.Drawing.Point(12, 50);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(1080, 569);
+            this.webBrowser1.Size = new System.Drawing.Size(1002, 488);
             this.webBrowser1.TabIndex = 5;
             this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
             // 
@@ -104,8 +104,10 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.boton_Ir);
             this.Controls.Add(this.button1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Navegador";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Navegador_Load_1);
             this.ResumeLayout(false);
             this.PerformLayout();
 

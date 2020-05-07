@@ -76,5 +76,10 @@ namespace Web_Browser
         {
             Navegar(textBox1.Text);
         }
+
+        private void Navegador_Load_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }
