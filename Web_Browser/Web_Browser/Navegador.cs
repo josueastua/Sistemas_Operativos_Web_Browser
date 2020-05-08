@@ -34,6 +34,7 @@ namespace Web_Browser
 
             try
             {
+                webBrowser1.ScriptErrorsSuppressed = true;
                 webBrowser1.Navigate(new Uri(address));
             }
             catch (System.UriFormatException)

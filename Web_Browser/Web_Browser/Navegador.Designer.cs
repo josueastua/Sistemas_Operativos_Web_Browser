@@ -48,7 +48,7 @@
             // 
             // boton_Ir
             // 
-            this.boton_Ir.Location = new System.Drawing.Point(939, 11);
+            this.boton_Ir.Location = new System.Drawing.Point(1022, 13);
             this.boton_Ir.Name = "boton_Ir";
             this.boton_Ir.Size = new System.Drawing.Size(75, 23);
             this.boton_Ir.TabIndex = 1;
@@ -80,7 +80,7 @@
             // 
             this.textBox1.Location = new System.Drawing.Point(256, 13);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(662, 20);
+            this.textBox1.Size = new System.Drawing.Size(760, 20);
             this.textBox1.TabIndex = 4;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -89,7 +89,7 @@
             this.webBrowser1.Location = new System.Drawing.Point(12, 50);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(1002, 488);
+            this.webBrowser1.Size = new System.Drawing.Size(1085, 541);
             this.webBrowser1.TabIndex = 5;
             this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
             // 
@@ -97,7 +97,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1026, 550);
+            this.ClientSize = new System.Drawing.Size(1110, 610);
             this.Controls.Add(this.webBrowser1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button4);
