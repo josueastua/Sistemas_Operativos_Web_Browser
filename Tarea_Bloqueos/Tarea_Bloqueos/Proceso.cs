@@ -113,9 +113,36 @@ namespace Tarea_Bloqueos
             }
         }
 
+        public void liberarRecursos(int[] libres)
+        {
+            for (int i = 0; i < asignados.Length; i++)
+                libres[i] += asignados[i];
+        }
+
         public Boolean isDead()
         {
             return tte >= tinanicion;
+        }
+
+        public string informacionProceso()
+        {
+            string data = "Informacion de Proceso\n";
+            data += "ID: "+this.id+"\nRecursos Necesarios: [ ";
+            for(int i = 0; i < necesarios.Length; i++)
+            {
+                data += necesarios[i];
+                if (i < necesarios.Length - 1)
+                    data += " , ";
+            }
+            data += " ]\nRecursos Necesarios: [ ";
+            for (int i = 0; i < asignados.Length; i++)
+            {
+                data += asignados[i];
+                if (i < asignados.Length - 1)
+                    data += " , ";
+            }
+            data += "\n";
+            return data;
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Tarea_Bloqueos
     {
         private int[] recursos, libres;
         private List<Proceso> procesos, listos, muertos, terminados;
-        private Thread creador;
+        private Thread creador, aux;
         private int indice;
         private Boolean signal/*si se estan asignado recursos*/, bloqueo;
         private Proceso p, pactual;
@@ -37,14 +37,14 @@ namespace Tarea_Bloqueos
                 indice++;
                 p = new Proceso(indice);
                 p.iniciarVariables(recursos);
+                aux = p.getHilo();
+                aux = new Thread(funcionProceso);
+                aux.Start(p);
                 while (signal)
                     Console.WriteLine("Esperando...crearProceso");
                 signal = true;
                 asignarRecursos();
                 signal = false;
-                
-                //Aqui se crea el hilo con el funcionamiento
-                //Pero antes hay que implementar peterson
             }
         }
 
@@ -85,29 +85,35 @@ namespace Tarea_Bloqueos
                             p.setEstado(2);
                         break;
                     case 2://En ejecucion
+                        pactual = p;
                         while(p.getEstado() == 2)
                         {
                             Thread.Sleep(p.getTespera());
                             p.actualizarTvida();
                             if (p.getTvida() > 0)
                             {
-                                while (signal) { }
+                                while (signal)
+                                    Console.WriteLine("Esperando...En ejecucion");
                                 signal = true;
                                 p.cargarNecesarios(libres);
                                 signal = false;
                                 if (!p.puedeEjecutarse())
+                                {
                                     p.setEstado(1);
+                                    pactual = null;
+                                }
                             }
                             else
+                            {
                                 p.setEstado(3);
+                                pactual = null;
+                            }
                         }
                         break;
                     case 3:
-                        procesos.Remove(p);
                         terminados.Add(p);
                         break;
                     case 4:
-                        procesos.Remove(p);
                         muertos.Add(p);
                         break;
                     default:
@@ -115,6 +121,10 @@ namespace Tarea_Bloqueos
                 }
                 if(p.getEstado() == 3 || p.getEstado() == 4)
                 {
+                    while (signal)
+                        Console.WriteLine("Esperando... 3 o 4");
+                    p.liberarRecursos(libres);
+                    procesos.Remove(p);
                     p.getHilo().Abort();
                     break;
                 }
