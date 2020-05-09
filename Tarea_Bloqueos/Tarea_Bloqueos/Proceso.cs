@@ -17,6 +17,7 @@ namespace Tarea_Bloqueos
         private int tinanicion;
         private int tespera;
         private int tte;
+        private int estado; // 0 - espera, 1 = listo, 2 = ejecucion, 3 - terminado, 4 - Muerto
         private Thread hilo;
 
         public Proceso() { }
@@ -38,6 +39,10 @@ namespace Tarea_Bloqueos
         public int getTespera() => tespera;
         public int getTte() => tte;
         public Thread getHilo() => hilo;
+        public int getEstado() => estado;
+        public void setEstado(int estado) => this.estado = estado;
+        public void actualizarTvida() => this.tvida -= this.tespera;
+        public void actualizarTte() => this.tte += 1;
 
         public void iniciarVariables(int[] recursos)
         {
@@ -85,9 +90,32 @@ namespace Tarea_Bloqueos
                     asignados[i] = aux;
                     libres[i] -= aux;
                 }
-                    
-
             }   
+        }
+
+        public void cargarNecesarios(int[] libres)
+        {
+            int aux = 0;
+            var random = new Random();
+            for (int i = 0; i < libres.Length; i++)
+            {
+                aux = random.Next(0, libres[i] + 1);
+                necesarios[i] = aux;
+                libres[i] -= aux;
+            }
+            for(int i = 0; i < necesarios.Length; i++)
+            {
+                if(asignados[i] >= necesarios[i])
+                {
+                    aux = asignados[i] - necesarios[i];
+                    libres[i] += aux;
+                }
+            }
+        }
+
+        public Boolean isDead()
+        {
+            return tte >= tinanicion;
         }
     }
 }

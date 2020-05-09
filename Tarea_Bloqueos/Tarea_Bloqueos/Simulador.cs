@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace Tarea_Bloqueos
 {
-    public partial class Form1 : Form
+    public partial class Simulador : Form
     {
-        public Form1()
+        public Simulador()
         {
             InitializeComponent();
+        }
+
+        private void accionIniciar(object sender, MouseEventArgs e)
+        {
+
         }
     }
 }
