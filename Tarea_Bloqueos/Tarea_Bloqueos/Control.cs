@@ -82,7 +82,10 @@ namespace Tarea_Bloqueos
                         break;
                     case 1://Listo
                         if (listos.IndexOf(p) == 0)
+                        {
                             p.setEstado(2);
+                            listos.Remove(p);
+                        }
                         break;
                     case 2://En ejecucion
                         pactual = p;
