@@ -37,7 +37,6 @@
             this.tb_terminados = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.tb_ejecucion = new System.Windows.Forms.TextBox();
             this.btn_iniciar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -89,7 +88,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(300, 61);
             this.label2.TabIndex = 4;
-            this.label2.Text = "Procesos Listos para Ejecucion";
+            this.label2.Text = "Procesos en Ejecucion";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label2.UseWaitCursor = true;
             // 
@@ -133,19 +132,10 @@
             this.label5.ForeColor = System.Drawing.Color.White;
             this.label5.Location = new System.Drawing.Point(13, 33);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(300, 61);
+            this.label5.Size = new System.Drawing.Size(930, 61);
             this.label5.TabIndex = 8;
-            this.label5.Text = "Proceso en Ejecucion";
+            this.label5.Text = "Simulador de Procesos";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // tb_ejecucion
-            // 
-            this.tb_ejecucion.Location = new System.Drawing.Point(327, 33);
-            this.tb_ejecucion.Multiline = true;
-            this.tb_ejecucion.Name = "tb_ejecucion";
-            this.tb_ejecucion.ReadOnly = true;
-            this.tb_ejecucion.Size = new System.Drawing.Size(616, 61);
-            this.tb_ejecucion.TabIndex = 9;
             // 
             // btn_iniciar
             // 
@@ -168,7 +158,6 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1272, 650);
             this.Controls.Add(this.btn_iniciar);
-            this.Controls.Add(this.tb_ejecucion);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.tb_terminados);
@@ -198,7 +187,6 @@
         private System.Windows.Forms.TextBox tb_terminados;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox tb_ejecucion;
         private System.Windows.Forms.Button btn_iniciar;
     }
 }
