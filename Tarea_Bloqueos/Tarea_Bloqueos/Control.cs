@@ -117,7 +117,6 @@ namespace Tarea_Bloqueos
                         else
                         {
                             terminados.Add(paux);
-                            espera.Remove(paux);
                             ejecutando.Remove(paux);
                         }
                         solicitarliberar.Add(paux);
