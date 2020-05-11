@@ -42,28 +42,37 @@
             // 
             // tb_espera
             // 
+            this.tb_espera.AcceptsReturn = true;
+            this.tb_espera.AcceptsTab = true;
             this.tb_espera.Location = new System.Drawing.Point(13, 252);
             this.tb_espera.Multiline = true;
             this.tb_espera.Name = "tb_espera";
             this.tb_espera.ReadOnly = true;
+            this.tb_espera.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.tb_espera.Size = new System.Drawing.Size(300, 387);
             this.tb_espera.TabIndex = 0;
             // 
             // tb_listos
             // 
+            this.tb_listos.AcceptsReturn = true;
+            this.tb_listos.AcceptsTab = true;
             this.tb_listos.Location = new System.Drawing.Point(327, 251);
             this.tb_listos.Multiline = true;
             this.tb_listos.Name = "tb_listos";
             this.tb_listos.ReadOnly = true;
+            this.tb_listos.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.tb_listos.Size = new System.Drawing.Size(300, 387);
             this.tb_listos.TabIndex = 1;
             // 
             // tb_muertos
             // 
+            this.tb_muertos.AcceptsReturn = true;
+            this.tb_muertos.AcceptsTab = true;
             this.tb_muertos.Location = new System.Drawing.Point(962, 252);
             this.tb_muertos.Multiline = true;
             this.tb_muertos.Name = "tb_muertos";
             this.tb_muertos.ReadOnly = true;
+            this.tb_muertos.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.tb_muertos.Size = new System.Drawing.Size(300, 387);
             this.tb_muertos.TabIndex = 2;
             // 
@@ -106,10 +115,13 @@
             // 
             // tb_terminados
             // 
+            this.tb_terminados.AcceptsReturn = true;
+            this.tb_terminados.AcceptsTab = true;
             this.tb_terminados.Location = new System.Drawing.Point(643, 252);
             this.tb_terminados.Multiline = true;
             this.tb_terminados.Name = "tb_terminados";
             this.tb_terminados.ReadOnly = true;
+            this.tb_terminados.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.tb_terminados.Size = new System.Drawing.Size(300, 387);
             this.tb_terminados.TabIndex = 6;
             // 
@@ -130,9 +142,9 @@
             this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(102)))));
             this.label5.Font = new System.Drawing.Font("Courier New", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(13, 33);
+            this.label5.Location = new System.Drawing.Point(13, 9);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(930, 61);
+            this.label5.Size = new System.Drawing.Size(930, 38);
             this.label5.TabIndex = 8;
             this.label5.Text = "Simulador de Procesos";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -142,9 +154,9 @@
             this.btn_iniciar.BackColor = System.Drawing.Color.White;
             this.btn_iniciar.Font = new System.Drawing.Font("Courier New", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_iniciar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(102)))));
-            this.btn_iniciar.Location = new System.Drawing.Point(972, 33);
+            this.btn_iniciar.Location = new System.Drawing.Point(972, 9);
             this.btn_iniciar.Name = "btn_iniciar";
-            this.btn_iniciar.Size = new System.Drawing.Size(288, 61);
+            this.btn_iniciar.Size = new System.Drawing.Size(288, 38);
             this.btn_iniciar.TabIndex = 10;
             this.btn_iniciar.Text = "Iniciar Simulacion";
             this.btn_iniciar.UseVisualStyleBackColor = false;
@@ -168,8 +180,8 @@
             this.Controls.Add(this.tb_listos);
             this.Controls.Add(this.tb_espera);
             this.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Simulador";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Simulador de procesos";
             this.ResumeLayout(false);
             this.PerformLayout();
