@@ -38,12 +38,17 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.btn_iniciar = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.lbl_libres = new System.Windows.Forms.Label();
+            this.lbl_recursos = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // tb_espera
             // 
             this.tb_espera.AcceptsReturn = true;
             this.tb_espera.AcceptsTab = true;
+            this.tb_espera.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tb_espera.Location = new System.Drawing.Point(13, 252);
             this.tb_espera.Multiline = true;
             this.tb_espera.Name = "tb_espera";
@@ -56,6 +61,7 @@
             // 
             this.tb_listos.AcceptsReturn = true;
             this.tb_listos.AcceptsTab = true;
+            this.tb_listos.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tb_listos.Location = new System.Drawing.Point(327, 251);
             this.tb_listos.Multiline = true;
             this.tb_listos.Name = "tb_listos";
@@ -68,6 +74,7 @@
             // 
             this.tb_muertos.AcceptsReturn = true;
             this.tb_muertos.AcceptsTab = true;
+            this.tb_muertos.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tb_muertos.Location = new System.Drawing.Point(962, 252);
             this.tb_muertos.Multiline = true;
             this.tb_muertos.Name = "tb_muertos";
@@ -106,9 +113,9 @@
             this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(102)))));
             this.label3.Font = new System.Drawing.Font("Courier New", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(959, 173);
+            this.label3.Location = new System.Drawing.Point(962, 173);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(301, 61);
+            this.label3.Size = new System.Drawing.Size(298, 61);
             this.label3.TabIndex = 5;
             this.label3.Text = "Procesos Muertos";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -117,6 +124,7 @@
             // 
             this.tb_terminados.AcceptsReturn = true;
             this.tb_terminados.AcceptsTab = true;
+            this.tb_terminados.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tb_terminados.Location = new System.Drawing.Point(643, 252);
             this.tb_terminados.Multiline = true;
             this.tb_terminados.Name = "tb_terminados";
@@ -144,7 +152,7 @@
             this.label5.ForeColor = System.Drawing.Color.White;
             this.label5.Location = new System.Drawing.Point(13, 9);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(930, 38);
+            this.label5.Size = new System.Drawing.Size(930, 61);
             this.label5.TabIndex = 8;
             this.label5.Text = "Simulador de Procesos";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -154,13 +162,57 @@
             this.btn_iniciar.BackColor = System.Drawing.Color.White;
             this.btn_iniciar.Font = new System.Drawing.Font("Courier New", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_iniciar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(102)))));
-            this.btn_iniciar.Location = new System.Drawing.Point(972, 9);
+            this.btn_iniciar.Location = new System.Drawing.Point(962, 9);
             this.btn_iniciar.Name = "btn_iniciar";
-            this.btn_iniciar.Size = new System.Drawing.Size(288, 38);
+            this.btn_iniciar.Size = new System.Drawing.Size(298, 61);
             this.btn_iniciar.TabIndex = 10;
             this.btn_iniciar.Text = "Iniciar Simulacion";
             this.btn_iniciar.UseVisualStyleBackColor = false;
             this.btn_iniciar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.accionIniciar);
+            // 
+            // label6
+            // 
+            this.label6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(102)))));
+            this.label6.Font = new System.Drawing.Font("Courier New", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.White;
+            this.label6.Location = new System.Drawing.Point(13, 89);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(300, 61);
+            this.label6.TabIndex = 11;
+            this.label6.Text = "Recursos Totales";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label7
+            // 
+            this.label7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(102)))));
+            this.label7.Font = new System.Drawing.Font("Courier New", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.White;
+            this.label7.Location = new System.Drawing.Point(640, 89);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(303, 61);
+            this.label7.TabIndex = 12;
+            this.label7.Text = "Recursos Libres";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbl_libres
+            // 
+            this.lbl_libres.BackColor = System.Drawing.Color.LightGray;
+            this.lbl_libres.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_libres.Location = new System.Drawing.Point(963, 89);
+            this.lbl_libres.Name = "lbl_libres";
+            this.lbl_libres.Size = new System.Drawing.Size(295, 61);
+            this.lbl_libres.TabIndex = 13;
+            this.lbl_libres.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbl_recursos
+            // 
+            this.lbl_recursos.BackColor = System.Drawing.Color.LightGray;
+            this.lbl_recursos.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_recursos.Location = new System.Drawing.Point(328, 89);
+            this.lbl_recursos.Name = "lbl_recursos";
+            this.lbl_recursos.Size = new System.Drawing.Size(299, 61);
+            this.lbl_recursos.TabIndex = 14;
+            this.lbl_recursos.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Simulador
             // 
@@ -169,6 +221,10 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(29)))), ((int)(((byte)(29)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1272, 650);
+            this.Controls.Add(this.lbl_recursos);
+            this.Controls.Add(this.lbl_libres);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.btn_iniciar);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -200,6 +256,10 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btn_iniciar;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lbl_libres;
+        private System.Windows.Forms.Label lbl_recursos;
     }
 }
 

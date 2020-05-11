@@ -41,17 +41,26 @@ namespace Tarea_Bloqueos
         public int getEstado() => estado;
         public void setEstado(int estado) => this.estado = estado;
         public Thread getHilo() => hilo;
+        public void setHilo(Thread hilo) => this.hilo = hilo;
         public void actualizarVida()
         {
             this.vida -= nuevo;
             if (vida <= 0)
-                this.estado = 4;
+                this.vida = 0;
         }
         public void actualizarEsperado(int esperado)
         {
             this.esperado += esperado;
-            if (esperado >= inanicion)
-                this.estado = 5;
+        }
+
+        public bool isDead()
+        {
+            return esperado == inanicion;
+        }
+
+        public bool isEnd()
+        {
+            return vida == 0;
         }
 
         public void initVariables(int[] recursos)
@@ -82,19 +91,11 @@ namespace Tarea_Bloqueos
             return true;
         }
 
-        public void restarRecursos(int[] libres)
-        {
-            for (int i = 0; i < libres.Length; i++)
-            {
-                libres[i] -= asignados[i];
-            }
-        }
-
         public void cargarAsignados(int[] libres)
         {
             int aux = 0;
             var random = new Random();
-            for (int i = 0; i < libres.Length; i++)
+            for (int i = 0; i < 8; i++)
             {
                 aux = random.Next(0, libres[i] + 1);
                 if (aux > asignados[i] && aux <= necesarios[i])
@@ -105,20 +106,22 @@ namespace Tarea_Bloqueos
             }
         }
 
-        public void cargarNecesarios(int[] recursos)
+        public void cargarNecesarios(int[] recursos, int[] libres)
         {
             int aux = 0;
             var random = new Random();
-            for (int i = 0; i < recursos.Length; i++)
+            for (int i = 0; i < 8; i++)
             {
                 aux = random.Next(0, recursos[i] + 1);
                 necesarios[i] = aux;
             }
-            for (int i = 0; i < necesarios.Length; i++)
+            for (int i = 0; i < 8; i++)
             {
-                if (asignados[i] >= necesarios[i])
+                if (asignados[i] > necesarios[i])
                 {
                     aux = asignados[i] - necesarios[i];
+                    asignados[i] = necesarios[i];
+                    libres[i] += aux;
                 }
             }
         }
@@ -136,22 +139,22 @@ namespace Tarea_Bloqueos
         public string informacionProceso()
         {
             string data = "\r\nInformacion de Proceso\r\n";
-            data += "ID: " + this.id;
+            data += "ID: " + this.id+"\r\nTiempo de vida: "+vida+"\r\nTiempo de Inanicion: "+inanicion+"\r\nTiempo esperado: "+esperado+"\r\n";
             if(estado  != 4 && estado != 5)
             {
-                data += "\r\nRecursos Necesarios: [ ";
+                data += "\r\nRecursos Necesarios:\r\n[ ";
                 for (int i = 0; i < necesarios.Length; i++)
                 {
                     data += necesarios[i];
                     if (i < necesarios.Length - 1)
-                        data += " , ";
+                        data += ", ";
                 }
-                data += " ]\r\nAsignados: [ ";
+                data += " ]\r\nRecursos Asignados:\r\n[ ";
                 for (int i = 0; i < asignados.Length; i++)
                 {
                     data += asignados[i];
                     if (i < asignados.Length - 1)
-                        data += " , ";
+                        data += ", ";
                 }
                 data += " ]";
             }

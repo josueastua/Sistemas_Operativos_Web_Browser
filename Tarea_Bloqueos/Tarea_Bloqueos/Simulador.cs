@@ -15,6 +15,7 @@ namespace Tarea_Bloqueos
     {
         Control control;
         List<Proceso> aux;
+        int[] aux2;
         public Simulador()
         {
             InitializeComponent();
@@ -32,9 +33,22 @@ namespace Tarea_Bloqueos
         {
             control = new Control();
             control.initSimulador();
+            aux2 = control.getRecursos();
+            lbl_recursos.Text = "[ " + aux2[0];
+            for (int i = 1; i < 8; i++)
+            {
+                lbl_recursos.Text += ", " + aux2[i];
+            }
+            lbl_recursos.Text += " ]";
             while (!control.getBloqueo())
             {
-                Console.WriteLine("En While");
+                aux2 = control.getLibres();
+                lbl_libres.Text = "[ " + aux2[0];
+                for (int i = 1; i < 8; i++)
+                {
+                    lbl_libres.Text += ", " + aux2[i];
+                }
+                lbl_libres.Text += " ]";
                 tb_espera.Text = "Informacion de Procesos en Espera\r\n";
                 tb_listos.Text = "Informacion de Procesos en Ejecucion\r\n";
                 tb_terminados.Text = "Informacion de Procesos Terminados\r\n";
@@ -51,7 +65,7 @@ namespace Tarea_Bloqueos
                 aux = control.getMuertos();
                 for (int i = 0; i < aux.Count; i++)
                     tb_muertos.Text += aux[i].informacionProceso(); 
-                 Thread.Sleep(2000);
+                 Thread.Sleep(5000);
                 tb_espera.Text = "";
                 tb_listos.Text = "";
                 tb_terminados.Text = "";
