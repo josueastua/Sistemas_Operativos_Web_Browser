@@ -9,7 +9,7 @@ namespace Tarea_Bloqueos
 {
     class Proceso
     {
-        private int id, vida, inanicion, esperado, nuevo, asignar, estado;
+        private int id, vida, inanicion, esperado, nuevo, asignar, estado, ejecutado;
         //esperado = tiempo total esperado
         //nuevo = en ejecucion cambiara recursoso necesarios
         //asignar = intervalo de tiempo en que solicitara nuevos recursos
@@ -27,6 +27,7 @@ namespace Tarea_Bloqueos
             this.esperado = 0;
             this.nuevo = 0;
             this.asignar = 0;
+            this.ejecutado = 0;
             this.necesarios = new int[8];
             this.asignados = new int[8];
             this.faltantes = new int[8];
@@ -42,11 +43,11 @@ namespace Tarea_Bloqueos
         public void setEstado(int estado) => this.estado = estado;
         public Thread getHilo() => hilo;
         public void setHilo(Thread hilo) => this.hilo = hilo;
-        public void actualizarVida()
+        public int[] getNecesarios() => necesarios;
+        public int[] getAsignados() => asignados;
+        public void actualizarEjecutado()
         {
-            this.vida -= nuevo;
-            if (vida <= 0)
-                this.vida = 0;
+            this.ejecutado += nuevo;
         }
         public void actualizarEsperado(int esperado)
         {
@@ -60,7 +61,7 @@ namespace Tarea_Bloqueos
 
         public bool isEnd()
         {
-            return vida == 0;
+            return ejecutado >= vida;
         }
 
         public void initVariables(int[] recursos)
@@ -91,55 +92,10 @@ namespace Tarea_Bloqueos
             return true;
         }
 
-        public void cargarAsignados(int[] libres)
-        {
-            int aux = 0;
-            var random = new Random();
-            for (int i = 0; i < 8; i++)
-            {
-                aux = random.Next(0, libres[i] + 1);
-                if (aux > asignados[i] && aux <= necesarios[i])
-                {
-                    asignados[i] = aux;
-                    libres[i] -= aux;
-                }
-            }
-        }
-
-        public void cargarNecesarios(int[] recursos, int[] libres)
-        {
-            int aux = 0;
-            var random = new Random();
-            for (int i = 0; i < 8; i++)
-            {
-                aux = random.Next(0, recursos[i] + 1);
-                necesarios[i] = aux;
-            }
-            for (int i = 0; i < 8; i++)
-            {
-                if (asignados[i] > necesarios[i])
-                {
-                    aux = asignados[i] - necesarios[i];
-                    asignados[i] = necesarios[i];
-                    libres[i] += aux;
-                }
-            }
-        }
-
-        public void liberarRecursos(int[] libres)
-        {
-            for (int i = 0; i < asignados.Length; i++)
-            {
-                libres[i] += asignados[i];
-                asignados[i] = 0;
-                necesarios[i] = 0;
-            }
-        }
-
         public string informacionProceso()
         {
             string data = "\r\nInformacion de Proceso\r\n";
-            data += "ID: " + this.id+"\r\nTiempo de vida: "+vida+"\r\nTiempo de Inanicion: "+inanicion+"\r\nTiempo esperado: "+esperado+"\r\n";
+            data += "ID: " + this.id+"\r\nTiempo de vida: "+vida+"\r\nTiempo Ejecutado: "+ejecutado+"\r\nTiempo de Inanicion: "+inanicion+"\r\nTiempo esperado: "+esperado+"\r\n";
             if(estado  != 4 && estado != 5)
             {
                 data += "\r\nRecursos Necesarios:\r\n[ ";

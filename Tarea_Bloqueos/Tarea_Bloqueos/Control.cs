@@ -48,7 +48,6 @@ namespace Tarea_Bloqueos
         {
             while(!bloqueo)
             {
-                Thread.Sleep(5000);
                 index++;
                 paux = new Proceso(index);
                 paux.initVariables(recursos);
@@ -58,6 +57,7 @@ namespace Tarea_Bloqueos
                 procesos.Add(paux);
                 espera.Add(paux);
                 bloqueo = determinarBloqueo();
+                Thread.Sleep(5000);
             }
             terminarTodo();
         }
@@ -68,6 +68,7 @@ namespace Tarea_Bloqueos
             bool ciclo = true;
             while (ciclo)
             {
+                Console.WriteLine(paux.getId() + " - " + paux.getEstado());
                 switch (paux.getEstado())
                 {
                     case 0:
@@ -84,19 +85,17 @@ namespace Tarea_Bloqueos
                         solicitarliberar.Add(paux);
                         break;
                     case 1:
-                        if (solicitarliberar.IndexOf(paux) == 0)
+                        if(solicitarliberar.IndexOf(paux) == 0)
                         {
-                            paux.cargarAsignados(libres);
+                            cargarAsignados(paux.getAsignados(), paux.getNecesarios());
                             if (paux.puedeEjecutarse())
-                            { 
+                            {
                                 paux.setEstado(2);
                                 ejecutando.Add(paux);
                                 espera.Remove(paux);
                             }
                             else
-                            {
                                 paux.setEstado(0);
-                            }
                             solicitarliberar.Remove(paux);
                         }
                         else
@@ -109,12 +108,11 @@ namespace Tarea_Bloqueos
                                 muertos.Add(paux);
                                 espera.Remove(paux);
                             }
-                                
                         }
                         break;
                     case 2:
                         Thread.Sleep(paux.getNuevo());
-                        paux.actualizarVida();
+                        paux.actualizarEjecutado();
                         if (!paux.isEnd())
                             paux.setEstado(3);
                         else
@@ -122,18 +120,15 @@ namespace Tarea_Bloqueos
                             paux.setEstado(4);
                             terminados.Add(paux);
                             ejecutando.Remove(paux);
-                            espera.Remove(paux);
                         }
                         solicitarliberar.Add(paux);
                         break;
                     case 3:
                         if(solicitarliberar.IndexOf(paux) == 0)
                         {
-                            paux.cargarNecesarios(recursos, libres);
+                            cargarNecesarios(paux.getNecesarios(), paux.getAsignados());
                             if (paux.puedeEjecutarse())
-                            {
                                 paux.setEstado(2);
-                            }
                             else
                             {
                                 paux.setEstado(1);
@@ -146,32 +141,30 @@ namespace Tarea_Bloqueos
                         {
                             Thread.Sleep(1000);
                             paux.actualizarEsperado(1);
-                            if (!paux.isDead())
+                            if (paux.isDead())
                             {
                                 paux.setEstado(5);
                                 muertos.Add(paux);
-                                espera.Remove(paux);
                             }
-                                
                         }
                         break;
                     case 4:
-                        if(solicitarliberar.IndexOf(paux) == 0)
+                        if (solicitarliberar.IndexOf(paux) == 0)
                         {
-                            paux.liberarRecursos(libres);
+                            liberarRecursos(paux.getAsignados(), paux.getNecesarios());
                             procesos.Remove(paux);
                             solicitarliberar.Remove(paux);
-                            paux.finishHim();
+                            ciclo = false;
                         }
                         Thread.Sleep(1000);
                         break;
                     case 5:
                         if (solicitarliberar.IndexOf(paux) == 0)
                         {
-                            paux.liberarRecursos(libres);
+                            liberarRecursos(paux.getAsignados(), paux.getNecesarios());
                             procesos.Remove(paux);
                             solicitarliberar.Remove(paux);
-                            paux.finishHim();
+                            ciclo = false;
                         }
                         Thread.Sleep(1000);
                         break;
@@ -179,7 +172,52 @@ namespace Tarea_Bloqueos
                         break;
                 }
             }
+            paux.finishHim();
+        }
 
+        private void cargarNecesarios(int[] necesarios, int[] asignados)
+        {
+            int aux = 0;
+            var random = new Random();
+            for (int i = 0; i < 8; i++)
+            {
+                aux = random.Next(0, recursos[i] + 1);
+                necesarios[i] = aux;
+            }
+            for (int i = 0; i < 8; i++)
+            {
+                if (asignados[i] > necesarios[i])
+                {
+                    aux = asignados[i] - necesarios[i];
+                    asignados[i] = necesarios[i];
+                    libres[i] += aux;
+                }
+            }
+        }
+
+        private void liberarRecursos(int[] asignados, int[] necesarios)
+        {
+            for (int i = 0; i < asignados.Length; i++)
+            {
+                libres[i] += asignados[i];
+                asignados[i] = 0;
+                necesarios[i] = 0;
+            }
+        }
+
+        private void cargarAsignados(int[] asignados, int[] necesarios)
+        {
+            int aux = 0;
+            var random = new Random();
+            for (int i = 0; i < 8; i++)
+            {
+                aux = random.Next(0, libres[i] + 1);
+                if (aux > asignados[i] && aux <= necesarios[i])
+                {
+                    asignados[i] = aux;
+                    libres[i] -= aux;
+                }
+            }
         }
 
         public bool determinarBloqueo() { 

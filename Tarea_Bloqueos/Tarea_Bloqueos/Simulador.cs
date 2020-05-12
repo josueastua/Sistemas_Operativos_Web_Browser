@@ -65,7 +65,7 @@ namespace Tarea_Bloqueos
                 aux = control.getMuertos();
                 for (int i = 0; i < aux.Count; i++)
                     tb_muertos.Text += aux[i].informacionProceso(); 
-                 Thread.Sleep(5000);
+                 Thread.Sleep(1000);
                 tb_espera.Text = "";
                 tb_listos.Text = "";
                 tb_terminados.Text = "";
