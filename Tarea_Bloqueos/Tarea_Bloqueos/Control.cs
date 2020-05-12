@@ -11,10 +11,9 @@ namespace Tarea_Bloqueos
     {
         private int[] recursos, libres;
         private List<Proceso> procesos, espera, solicitarliberar, ejecutando, terminados, muertos;
-        private Thread creador, auxiliar;
+        private Thread creador;
         private int index;
         private bool bloqueo;
-        private Proceso paux;
 
         public Control()
         {
@@ -25,7 +24,7 @@ namespace Tarea_Bloqueos
             this.muertos = new List<Proceso>();
             this.terminados = new List<Proceso>();
             this.recursos = new int[] {50, 10, 25, 35, 60, 80, 15, 11};
-            this.libres = recursos;
+            this.libres = new int[] { 50, 10, 25, 35, 60, 80, 15, 11 };
             this.bloqueo = false;
             this.index = 0;
         }
@@ -49,13 +48,13 @@ namespace Tarea_Bloqueos
             while(!bloqueo)
             {
                 index++;
-                paux = new Proceso(index);
+                Proceso paux = new Proceso(index);
                 paux.initVariables(recursos);
-                auxiliar = new Thread(funcionProceso);
-                auxiliar.Start(paux);
-                paux.setHilo(auxiliar);
+                Thread auxiliar = new Thread(funcionProceso);
                 procesos.Add(paux);
                 espera.Add(paux);
+                paux.setHilo(auxiliar);
+                auxiliar.Start(paux);
                 bloqueo = determinarBloqueo();
                 Thread.Sleep(5000);
             }
@@ -64,7 +63,7 @@ namespace Tarea_Bloqueos
 
         public void funcionProceso(object process) 
         {
-            paux = (Proceso)process;
+            Proceso paux = (Proceso)process;
             bool ciclo = true;
             while (ciclo)
             {
@@ -72,7 +71,7 @@ namespace Tarea_Bloqueos
                 switch (paux.getEstado())
                 {
                     case 0:
-                        Thread.Sleep(paux.getAsignar());
+                        Thread.Sleep(paux.getAsignar()*1000);
                         paux.actualizarEsperado(paux.getAsignar());
                         if (!paux.isDead())
                             paux.setEstado(1);
@@ -111,7 +110,7 @@ namespace Tarea_Bloqueos
                         }
                         break;
                     case 2:
-                        Thread.Sleep(paux.getNuevo());
+                        Thread.Sleep(paux.getNuevo()*1000);
                         paux.actualizarEjecutado();
                         if (!paux.isEnd())
                             paux.setEstado(3);
@@ -221,10 +220,10 @@ namespace Tarea_Bloqueos
         }
 
         public bool determinarBloqueo() { 
-            for(int i = 0; i < procesos.Count; i++)
+            for(int i = 0; i < espera.Count; i++)
             {
-                procesos[i].cargarFaltantes();
-                if (procesos[i].alcanzanRecursos(libres))
+                espera[i].cargarFaltantes();
+                if (espera[i].alcanzanRecursos(libres))
                     return false;
             }
             return true;

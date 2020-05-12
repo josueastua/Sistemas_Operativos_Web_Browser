@@ -71,6 +71,7 @@ namespace Tarea_Bloqueos
                 tb_terminados.Text = "";
                 tb_muertos.Text = "";
             }
+            MessageBox.Show("Ha ocurrido un bloque", "Informacion de bloqueo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

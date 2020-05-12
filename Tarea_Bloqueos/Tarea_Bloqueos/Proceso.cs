@@ -56,11 +56,13 @@ namespace Tarea_Bloqueos
 
         public bool isDead()
         {
-            return esperado == inanicion;
+            return esperado >= inanicion && inanicion != 0;
         }
 
         public bool isEnd()
         {
+            if (inanicion == 0)
+                return false;
             return ejecutado >= vida;
         }
 
@@ -73,8 +75,8 @@ namespace Tarea_Bloqueos
             this.inanicion = random.Next(0, 30);
             if (inanicion != 0)
                 inanicion += vida;
-            this.asignar = random.Next(1, 6);
-            for (int i = 0; i < recursos.Length; i++)
+            this.asignar = random.Next(1, vida + 1);
+            for (int i = 0; i < 8; i++)
                 necesarios[i] = random.Next(0, recursos[i] + 1);
             for (int i = 0; i < asignados.Length; i++)
                 asignados[i] = 0;
@@ -82,9 +84,9 @@ namespace Tarea_Bloqueos
 
         public Boolean puedeEjecutarse()
         {
-            for (int i = 0; i < necesarios.Length; i++)
+            for (int i = 0; i < 8; i++)
             {
-                if (necesarios[i] < asignados[i])
+                if (necesarios[i] != asignados[i])
                 {
                     return false;
                 }
@@ -129,7 +131,7 @@ namespace Tarea_Bloqueos
             cargarFaltantes();
             for(int i = 0; i < 8; i++)
             {
-                if(faltantes[i] > necesarios[i])
+                if (libres[i] < faltantes[i])
                 {
                     return false;
                 } 
