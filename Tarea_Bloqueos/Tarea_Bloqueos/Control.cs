@@ -133,7 +133,7 @@ namespace Tarea_Bloqueos
                             else
                             {
                                 paux.actualizarEsperado(0);
-                                paux.setEstado(1);
+                                paux.setEstado(0);
                                 ejecutando.Remove(paux);
                                 espera.Add(paux);
                             }
@@ -171,6 +171,7 @@ namespace Tarea_Bloqueos
                 }
             }
             paux.finishHim();
+            
         }
 
         private void cargarNecesarios(int[] necesarios, int[] asignados)
@@ -262,6 +263,7 @@ namespace Tarea_Bloqueos
                 procesos[i].finishHim();
             }
             creador.Abort();
+            creador = null;
         }
 
     }

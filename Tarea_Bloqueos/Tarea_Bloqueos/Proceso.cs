@@ -88,7 +88,7 @@ namespace Tarea_Bloqueos
             this.inanicion = random.Next(0, 15);
             if (inanicion != 0 && inanicion <= vida)
                 inanicion = vida + 1;
-            this.asignar = random.Next(1, 3);
+            this.asignar = random.Next(0, 2);
             for (int i = 0; i < 8; i++)
             {
                 necesarios[i] = random.Next(0, recursos[i] + 1);
@@ -158,6 +158,7 @@ namespace Tarea_Bloqueos
         public void finishHim()
         {
             this.hilo.Abort();
+            this.hilo = null;
         }
 
         public void actualizarVista()
