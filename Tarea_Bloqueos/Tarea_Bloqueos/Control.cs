@@ -58,7 +58,7 @@ namespace Tarea_Bloqueos
                 paux.setHilo(auxiliar);
                 auxiliar.Start(paux);
                 bloqueo = determinarBloqueo();
-                Thread.Sleep(10000);
+                Thread.Sleep(5000);
             }
         }
 
@@ -74,7 +74,9 @@ namespace Tarea_Bloqueos
                         Thread.Sleep(paux.getAsignar() * 1000);
                         paux.actualizarEsperado(paux.getAsignar());
                         if (!paux.isDead())
+                        {
                             paux.setEstado(1);
+                        }
                         else
                         {
                             paux.setEstado(5);
@@ -155,7 +157,6 @@ namespace Tarea_Bloqueos
                             solicitarliberar.Remove(paux);
                             ciclo = false;
                         }
-                        Thread.Sleep(1000);
                         break;
                     case 5:
                         if (solicitarliberar.IndexOf(paux) == 0)
@@ -164,7 +165,6 @@ namespace Tarea_Bloqueos
                             solicitarliberar.Remove(paux);
                             ciclo = false;
                         }
-                        Thread.Sleep(1000);
                         break;
                     default:
                         break;
@@ -175,22 +175,47 @@ namespace Tarea_Bloqueos
 
         private void cargarNecesarios(int[] necesarios, int[] asignados)
         {
-            int aux = 0;
+            int aux = 0, aux2 = 0;
             var random = new Random();
-            for (int i = 0; i < 8; i++)
+            aux2 = random.Next(1, 3);
+            if(aux2 == 1)
             {
-                aux = random.Next(0, recursos[i] + 1);
-                necesarios[i] = aux;
-            }
-            for (int i = 0; i < 8; i++)
-            {
-                if (asignados[i] > necesarios[i])
+                for (int i = 0; i < 8; i++)
                 {
-                    aux = asignados[i] - necesarios[i];
-                    asignados[i] = necesarios[i];
-                    libres[i] += aux;
+                    aux = random.Next(0, recursos[i] + 1);
+                    necesarios[i] = aux;
+                    aux = random.Next(5, 11);
+                    if (necesarios[i] > aux)
+                        necesarios[i] -= aux;
+                }
+                for (int i = 0; i < 8; i++)
+                {
+                    if (asignados[i] > necesarios[i])
+                    {
+                        aux = asignados[i] - necesarios[i];
+                        asignados[i] = necesarios[i];
+                        libres[i] += aux;
+                    }
                 }
             }
+            else
+            {
+                for (int i = 0; i < 8; i++)
+                {
+                    aux = random.Next(0, necesarios[i] + 1);
+                    necesarios[i] = aux;
+                }
+                for (int i = 0; i < 8; i++)
+                {
+                    if (asignados[i] > necesarios[i])
+                    {
+                        aux = asignados[i] - necesarios[i];
+                        asignados[i] = necesarios[i];
+                        libres[i] += aux;
+                    }
+                }
+            }
+            
         }
 
         private void liberarRecursos(int[] asignados, int[] necesarios)
@@ -206,14 +231,15 @@ namespace Tarea_Bloqueos
         private void cargarAsignados(int[] asignados, int[] necesarios)
         {
             int aux = 0;
-            var random = new Random();
-            for (int i = 0; i < 8; i++)
+            for(int i = 0; i < 8; i++)
             {
-                aux = random.Next(0, libres[i] + 1);
-                if (aux > asignados[i] && aux <= necesarios[i])
+                asignados[i] += libres[i];
+                libres[i] = 0;
+                if(asignados[i] > necesarios[i])
                 {
-                    asignados[i] = aux;
-                    libres[i] -= aux;
+                    aux = asignados[i] - necesarios[i];
+                    asignados[i] -= aux;
+                    libres[i] = aux;
                 }
             }
         }

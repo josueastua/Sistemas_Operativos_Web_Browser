@@ -80,16 +80,22 @@ namespace Tarea_Bloqueos
 
         public void initVariables(int[] recursos)
         {
+            int aux;
             var random = new Random();
-            this.vida = random.Next(1, 15);
+            this.vida = random.Next(1, 9);
             if (vida > 1)
                 this.nuevo = random.Next(1, vida);
-            this.inanicion = random.Next(0, 30);
-            if (inanicion != 0)
-                inanicion += vida;
-            this.asignar = random.Next(1, vida + 1);
+            this.inanicion = random.Next(0, 15);
+            if (inanicion != 0 && inanicion <= vida)
+                inanicion = vida + 1;
+            this.asignar = random.Next(1, 3);
             for (int i = 0; i < 8; i++)
+            {
                 necesarios[i] = random.Next(0, recursos[i] + 1);
+                aux = random.Next(5, 11);
+                if (necesarios[i] > aux)
+                    necesarios[i] -= aux;
+            }
             for (int i = 0; i < asignados.Length; i++)
                 asignados[i] = 0;
             this.cont = new string[]{ id.ToString(), vida.ToString(), ejecutado.ToString(), inanicion.ToString(), esperado.ToString() };

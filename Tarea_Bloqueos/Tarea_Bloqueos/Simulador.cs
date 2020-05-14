@@ -37,6 +37,7 @@ namespace Tarea_Bloqueos
             {
                 simular = false;
                 control.terminarTodo();
+                Close();
             }
             
         }
@@ -93,7 +94,7 @@ namespace Tarea_Bloqueos
                 {
                     lbl_bloqueo.Text = "No hay un bloqueo";
                 }
-                Thread.Sleep(5000);
+                Thread.Sleep(500);
                 if (simular)
                 {
                     lv_espera.Items.Clear();
@@ -119,23 +120,35 @@ namespace Tarea_Bloqueos
 
         private void lv_ejecucion_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ListViewItem select = lv_ejecucion.SelectedItems[0];
-            int index = lv_ejecucion.Items.IndexOf(select);
-            MessageBox.Show(control.getEjecutando()[index].informacionProceso(), "Informacion de proceso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            try
+            {
+                ListViewItem select = lv_ejecucion.SelectedItems[0];
+                int index = lv_ejecucion.Items.IndexOf(select);
+                MessageBox.Show(control.getEjecutando()[index].informacionProceso(), "Informacion de proceso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex) { }
         }
 
         private void lv_terminados_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ListViewItem select = lv_terminados.SelectedItems[0];
-            int index = lv_terminados.Items.IndexOf(select);
-            MessageBox.Show(control.getTerminados()[index].informacionProceso(), "Informacion de proceso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            try
+            {
+                ListViewItem select = lv_terminados.SelectedItems[0];
+                int index = lv_terminados.Items.IndexOf(select);
+                MessageBox.Show(control.getTerminados()[index].informacionProceso(), "Informacion de proceso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex) { }
         }
 
         private void lv_muertos_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ListViewItem select = lv_muertos.SelectedItems[0];
-            int index = lv_muertos.Items.IndexOf(select);
-            MessageBox.Show(control.getMuertos()[index].informacionProceso(), "Informacion de proceso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            try
+            {
+                ListViewItem select = lv_muertos.SelectedItems[0];
+                int index = lv_muertos.Items.IndexOf(select);
+                MessageBox.Show(control.getMuertos()[index].informacionProceso(), "Informacion de proceso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex) { }
         }
     }
 }
