@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Tarea_Bloqueos
 {
@@ -16,6 +17,8 @@ namespace Tarea_Bloqueos
         //estado = 0 - espera, 1 = Solicitando recursos, 2 = ejecucion,, 3 - ejecutando solicitando, 4 - terminado, 5 - Muerto
         private int[] necesarios, asignados, faltantes;
         private Thread hilo;
+        private ListViewItem vista;
+        String[] cont;
 
         public Proceso() { }
 
@@ -31,6 +34,7 @@ namespace Tarea_Bloqueos
             this.necesarios = new int[8];
             this.asignados = new int[8];
             this.faltantes = new int[8];
+            this.vista = new ListViewItem();
         }
 
         public int getId() => id;
@@ -45,13 +49,21 @@ namespace Tarea_Bloqueos
         public void setHilo(Thread hilo) => this.hilo = hilo;
         public int[] getNecesarios() => necesarios;
         public int[] getAsignados() => asignados;
+        public String[] getVista() => cont;
         public void actualizarEjecutado()
         {
             this.ejecutado += nuevo;
         }
         public void actualizarEsperado(int esperado)
         {
-            this.esperado += esperado;
+            if(esperado == 0)
+            {
+                this.esperado = esperado;
+            }
+            else
+            {
+                this.esperado += esperado;
+            }
         }
 
         public bool isDead()
@@ -80,6 +92,7 @@ namespace Tarea_Bloqueos
                 necesarios[i] = random.Next(0, recursos[i] + 1);
             for (int i = 0; i < asignados.Length; i++)
                 asignados[i] = 0;
+            this.cont = new string[]{ id.ToString(), vida.ToString(), ejecutado.ToString(), inanicion.ToString(), esperado.ToString() };
         }
 
         public Boolean puedeEjecutarse()
@@ -98,24 +111,21 @@ namespace Tarea_Bloqueos
         {
             string data = "\r\nInformacion de Proceso\r\n";
             data += "ID: " + this.id+"\r\nTiempo de vida: "+vida+"\r\nTiempo Ejecutado: "+ejecutado+"\r\nTiempo de Inanicion: "+inanicion+"\r\nTiempo esperado: "+esperado+"\r\n";
-            if(estado  != 4 && estado != 5)
+            data += "Recursos Necesarios: [ ";
+            for (int i = 0; i < necesarios.Length; i++)
             {
-                data += "\r\nRecursos Necesarios:\r\n[ ";
-                for (int i = 0; i < necesarios.Length; i++)
-                {
-                    data += necesarios[i];
-                    if (i < necesarios.Length - 1)
-                        data += ", ";
-                }
-                data += " ]\r\nRecursos Asignados:\r\n[ ";
-                for (int i = 0; i < asignados.Length; i++)
-                {
-                    data += asignados[i];
-                    if (i < asignados.Length - 1)
-                        data += ", ";
-                }
-                data += " ]";
+                data += necesarios[i];
+                if (i < necesarios.Length - 1)
+                    data += ", ";
             }
+            data += " ]\r\nRecursos Asignados: [ ";
+            for (int i = 0; i < asignados.Length; i++)
+            {
+                data += asignados[i];
+                if (i < asignados.Length - 1)
+                    data += ", ";
+            }
+            data += " ]";
             data += "\r\n";
             return data;
         }
@@ -142,6 +152,11 @@ namespace Tarea_Bloqueos
         public void finishHim()
         {
             this.hilo.Abort();
+        }
+
+        public void actualizarVista()
+        {
+            this.cont = new string[]{ id.ToString(), vida.ToString(), ejecutado.ToString(), inanicion.ToString(), esperado.ToString() };
         }
     }
 }

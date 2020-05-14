@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using static System.Windows.Forms.ListView;
 
 namespace Tarea_Bloqueos
 {
@@ -23,7 +25,7 @@ namespace Tarea_Bloqueos
             this.ejecutando = new List<Proceso>();
             this.muertos = new List<Proceso>();
             this.terminados = new List<Proceso>();
-            this.recursos = new int[] {50, 10, 25, 35, 60, 80, 15, 11};
+            this.recursos = new int[] { 50, 10, 25, 35, 60, 80, 15, 11 };
             this.libres = new int[] { 50, 10, 25, 35, 60, 80, 15, 11 };
             this.bloqueo = false;
             this.index = 0;
@@ -45,7 +47,7 @@ namespace Tarea_Bloqueos
 
         public void crearProceso()
         {
-            while(!bloqueo)
+            while (true)
             {
                 index++;
                 Proceso paux = new Proceso(index);
@@ -56,22 +58,20 @@ namespace Tarea_Bloqueos
                 paux.setHilo(auxiliar);
                 auxiliar.Start(paux);
                 bloqueo = determinarBloqueo();
-                Thread.Sleep(5000);
+                Thread.Sleep(10000);
             }
-            terminarTodo();
         }
 
-        public void funcionProceso(object process) 
+        public void funcionProceso(object process)
         {
             Proceso paux = (Proceso)process;
             bool ciclo = true;
             while (ciclo)
             {
-                Console.WriteLine(paux.getId() + " - " + paux.getEstado());
                 switch (paux.getEstado())
                 {
                     case 0:
-                        Thread.Sleep(paux.getAsignar()*1000);
+                        Thread.Sleep(paux.getAsignar() * 1000);
                         paux.actualizarEsperado(paux.getAsignar());
                         if (!paux.isDead())
                             paux.setEstado(1);
@@ -84,7 +84,7 @@ namespace Tarea_Bloqueos
                         solicitarliberar.Add(paux);
                         break;
                     case 1:
-                        if(solicitarliberar.IndexOf(paux) == 0)
+                        if (solicitarliberar.IndexOf(paux) == 0)
                         {
                             cargarAsignados(paux.getAsignados(), paux.getNecesarios());
                             if (paux.puedeEjecutarse())
@@ -110,7 +110,7 @@ namespace Tarea_Bloqueos
                         }
                         break;
                     case 2:
-                        Thread.Sleep(paux.getNuevo()*1000);
+                        Thread.Sleep(paux.getNuevo() * 1000);
                         paux.actualizarEjecutado();
                         if (!paux.isEnd())
                             paux.setEstado(3);
@@ -123,13 +123,14 @@ namespace Tarea_Bloqueos
                         solicitarliberar.Add(paux);
                         break;
                     case 3:
-                        if(solicitarliberar.IndexOf(paux) == 0)
+                        if (solicitarliberar.IndexOf(paux) == 0)
                         {
                             cargarNecesarios(paux.getNecesarios(), paux.getAsignados());
                             if (paux.puedeEjecutarse())
                                 paux.setEstado(2);
                             else
                             {
+                                paux.actualizarEsperado(0);
                                 paux.setEstado(1);
                                 ejecutando.Remove(paux);
                                 espera.Add(paux);
@@ -151,7 +152,6 @@ namespace Tarea_Bloqueos
                         if (solicitarliberar.IndexOf(paux) == 0)
                         {
                             liberarRecursos(paux.getAsignados(), paux.getNecesarios());
-                            procesos.Remove(paux);
                             solicitarliberar.Remove(paux);
                             ciclo = false;
                         }
@@ -161,7 +161,6 @@ namespace Tarea_Bloqueos
                         if (solicitarliberar.IndexOf(paux) == 0)
                         {
                             liberarRecursos(paux.getAsignados(), paux.getNecesarios());
-                            procesos.Remove(paux);
                             solicitarliberar.Remove(paux);
                             ciclo = false;
                         }
@@ -196,7 +195,7 @@ namespace Tarea_Bloqueos
 
         private void liberarRecursos(int[] asignados, int[] necesarios)
         {
-            for (int i = 0; i < asignados.Length; i++)
+            for (int i = 0; i < 8; i++)
             {
                 libres[i] += asignados[i];
                 asignados[i] = 0;
@@ -219,8 +218,9 @@ namespace Tarea_Bloqueos
             }
         }
 
-        public bool determinarBloqueo() { 
-            for(int i = 0; i < espera.Count; i++)
+        public bool determinarBloqueo()
+        {
+            for (int i = 0; i < espera.Count; i++)
             {
                 espera[i].cargarFaltantes();
                 if (espera[i].alcanzanRecursos(libres))
@@ -231,11 +231,12 @@ namespace Tarea_Bloqueos
 
         public void terminarTodo()
         {
-            for(int i = 0; i < procesos.Count; i++)
+            for (int i = 0; i < procesos.Count; i++)
             {
                 procesos[i].finishHim();
             }
             creador.Abort();
         }
+
     }
 }

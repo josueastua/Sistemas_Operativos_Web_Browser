@@ -16,17 +16,29 @@ namespace Tarea_Bloqueos
         Control control;
         List<Proceso> aux;
         int[] aux2;
+        bool simular;
         public Simulador()
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
+            simular = false;
         }
 
         private void accionIniciar(object sender, MouseEventArgs e)
         {
-            btn_iniciar.Enabled = false;
-            Thread hilo = new Thread(accionSimulador);
-            hilo.Start();
+            if (!simular)
+            {
+                btn_iniciar.Text = "Terminar Simulacion";
+                Thread hilo = new Thread(accionSimulador);
+                hilo.Start();
+                simular = true;
+            }
+            else
+            {
+                simular = false;
+                control.terminarTodo();
+            }
+            
         }
 
         private void accionSimulador()
@@ -40,7 +52,7 @@ namespace Tarea_Bloqueos
                 lbl_recursos.Text += ", " + aux2[i];
             }
             lbl_recursos.Text += " ]";
-            while (!control.getBloqueo())
+            while (simular)
             {
                 aux2 = control.getLibres();
                 lbl_libres.Text = "[ " + aux2[0];
@@ -49,29 +61,81 @@ namespace Tarea_Bloqueos
                     lbl_libres.Text += ", " + aux2[i];
                 }
                 lbl_libres.Text += " ]";
-                tb_espera.Text = "Informacion de Procesos en Espera\r\n";
-                tb_listos.Text = "Informacion de Procesos en Ejecucion\r\n";
-                tb_terminados.Text = "Informacion de Procesos Terminados\r\n";
-                tb_muertos.Text = "Informacion de Procesos Muertos\r\n";
                 aux = control.getEspera();
-                for (int i = 0; i < aux.Count; i++)
-                    tb_espera.Text += aux[i].informacionProceso();
+                for(int i = 0; i < aux.Count; i++)
+                {
+                    aux[i].actualizarVista();
+                    lv_espera.Items.Add(new ListViewItem(aux[i].getVista()));
+                }
                 aux = control.getEjecutando();
                 for (int i = 0; i < aux.Count; i++)
-                    tb_listos.Text += aux[i].informacionProceso();
+                {
+                    aux[i].actualizarVista();
+                    lv_ejecucion.Items.Add(new ListViewItem(aux[i].getVista()));
+                }
                 aux = control.getTerminados();
                 for (int i = 0; i < aux.Count; i++)
-                    tb_terminados.Text += aux[i].informacionProceso();
+                {
+                    aux[i].actualizarVista();
+                    lv_terminados.Items.Add(new ListViewItem(aux[i].getVista()));
+                }
                 aux = control.getMuertos();
                 for (int i = 0; i < aux.Count; i++)
-                    tb_muertos.Text += aux[i].informacionProceso(); 
-                 Thread.Sleep(1000);
-                tb_espera.Text = "";
-                tb_listos.Text = "";
-                tb_terminados.Text = "";
-                tb_muertos.Text = "";
+                {
+                    aux[i].actualizarVista();
+                    lv_muertos.Items.Add(new ListViewItem(aux[i].getVista()));
+                }
+                if (control.getBloqueo())
+                {
+                    lbl_bloqueo.Text = "Hay un bloqueo";
+                }
+                else
+                {
+                    lbl_bloqueo.Text = "No hay un bloqueo";
+                }
+                Thread.Sleep(5000);
+                if (simular)
+                {
+                    lv_espera.Items.Clear();
+                    lv_ejecucion.Items.Clear();
+                    lv_muertos.Items.Clear();
+                    lv_terminados.Items.Clear();
+                }
+                
             }
-            MessageBox.Show("Ha ocurrido un bloque", "Informacion de bloqueo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void lv_espera_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                ListViewItem select = lv_espera.SelectedItems[0];
+                int index = lv_espera.Items.IndexOf(select);
+                MessageBox.Show(control.getEspera()[index].informacionProceso(), "Informacion de proceso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch(Exception ex) { }
+            
+        }
+
+        private void lv_ejecucion_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListViewItem select = lv_ejecucion.SelectedItems[0];
+            int index = lv_ejecucion.Items.IndexOf(select);
+            MessageBox.Show(control.getEjecutando()[index].informacionProceso(), "Informacion de proceso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void lv_terminados_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListViewItem select = lv_terminados.SelectedItems[0];
+            int index = lv_terminados.Items.IndexOf(select);
+            MessageBox.Show(control.getTerminados()[index].informacionProceso(), "Informacion de proceso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void lv_muertos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListViewItem select = lv_muertos.SelectedItems[0];
+            int index = lv_muertos.Items.IndexOf(select);
+            MessageBox.Show(control.getMuertos()[index].informacionProceso(), "Informacion de proceso", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
