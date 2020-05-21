@@ -15,12 +15,18 @@ namespace Web_Browser
         public Home()
         {
             InitializeComponent();
+            Navegador nav = new Navegador(tabPage1);
+            nav.TopLevel = false;
+            tabPage1.Controls.Add(nav);
+            tabPage1.Tag = nav;
+            nav.Show();
+            AppContext.Instance.set("Desargar", true);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             TabPage myTabPage = new TabPage("Nueva Pestaña");
-            Navegador nav = new Navegador();
+            Navegador nav = new Navegador(myTabPage);
             nav.TopLevel = false;
             myTabPage.Controls.Add(nav);
             myTabPage.Tag = nav;

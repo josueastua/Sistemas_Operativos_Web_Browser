@@ -56,9 +56,9 @@ namespace Tarea_Bloqueos
         }
         public void actualizarEsperado(int esperado)
         {
-            if(esperado == 0)
+            if(esperado == -1)
             {
-                this.esperado = esperado;
+                this.esperado = 0;
             }
             else
             {

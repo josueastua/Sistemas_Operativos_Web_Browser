@@ -82,7 +82,6 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(760, 20);
             this.textBox1.TabIndex = 4;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // webBrowser1
             // 
@@ -92,6 +91,7 @@
             this.webBrowser1.Size = new System.Drawing.Size(1085, 541);
             this.webBrowser1.TabIndex = 5;
             this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
+            this.webBrowser1.FileDownload += new System.EventHandler(this.webBrowser1_FileDownload);
             // 
             // Navegador
             // 
@@ -107,7 +107,6 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Navegador";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Navegador_Load_1);
             this.ResumeLayout(false);
             this.PerformLayout();
 

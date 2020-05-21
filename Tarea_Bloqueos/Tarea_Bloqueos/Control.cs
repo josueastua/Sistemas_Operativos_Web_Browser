@@ -91,6 +91,7 @@ namespace Tarea_Bloqueos
                             cargarAsignados(paux.getAsignados(), paux.getNecesarios());
                             if (paux.puedeEjecutarse())
                             {
+                                paux.actualizarEsperado(-1);
                                 paux.setEstado(2);
                                 ejecutando.Add(paux);
                                 espera.Remove(paux);
@@ -132,7 +133,6 @@ namespace Tarea_Bloqueos
                                 paux.setEstado(2);
                             else
                             {
-                                paux.actualizarEsperado(0);
                                 paux.setEstado(0);
                                 ejecutando.Remove(paux);
                                 espera.Add(paux);
@@ -247,13 +247,17 @@ namespace Tarea_Bloqueos
 
         public bool determinarBloqueo()
         {
-            for (int i = 0; i < espera.Count; i++)
+            if(espera.Count > 1)
             {
-                espera[i].cargarFaltantes();
-                if (espera[i].alcanzanRecursos(libres))
-                    return false;
+                for (int i = 0; i < espera.Count; i++)
+                {
+                    espera[i].cargarFaltantes();
+                    if (espera[i].alcanzanRecursos(libres))
+                        return false;
+                }
+                return true;
             }
-            return true;
+            return false;
         }
 
         public void terminarTodo()
