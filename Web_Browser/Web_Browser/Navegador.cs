@@ -186,6 +186,8 @@ namespace Web_Browser
             if (cargando)
             {
                 AppContext.Instance.setHistorial(webBrowser1.Url.ToString());
+                textBox1.Text = webBrowser1.Url.ToString();
+                tabpage.Text = webBrowser1.Url.ToString();
                 cargando = false;
             }
             
