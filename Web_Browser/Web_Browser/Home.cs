@@ -27,6 +27,10 @@ namespace Web_Browser
             tabPage1.Tag = nav;
             nav.Show();
             AppContext.Instance.set("Descargar", true);
+            Semaforo s = new Semaforo(true);
+            s.initSemaforo();
+            AppContext.Instance.set("Semaforo", s);
+            AppContext.Instance.set("Carga", false);
         }
 
         private void button1_Click(object sender, EventArgs e)
