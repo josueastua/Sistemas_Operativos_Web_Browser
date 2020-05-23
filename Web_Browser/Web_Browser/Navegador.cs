@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -13,13 +14,17 @@ namespace Web_Browser
     public partial class Navegador : Form
     {
         TabPage tabpage;
-        bool primera = true;
+        bool primera = false;
+        bool cargando = false;
+        HtmlDocument htmlDoc;
+
         public Navegador(TabPage tabpage)
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
             this.tabpage = tabpage;
         }
+
 
         private void Navegar(string address)
         {
@@ -66,9 +71,30 @@ namespace Web_Browser
 
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
-            AppContext.Instance.set(webBrowser1.Url.ToString(), (HtmlDocument)webBrowser1.Document);
-            if (primera)
-                primera = false;
+            /*if (cargando)
+            {
+                Semaforo s = (Semaforo)AppContext.Instance.get("Semaforo");
+                elemento element = new elemento();
+                element.url = webBrowser1.Url.ToString();
+                element.html = webBrowser1.DocumentText;
+                s.EscribirCache(element);
+                cargando = false;
+            }*/
+            if (webBrowser1.Document != null)
+            {
+                htmlDoc = webBrowser1.Document;
+                htmlDoc.Click += new HtmlElementEventHandler(htmlDoc_Click);
+            }
+        }
+        private void htmlDoc_Click(object sender, HtmlElementEventArgs e)
+        {
+            HtmlElementCollection a = webBrowser1.Document.Links;
+            HtmlElement elem = webBrowser1.Document.GetElementFromPoint(e.ClientMousePosition);
+            for (int i = 0; i < a.Count; i++)
+            {
+                if (a[i] == elem)
+                    Console.WriteLine(a[i].TagName);
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -78,21 +104,50 @@ namespace Web_Browser
 
         private void webBrowser1_Navigating(object sender, WebBrowserNavigatingEventArgs e)
         {
-            if (!primera)
+            
+            /*
+            if (!cargando)
             {
-                String url = webBrowser1.Url.ToString();
-                Console.WriteLine(url);
-                if (AppContext.Instance.get(url) != null)
+                String url = "";
+                cargando = true;
+                if (!(bool)AppContext.Instance.get("Carga"))
                 {
-                    webBrowser1.Stop();
-                    HtmlDocument aux = (HtmlDocument)AppContext.Instance.get(url);
-                    
-                    //webBrowser1.Update();
-                    primera = true;
+                    AppContext.Instance.set("Carga", true);
+                    url = textBox1.Text;
+                    if (AppContext.Instance.get(url) != null)
+                    {
+                        webBrowser1.Stop();
+                        webBrowser1.DocumentText = (String)AppContext.Instance.get(url);
+                        webBrowser1.Update();
+                    }
                 }
-                Console.WriteLine("Llego");
+                else
+                {
+                    if (!primera)
+                    {
+                        url = textBox1.Text;
+                        primera = true;
+                        if (AppContext.Instance.get(url) != null)
+                        {
+                            webBrowser1.Stop();
+                            webBrowser1.DocumentText = (String)AppContext.Instance.get(url);
+                            webBrowser1.Update();
+                        }
+                    }
+                    else
+                    {
+                        url = webBrowser1.Url.ToString();
+                        Console.WriteLine(url);
+                        if (AppContext.Instance.get(url) != null)
+                        {
+                            webBrowser1.Stop();
+                            webBrowser1.DocumentText = (String)AppContext.Instance.get(url);
+                            webBrowser1.Update();
+                        }
+                    }
+                }
             }
-
+            */
         }
 
         private void webBrowser1_FileDownload(object sender, EventArgs e)
@@ -106,6 +161,15 @@ namespace Web_Browser
             {
                 Cancel = true;
             }
+            else
+            {
+                AppContext.Instance.set("Descargar", false);
+            }
+        }
+
+        private void webBrowser1_ProgressChanged(object sender, WebBrowserProgressChangedEventArgs e)
+        {
+
         }
     }
 }

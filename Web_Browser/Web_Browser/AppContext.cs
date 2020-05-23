@@ -39,6 +39,10 @@ namespace Web_Browser
                 paginas.Add(key);
                 cache.Add(key, obj);
             }
+            else
+            {
+                cache[key] = obj;
+            }
         }
 
         public void clear()
