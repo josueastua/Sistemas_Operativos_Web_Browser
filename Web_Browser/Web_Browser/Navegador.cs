@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Web_Browser
 {
@@ -47,6 +48,8 @@ namespace Web_Browser
             {
                 return;
             }
+            guardarHistorial(address);
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -74,7 +77,7 @@ namespace Web_Browser
         private void button2_Click(object sender, EventArgs e)
         {
             Navegar((textBox1.Text).ToLower());
-        }
+        }       
 
         private void webBrowser1_Navigating(object sender, WebBrowserNavigatingEventArgs e)
         {
@@ -106,6 +109,12 @@ namespace Web_Browser
             {
                 Cancel = true;
             }
+        }
+
+        private void guardarHistorial(string address){
+            StreamWriter archivo = File.AppendText("Historial.txt");
+            archivo.WriteLine(address);
+            archivo.Close();
         }
     }
 }
