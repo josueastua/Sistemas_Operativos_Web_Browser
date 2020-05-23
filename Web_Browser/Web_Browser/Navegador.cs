@@ -17,11 +17,13 @@ namespace Web_Browser
         public Navegador(TabPage tabpage)
         {
             InitializeComponent();
+            CheckForIllegalCrossThreadCalls = false;
             this.tabpage = tabpage;
         }
 
         private void Navegar(string address)
         {
+            tabpage.Text = address;
             if (String.IsNullOrEmpty(address))
             {
                 return;
@@ -37,7 +39,6 @@ namespace Web_Browser
 
             try
             {
-                tabpage.Text = address;
                 textBox1.Text = address;
                 webBrowser1.ScriptErrorsSuppressed = true;
                 webBrowser1.Navigate(new Uri(address));
@@ -80,12 +81,13 @@ namespace Web_Browser
             if (!primera)
             {
                 String url = webBrowser1.Url.ToString();
+                Console.WriteLine(url);
                 if (AppContext.Instance.get(url) != null)
                 {
                     webBrowser1.Stop();
                     HtmlDocument aux = (HtmlDocument)AppContext.Instance.get(url);
-                    webBrowser1.DocumentText = aux.ToString();
-                    webBrowser1.Update();
+                    
+                    //webBrowser1.Update();
                     primera = true;
                 }
                 Console.WriteLine("Llego");
