@@ -33,7 +33,6 @@ namespace Web_Browser
 
         public void set(String key, Object obj)
         {
-            historial.Add(key);
             if(get(key) == null)
             {
                 paginas.Add(key);
@@ -48,6 +47,16 @@ namespace Web_Browser
         public void clear()
         {
             cache.Clear();
+        }
+
+        public void setHistorial(String key)
+        {
+            historial.Add(key);
+        }
+
+        public List<String> getHistorial()
+        {
+            return historial;
         }
     }
 }

@@ -107,7 +107,11 @@ namespace Web_Browser
 
         private void webBrowser1_Navigating(object sender, WebBrowserNavigatingEventArgs e)
         {
-            
+            try
+            {
+                Console.WriteLine(webBrowser1.Url);
+            } catch (Exception ex) { }
+           
             /*
             if (!cargando)
             {
@@ -170,15 +174,29 @@ namespace Web_Browser
             }
         }
 
-        private void webBrowser1_ProgressChanged(object sender, WebBrowserProgressChangedEventArgs e)
-        {
-
-        }
 
         private void guardarHistorial(string address){
             StreamWriter archivo = File.AppendText("Historial.txt");
             archivo.WriteLine(address);
             archivo.Close();
+        }
+
+        private void bowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+            if (cargando)
+            {
+                AppContext.Instance.setHistorial(webBrowser1.Url.ToString());
+                cargando = false;
+            }
+            
+        }
+
+        private void webBrowser1_Navigating_1(object sender, WebBrowserNavigatingEventArgs e)
+        {
+            if (!cargando)
+            {
+                cargando = true;
+            }
         }
     }
 }
