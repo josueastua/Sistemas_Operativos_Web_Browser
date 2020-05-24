@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Web_Browser
 {
@@ -31,6 +32,7 @@ namespace Web_Browser
             s.initSemaforo();
             AppContext.Instance.set("Semaforo", s);
             AppContext.Instance.set("Carga", false);
+            cargarHistorial();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -58,6 +60,26 @@ namespace Web_Browser
             
             nav.Show();
 
+        }
+
+        private void cargarHistorial()
+        {
+            if (File.Exists("Historial.txt")){
+                StreamReader archivo = new StreamReader("Historial.txt");
+                while (!archivo.EndOfStream)
+                {
+                    string linea = archivo.ReadLine();
+                    AppContext.Instance.setHistorial(linea);
+                    Console.WriteLine(linea);
+                }
+                archivo.Close();
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Form1 ventInformacion = new Form1();
+            ventInformacion.Show();
         }
     }
 }

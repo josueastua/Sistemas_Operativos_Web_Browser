@@ -48,13 +48,12 @@ namespace Web_Browser
                 textBox1.Text = address;
                 webBrowser1.ScriptErrorsSuppressed = true;
                 webBrowser1.Navigate(new Uri(address));
+                guardarHistorial(address);
             }
             catch (System.UriFormatException)
             {
                 return;
             }
-            guardarHistorial(address);
-
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -179,16 +178,7 @@ namespace Web_Browser
             StreamWriter archivo = File.AppendText("Historial.txt");
             archivo.WriteLine(address);
             archivo.Close();
-        }
-
-        private void bowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-            if (cargando)
-            {
-                AppContext.Instance.setHistorial(webBrowser1.Url.ToString());
-                cargando = false;
-            }
-            
+            AppContext.Instance.setHistorial(address);
         }
 
         private void webBrowser1_Navigating_1(object sender, WebBrowserNavigatingEventArgs e)
