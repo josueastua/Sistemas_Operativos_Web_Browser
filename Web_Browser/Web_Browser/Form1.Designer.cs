@@ -34,20 +34,25 @@
             // lvInformacion
             // 
             this.lvInformacion.AccessibleName = "";
+            this.lvInformacion.FullRowSelect = true;
+            this.lvInformacion.GridLines = true;
             this.lvInformacion.HideSelection = false;
-            this.lvInformacion.Location = new System.Drawing.Point(36, 37);
+            this.lvInformacion.Location = new System.Drawing.Point(27, 30);
+            this.lvInformacion.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.lvInformacion.Name = "lvInformacion";
-            this.lvInformacion.Size = new System.Drawing.Size(540, 564);
+            this.lvInformacion.Size = new System.Drawing.Size(406, 459);
             this.lvInformacion.TabIndex = 0;
             this.lvInformacion.UseCompatibleStateImageBehavior = false;
+            this.lvInformacion.View = System.Windows.Forms.View.List;
             this.lvInformacion.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(631, 663);
+            this.ClientSize = new System.Drawing.Size(473, 539);
             this.Controls.Add(this.lvInformacion);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);

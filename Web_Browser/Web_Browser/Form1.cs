@@ -28,7 +28,7 @@ namespace Web_Browser
             //ListViewGroup historial = new ListViewGroup("Historial");
             for (int a = 0; a < lista.Count; a++)
             {
-                lvInformacion.Items.Add(new ListViewItem(lista.ElementAt<string>(a)));
+                lvInformacion.Items.Add(new ListViewItem(lista[a]));
                 //lv_ejecucion.Items.Add(new ListViewItem(url));
                 Console.WriteLine(lista.ElementAt<string>(a));
             }
