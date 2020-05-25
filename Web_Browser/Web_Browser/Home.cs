@@ -144,5 +144,10 @@ namespace Web_Browser
                 Console.WriteLine("NOOOOOOOOOOOOOOOOOOOOOOO");
             }
         }
+
+        private void Home_KeyDown1(object sender, KeyEventHandler e)
+        {
+
+        }
     }
 }
