@@ -107,6 +107,12 @@ namespace Web_Browser
             AppContext.Instance.setHistorial(address);
         }
 
+        private void guardarDescarga(string downloaded){
+            StreamWriter archivo = File.AppendText("Descargas.txt");
+            archivo.WriteLine(downloaded);
+            archivo.Close();
+        }
+
         private void webBrowser1_Navigating_1(object sender, WebBrowserNavigatingEventArgs e)
         {
             if (extension(e.Url) && (bool)AppContext.Instance.get("Descargar"))
@@ -123,6 +129,7 @@ namespace Web_Browser
                     client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
                     AppContext.Instance.setDescargas(filepath);
                     client.DownloadFileAsync(e.Url, filepath);
+                    guardarDescarga(filepath);
                 }
             }
             else

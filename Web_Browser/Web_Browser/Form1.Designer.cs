@@ -44,11 +44,11 @@
             this.lvInformacion.FullRowSelect = true;
             this.lvInformacion.GridLines = true;
             this.lvInformacion.HideSelection = false;
-            this.lvInformacion.Location = new System.Drawing.Point(11, 11);
-            this.lvInformacion.Margin = new System.Windows.Forms.Padding(2);
+            this.lvInformacion.Location = new System.Drawing.Point(15, 14);
+            this.lvInformacion.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lvInformacion.MultiSelect = false;
             this.lvInformacion.Name = "lvInformacion";
-            this.lvInformacion.Size = new System.Drawing.Size(1201, 553);
+            this.lvInformacion.Size = new System.Drawing.Size(1600, 429);
             this.lvInformacion.TabIndex = 0;
             this.lvInformacion.UseCompatibleStateImageBehavior = false;
             this.lvInformacion.View = System.Windows.Forms.View.Details;
@@ -64,9 +64,10 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(11, 569);
+            this.button1.Location = new System.Drawing.Point(15, 449);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(230, 34);
+            this.button1.Size = new System.Drawing.Size(307, 42);
             this.button1.TabIndex = 1;
             this.button1.Text = "Borrar Todo";
             this.button1.UseVisualStyleBackColor = true;
@@ -74,9 +75,10 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(247, 569);
+            this.button2.Location = new System.Drawing.Point(330, 449);
+            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(230, 34);
+            this.button2.Size = new System.Drawing.Size(307, 42);
             this.button2.TabIndex = 2;
             this.button2.Text = "Borrar Seleccionado";
             this.button2.UseVisualStyleBackColor = true;
@@ -84,14 +86,14 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1223, 615);
+            this.ClientSize = new System.Drawing.Size(1631, 757);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.lvInformacion);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);

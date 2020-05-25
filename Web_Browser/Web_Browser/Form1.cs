@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Web_Browser
 {
@@ -35,9 +36,15 @@ namespace Web_Browser
             }else if(uso == 2)
             {
                 lvInformacion.Columns[0].Text = "ID";
+                lvInformacion.Columns[1].Text = "Destino Url";
+                agregarElementos(AppContext.Instance.getDescargas());
+            }else if(uso == 3)
+            {
+                lvInformacion.Columns[0].Text = "ID";
                 lvInformacion.Columns[1].Text = "Direccion Url";
                 agregarElementos(AppContext.Instance.getPaginas());
             }
+
         }
 
         private void agregarElementos(List<String> lista)
@@ -57,12 +64,33 @@ namespace Web_Browser
 
         private void accionBorrartodo(object sender, EventArgs e)
         {
-
+            if(uso == 1)
+            {
+                AppContext.Instance.getHistorial().Clear();
+                StreamWriter archivo = File.CreateText("Historial.txt");
+                archivo.Close();
+                lvInformacion.Items.Clear();
+            }
+            if(uso == 2)
+            {
+                AppContext.Instance.getDescargas().Clear();
+                StreamWriter archivo = File.CreateText("Descargas.txt");
+                archivo.Close();
+                lvInformacion.Items.Clear();
+            }
+            if(uso == 3)
+            {
+                AppContext.Instance.getPaginas().Clear();
+                lvInformacion.Items.Clear();
+            }
         }
 
         private void accionBorraSeleccionado(object sender, EventArgs e)
         {
-
+            if(uso == 1)
+            {
+                Console.WriteLine(lvInformacion.SelectedItems[0].GetType());
+            }
         }
     }
 }

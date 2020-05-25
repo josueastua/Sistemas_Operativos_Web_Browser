@@ -41,10 +41,11 @@
             // tabPage1
             // 
             this.tabPage1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(29)))), ((int)(((byte)(29)))));
-            this.tabPage1.Location = new System.Drawing.Point(4, 28);
+            this.tabPage1.Location = new System.Drawing.Point(4, 32);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1228, 615);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
+            this.tabPage1.Size = new System.Drawing.Size(1640, 760);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Inicio";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -53,11 +54,11 @@
             // 
             this.tc_pestanas.Controls.Add(this.tabPage1);
             this.tc_pestanas.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tc_pestanas.Location = new System.Drawing.Point(9, 68);
+            this.tc_pestanas.Location = new System.Drawing.Point(12, 84);
             this.tc_pestanas.Margin = new System.Windows.Forms.Padding(0);
             this.tc_pestanas.Name = "tc_pestanas";
             this.tc_pestanas.SelectedIndex = 0;
-            this.tc_pestanas.Size = new System.Drawing.Size(1236, 647);
+            this.tc_pestanas.Size = new System.Drawing.Size(1648, 796);
             this.tc_pestanas.TabIndex = 0;
             // 
             // button1
@@ -66,9 +67,10 @@
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(29)))), ((int)(((byte)(29)))));
-            this.button1.Location = new System.Drawing.Point(9, 12);
+            this.button1.Location = new System.Drawing.Point(12, 15);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(193, 40);
+            this.button1.Size = new System.Drawing.Size(257, 49);
             this.button1.TabIndex = 1;
             this.button1.Text = "Nueva Ventana Ctrl+N";
             this.button1.UseVisualStyleBackColor = false;
@@ -81,10 +83,10 @@
             this.btnHistorial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHistorial.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnHistorial.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(29)))), ((int)(((byte)(29)))));
-            this.btnHistorial.Location = new System.Drawing.Point(399, 12);
-            this.btnHistorial.Margin = new System.Windows.Forms.Padding(2);
+            this.btnHistorial.Location = new System.Drawing.Point(532, 15);
+            this.btnHistorial.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnHistorial.Name = "btnHistorial";
-            this.btnHistorial.Size = new System.Drawing.Size(180, 40);
+            this.btnHistorial.Size = new System.Drawing.Size(240, 49);
             this.btnHistorial.TabIndex = 2;
             this.btnHistorial.Text = "Historial Ctrl+H";
             this.btnHistorial.UseMnemonic = false;
@@ -97,9 +99,10 @@
             this.btnQuitar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnQuitar.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnQuitar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(29)))), ((int)(((byte)(29)))));
-            this.btnQuitar.Location = new System.Drawing.Point(208, 12);
+            this.btnQuitar.Location = new System.Drawing.Point(277, 15);
+            this.btnQuitar.Margin = new System.Windows.Forms.Padding(4);
             this.btnQuitar.Name = "btnQuitar";
-            this.btnQuitar.Size = new System.Drawing.Size(186, 40);
+            this.btnQuitar.Size = new System.Drawing.Size(248, 49);
             this.btnQuitar.TabIndex = 3;
             this.btnQuitar.Text = "Quitar Ventana Ctrl+Q";
             this.btnQuitar.UseVisualStyleBackColor = false;
@@ -111,9 +114,10 @@
             this.btnDescargas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDescargas.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDescargas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(29)))), ((int)(((byte)(29)))));
-            this.btnDescargas.Location = new System.Drawing.Point(584, 12);
+            this.btnDescargas.Location = new System.Drawing.Point(779, 15);
+            this.btnDescargas.Margin = new System.Windows.Forms.Padding(4);
             this.btnDescargas.Name = "btnDescargas";
-            this.btnDescargas.Size = new System.Drawing.Size(165, 40);
+            this.btnDescargas.Size = new System.Drawing.Size(220, 49);
             this.btnDescargas.TabIndex = 4;
             this.btnDescargas.Text = "Descargas Ctrl+D";
             this.btnDescargas.UseVisualStyleBackColor = false;
@@ -125,9 +129,10 @@
             this.btnCache.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCache.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCache.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(29)))), ((int)(((byte)(29)))));
-            this.btnCache.Location = new System.Drawing.Point(755, 12);
+            this.btnCache.Location = new System.Drawing.Point(1007, 15);
+            this.btnCache.Margin = new System.Windows.Forms.Padding(4);
             this.btnCache.Name = "btnCache";
-            this.btnCache.Size = new System.Drawing.Size(165, 40);
+            this.btnCache.Size = new System.Drawing.Size(220, 49);
             this.btnCache.TabIndex = 5;
             this.btnCache.Text = "Cache Ctrl+C";
             this.btnCache.UseVisualStyleBackColor = false;
@@ -135,10 +140,10 @@
             // 
             // Home
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(29)))), ((int)(((byte)(29)))));
-            this.ClientSize = new System.Drawing.Size(1254, 724);
+            this.ClientSize = new System.Drawing.Size(1672, 891);
             this.Controls.Add(this.btnCache);
             this.Controls.Add(this.btnDescargas);
             this.Controls.Add(this.btnQuitar);
@@ -146,9 +151,12 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.tc_pestanas);
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(29)))), ((int)(((byte)(29)))));
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Home";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Home_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Home_KeyDown);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Home_KeyDown1);
             this.tc_pestanas.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

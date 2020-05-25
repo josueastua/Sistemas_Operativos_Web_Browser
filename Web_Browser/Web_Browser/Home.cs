@@ -33,7 +33,7 @@ namespace Web_Browser
             s.initSemaforo();
             AppContext.Instance.set("Semaforo", s);
             AppContext.Instance.set("Carga", false);
-            cargarHistorial();
+            cargarDatos();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -63,7 +63,7 @@ namespace Web_Browser
 
         }
 
-        private void cargarHistorial()
+        private void cargarDatos()
         {
             if (File.Exists("Historial.txt")){
                 StreamReader archivo = new StreamReader("Historial.txt");
@@ -71,6 +71,17 @@ namespace Web_Browser
                 {
                     string linea = archivo.ReadLine();
                     AppContext.Instance.setHistorial(linea);
+                    Console.WriteLine(linea);
+                }
+                archivo.Close();
+            }
+            if (File.Exists("Descargas.txt"))
+            {
+                StreamReader archivo = new StreamReader("Descargas.txt");
+                while (!archivo.EndOfStream)
+                {
+                    string linea = archivo.ReadLine();
+                    AppContext.Instance.setDescargas(linea);
                     Console.WriteLine(linea);
                 }
                 archivo.Close();
@@ -108,7 +119,7 @@ namespace Web_Browser
         {
             TabPage myTabPage = new TabPage("Descargas");
             tc_pestanas.TabPages.Add(myTabPage);
-            Form1 ventInformacion = new Form1(1);
+            Form1 ventInformacion = new Form1(2);
             ventInformacion.TopLevel = false;
             myTabPage.Controls.Add(ventInformacion);
             myTabPage.Tag = ventInformacion;
@@ -119,11 +130,19 @@ namespace Web_Browser
         {
             TabPage myTabPage = new TabPage("Cache");
             tc_pestanas.TabPages.Add(myTabPage);
-            Form1 ventInformacion = new Form1(1);
+            Form1 ventInformacion = new Form1(3);
             ventInformacion.TopLevel = false;
             myTabPage.Controls.Add(ventInformacion);
             myTabPage.Tag = ventInformacion;
             ventInformacion.Show();
+        }
+
+        private void Home_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyData == Keys.N)
+            {
+                Console.WriteLine("NOOOOOOOOOOOOOOOOOOOOOOO");
+            }
         }
     }
 }
