@@ -71,5 +71,10 @@ namespace Web_Browser
             return historial;
         }
 
+        public Hashtable getCache()
+        {
+            return cache;
+        }
+
     }
 }

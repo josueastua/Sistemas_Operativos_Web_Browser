@@ -87,7 +87,11 @@ namespace Web_Browser
 
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
-            AppContext.Instance.set(webBrowser1.Url.ToString(), webBrowser1.DocumentText);
+            Semaforo s = (Semaforo)AppContext.Instance.get("Semaforo");
+            elemento e;
+            e.url = webBrowser1.Url.ToString();
+            e.html = webBrowser1.DocumentText;
+            s.EscribirCache(e);
             textBox1.Text = webBrowser1.Url.ToString();
         }
 

@@ -90,12 +90,13 @@ namespace Web_Browser
 
         private void accionQuitar(object sender, EventArgs e)
         {
-            if (tc_pestanas.TabPages.Count > 1)
+            if (tc_pestanas.TabPages.Count > 1 &&)
             {
+                TabPage aux = tc_pestanas.SelectedTab;
                 Console.WriteLine(tc_pestanas.SelectedIndex);
                 int index = tc_pestanas.SelectedIndex - 1;
                 tc_pestanas.TabPages.Remove(tc_pestanas.SelectedTab);
-                if (tc_pestanas.SelectedIndex != 0)
+                if (tc_pestanas.SelectedIndex != 0 && aux.Text != "Descargas" && aux.Text != "Cache" && aux.Text != "Historial")
                 {
                     ventanas.Remove(ventanas[index]);
                     hilos.Remove(hilos[index]);
