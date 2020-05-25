@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Diagnostics;
 
 namespace Web_Browser
 {
@@ -78,7 +79,49 @@ namespace Web_Browser
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Form1 ventInformacion = new Form1();
+            TabPage myTabPage = new TabPage("Hstorial");
+            tc_pestanas.TabPages.Add(myTabPage);
+            Form1 ventInformacion = new Form1(1);
+            ventInformacion.TopLevel = false;
+            myTabPage.Controls.Add(ventInformacion);
+            myTabPage.Tag = ventInformacion;
+            ventInformacion.Show();
+        }
+
+        private void accionQuitar(object sender, EventArgs e)
+        {
+            if (tc_pestanas.TabPages.Count > 1)
+            {
+                Console.WriteLine(tc_pestanas.SelectedIndex);
+                int index = tc_pestanas.SelectedIndex - 1;
+                tc_pestanas.TabPages.Remove(tc_pestanas.SelectedTab);
+                if (tc_pestanas.SelectedIndex != 0)
+                {
+                    ventanas.Remove(ventanas[index]);
+                    hilos.Remove(hilos[index]);
+                }
+            }
+        }
+
+        private void accionDescargas(object sender, EventArgs e)
+        {
+            TabPage myTabPage = new TabPage("Descargas");
+            tc_pestanas.TabPages.Add(myTabPage);
+            Form1 ventInformacion = new Form1(1);
+            ventInformacion.TopLevel = false;
+            myTabPage.Controls.Add(ventInformacion);
+            myTabPage.Tag = ventInformacion;
+            ventInformacion.Show();
+        }
+
+        private void accionCache(object sender, EventArgs e)
+        {
+            TabPage myTabPage = new TabPage("Cache");
+            tc_pestanas.TabPages.Add(myTabPage);
+            Form1 ventInformacion = new Form1(1);
+            ventInformacion.TopLevel = false;
+            myTabPage.Controls.Add(ventInformacion);
+            myTabPage.Tag = ventInformacion;
             ventInformacion.Show();
         }
     }

@@ -12,10 +12,12 @@ namespace Web_Browser
 {
     public partial class Form1 : Form
     {
-        public Form1()
+        int uso = 0;
+        public Form1(int uso)
         {
             InitializeComponent();
-            agregarElementos(AppContext.Instance.getHistorial());
+            this.uso = uso;
+            asignarUso();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -23,18 +25,42 @@ namespace Web_Browser
 
         }
 
+        private void asignarUso()
+        {
+            if (uso == 1)
+            {
+                lvInformacion.Columns[0].Text = "ID";
+                lvInformacion.Columns[1].Text = "Direccion Url";
+                agregarElementos(AppContext.Instance.getHistorial());
+            }else if(uso == 2)
+            {
+                lvInformacion.Columns[0].Text = "ID";
+                lvInformacion.Columns[1].Text = "Direccion Url";
+                agregarElementos(AppContext.Instance.getPaginas());
+            }
+        }
+
         private void agregarElementos(List<String> lista)
         {
-            //ListViewGroup historial = new ListViewGroup("Historial");
             for (int a = 0; a < lista.Count; a++)
             {
-                lvInformacion.Items.Add(new ListViewItem(lista[a]));
-                //lv_ejecucion.Items.Add(new ListViewItem(url));
+                String[] cont = { a.ToString(), lista[a] };
+                lvInformacion.Items.Add(new ListViewItem(cont));
                 Console.WriteLine(lista.ElementAt<string>(a));
             }
-            //lvInformacion.Groups.Add(historial);
         }
+
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void accionBorrartodo(object sender, EventArgs e)
+        {
+
+        }
+
+        private void accionBorraSeleccionado(object sender, EventArgs e)
         {
 
         }

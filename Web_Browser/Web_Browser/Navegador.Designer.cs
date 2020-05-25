@@ -34,6 +34,7 @@
             this.button4 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.SuspendLayout();
             // 
             // button1
@@ -48,9 +49,9 @@
             // 
             // boton_Ir
             // 
-            this.boton_Ir.Location = new System.Drawing.Point(1022, 13);
+            this.boton_Ir.Location = new System.Drawing.Point(1092, 12);
             this.boton_Ir.Name = "boton_Ir";
-            this.boton_Ir.Size = new System.Drawing.Size(75, 23);
+            this.boton_Ir.Size = new System.Drawing.Size(119, 23);
             this.boton_Ir.TabIndex = 1;
             this.boton_Ir.Text = "Ir";
             this.boton_Ir.UseVisualStyleBackColor = true;
@@ -58,7 +59,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(174, 12);
+            this.button3.Location = new System.Drawing.Point(245, 12);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 2;
@@ -68,7 +69,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(93, 12);
+            this.button4.Location = new System.Drawing.Point(127, 12);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 23);
             this.button4.TabIndex = 3;
@@ -78,26 +79,26 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(256, 13);
+            this.textBox1.Location = new System.Drawing.Point(326, 12);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(760, 20);
             this.textBox1.TabIndex = 4;
             // 
             // webBrowser1
             // 
-            this.webBrowser1.Location = new System.Drawing.Point(12, 50);
+            this.webBrowser1.Location = new System.Drawing.Point(12, 55);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(1085, 541);
+            this.webBrowser1.Size = new System.Drawing.Size(1199, 548);
             this.webBrowser1.TabIndex = 5;
-            this.webBrowser1.FileDownload += new System.EventHandler(this.webBrowser1_FileDownload);
+            this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
             this.webBrowser1.Navigating += new System.Windows.Forms.WebBrowserNavigatingEventHandler(this.webBrowser1_Navigating_1);
             // 
             // Navegador
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1110, 610);
+            this.ClientSize = new System.Drawing.Size(1223, 615);
             this.Controls.Add(this.webBrowser1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button4);
@@ -120,5 +121,6 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.WebBrowser webBrowser1;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }

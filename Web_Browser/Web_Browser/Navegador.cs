@@ -9,21 +9,35 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Net;
 
 namespace Web_Browser
 {
     public partial class Navegador : Form
     {
         TabPage tabpage;
-        bool primera = false;
-        bool cargando = false;
-        HtmlDocument htmlDoc;
-
+        List<String> tipoArchivo = new List<string>();
         public Navegador(TabPage tabpage)
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
             this.tabpage = tabpage;
+            tipoArchivo.Add(".pdf");
+            tipoArchivo.Add(".mp4");
+            tipoArchivo.Add(".mp3");
+            tipoArchivo.Add(".zip");
+            tipoArchivo.Add(".rar");
+            tipoArchivo.Add(".exe");
+            tipoArchivo.Add(".html");
+            tipoArchivo.Add(".doc");
+            tipoArchivo.Add(".docx");
+            tipoArchivo.Add(".ppt");
+            tipoArchivo.Add(".pptx");
+            tipoArchivo.Add(".jpg");
+            tipoArchivo.Add(".png");
+            tipoArchivo.Add(".jpge");
+            tipoArchivo.Add(".xls");
+            tipoArchivo.Add(".gif");
         }
 
 
@@ -73,106 +87,14 @@ namespace Web_Browser
 
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
-            /*if (cargando)
-            {
-                Semaforo s = (Semaforo)AppContext.Instance.get("Semaforo");
-                elemento element = new elemento();
-                element.url = webBrowser1.Url.ToString();
-                element.html = webBrowser1.DocumentText;
-                s.EscribirCache(element);
-                cargando = false;
-            }*/
-            if (webBrowser1.Document != null)
-            {
-                htmlDoc = webBrowser1.Document;
-                htmlDoc.Click += new HtmlElementEventHandler(htmlDoc_Click);
-            }
-        }
-        private void htmlDoc_Click(object sender, HtmlElementEventArgs e)
-        {
-            HtmlElementCollection a = webBrowser1.Document.Links;
-            HtmlElement elem = webBrowser1.Document.GetElementFromPoint(e.ClientMousePosition);
-            for (int i = 0; i < a.Count; i++)
-            {
-                if (a[i] == elem)
-                    Console.WriteLine(a[i].TagName);
-            }
+            AppContext.Instance.set(webBrowser1.Url.ToString(), webBrowser1.DocumentText);
+            textBox1.Text = webBrowser1.Url.ToString();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             Navegar((textBox1.Text).ToLower());
-        }       
-
-        private void webBrowser1_Navigating(object sender, WebBrowserNavigatingEventArgs e)
-        {
-            try
-            {
-                Console.WriteLine(webBrowser1.Url);
-            } catch (Exception ex) { }
-           
-            /*
-            if (!cargando)
-            {
-                String url = "";
-                cargando = true;
-                if (!(bool)AppContext.Instance.get("Carga"))
-                {
-                    AppContext.Instance.set("Carga", true);
-                    url = textBox1.Text;
-                    if (AppContext.Instance.get(url) != null)
-                    {
-                        webBrowser1.Stop();
-                        webBrowser1.DocumentText = (String)AppContext.Instance.get(url);
-                        webBrowser1.Update();
-                    }
-                }
-                else
-                {
-                    if (!primera)
-                    {
-                        url = textBox1.Text;
-                        primera = true;
-                        if (AppContext.Instance.get(url) != null)
-                        {
-                            webBrowser1.Stop();
-                            webBrowser1.DocumentText = (String)AppContext.Instance.get(url);
-                            webBrowser1.Update();
-                        }
-                    }
-                    else
-                    {
-                        url = webBrowser1.Url.ToString();
-                        Console.WriteLine(url);
-                        if (AppContext.Instance.get(url) != null)
-                        {
-                            webBrowser1.Stop();
-                            webBrowser1.DocumentText = (String)AppContext.Instance.get(url);
-                            webBrowser1.Update();
-                        }
-                    }
-                }
-            }
-            */
-        }
-
-        private void webBrowser1_FileDownload(object sender, EventArgs e)
-        {
-            (webBrowser1.ActiveXInstance as SHDocVw.ShellBrowserWindow).FileDownload += accionDescargar;
-        }
-
-        private void accionDescargar(bool ActivateDocument, ref bool Cancel)
-        {
-            if (!(bool)AppContext.Instance.get("Descargar"))
-            {
-                Cancel = true;
-            }
-            else
-            {
-                AppContext.Instance.set("Descargar", false);
-            }
-        }
-
+        }      
 
         private void guardarHistorial(string address){
             StreamWriter archivo = File.AppendText("Historial.txt");
@@ -183,10 +105,54 @@ namespace Web_Browser
 
         private void webBrowser1_Navigating_1(object sender, WebBrowserNavigatingEventArgs e)
         {
-            if (!cargando)
+            if (extension(e.Url) && (bool)AppContext.Instance.get("Descargar"))
             {
-                cargando = true;
+                e.Cancel = true;
+                string filepath = null;
+
+                saveFileDialog1.FileName = e.Url.Segments[e.Url.Segments.Length - 1];
+                if (saveFileDialog1.ShowDialog() == DialogResult.OK && (bool)AppContext.Instance.get("Descargar"))
+                {
+                    AppContext.Instance.set("Descargar", false);
+                    filepath = saveFileDialog1.FileName;
+                    WebClient client = new WebClient();
+                    client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
+                    AppContext.Instance.setDescargas(filepath);
+                    client.DownloadFileAsync(e.Url, filepath);
+                }
             }
+            else
+            {
+                String url = e.Url.ToString();
+                if(AppContext.Instance.get(e.Url.ToString()) != null)
+                {
+                    webBrowser1.Stop();
+                    webBrowser1.DocumentText = (String)AppContext.Instance.get(url);
+                    webBrowser1.Update();
+                    textBox1.Text = url;
+                }
+            }
+        }
+
+        private void client_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+            MessageBox.Show("Archivo descargado");
+            AppContext.Instance.set("Descargar", true);
+        }
+
+        private Boolean extension(Uri url)
+        {
+            for(int i = 0; i < tipoArchivo.Count; i++)
+            {
+                if (url.Segments[url.Segments.Length - 1].EndsWith(tipoArchivo[i]))
+                    return true;
+            }
+            return false;
+        }
+
+        public Boolean comparar(TabPage tab)
+        {
+            return this.tabpage == tab;
         }
     }
 }

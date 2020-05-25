@@ -13,6 +13,7 @@ namespace Web_Browser
         private static Hashtable cache = new Hashtable();
         private static List<String> paginas = new List<string>();
         private static List<String> historial = new List<string>();
+        private static List<String> descargas = new List<string>();
 
         public AppContext() { }
 
@@ -38,10 +39,21 @@ namespace Web_Browser
                 paginas.Add(key);
                 cache.Add(key, obj);
             }
-            else
-            {
-                cache[key] = obj;
-            }
+        }
+
+        public void setDescargas(string dir)
+        {
+            descargas.Add(dir);
+        }
+
+        public List<String> getDescargas()
+        {
+            return descargas;
+        }
+
+        public List<String> getPaginas()
+        {
+            return paginas;
         }
 
         public void clear()
@@ -58,5 +70,6 @@ namespace Web_Browser
         {
             return historial;
         }
+
     }
 }
