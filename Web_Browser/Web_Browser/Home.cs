@@ -33,7 +33,8 @@ namespace Web_Browser
             s.initSemaforo();
             AppContext.Instance.set("Semaforo", s);
             AppContext.Instance.set("Carga", false);
-            cargarDatos();
+            cargarHistorial();
+            cargarDescargas();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -63,7 +64,7 @@ namespace Web_Browser
 
         }
 
-        private void cargarDatos()
+        private void cargarHistorial()
         {
             if (File.Exists("Historial.txt")){
                 StreamReader archivo = new StreamReader("Historial.txt");
@@ -75,6 +76,10 @@ namespace Web_Browser
                 }
                 archivo.Close();
             }
+        }
+
+        private void cargarDescargas()
+        {
             if (File.Exists("Descargas.txt"))
             {
                 StreamReader archivo = new StreamReader("Descargas.txt");

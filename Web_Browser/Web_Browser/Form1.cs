@@ -89,7 +89,61 @@ namespace Web_Browser
         {
             if(uso == 1)
             {
-                Console.WriteLine(lvInformacion.SelectedItems[0].GetType());
+                try
+                {
+                    int index = lvInformacion.Items.IndexOf(lvInformacion.SelectedItems[0]);
+                    lvInformacion.Items.Remove(lvInformacion.SelectedItems[0]);
+                    AppContext.Instance.getHistorial().RemoveAt(index);
+                    StreamWriter archivo = File.CreateText("Historial.txt");
+                    archivo.Close();
+                    for (int a = 0; a < AppContext.Instance.getHistorial().Count(); a++)
+                    {
+                        archivo = File.AppendText("Historial.txt");
+                        archivo.WriteLine(AppContext.Instance.getHistorial()[a]);
+                        archivo.Close();
+                    }
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    Console.WriteLine("Hola");
+                }
+                
+            }
+            if (uso == 2)
+            {
+                try
+                {
+                    int index = lvInformacion.Items.IndexOf(lvInformacion.SelectedItems[0]);
+                    lvInformacion.Items.Remove(lvInformacion.SelectedItems[0]);
+                    AppContext.Instance.getDescargas().RemoveAt(index);
+                    StreamWriter archivo = File.CreateText("Descargas.txt");
+                    archivo.Close();
+                    for (int a = 0; a < AppContext.Instance.getDescargas().Count(); a++)
+                    {
+                        archivo = File.AppendText("Descargas.txt");
+                        archivo.WriteLine(AppContext.Instance.getDescargas()[a]);
+                        archivo.Close();
+                    }
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    Console.WriteLine("Hola");
+                }
+
+            }
+            if (uso == 3)
+            {
+                try
+                {
+                    int index = lvInformacion.Items.IndexOf(lvInformacion.SelectedItems[0]);
+                    lvInformacion.Items.Remove(lvInformacion.SelectedItems[0]);
+                    AppContext.Instance.getHistorial().RemoveAt(index);
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    Console.WriteLine("Hola");
+                }
+
             }
         }
     }
