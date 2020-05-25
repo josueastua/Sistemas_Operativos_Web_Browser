@@ -90,7 +90,7 @@ namespace Web_Browser
 
         private void accionQuitar(object sender, EventArgs e)
         {
-            if (tc_pestanas.TabPages.Count > 1 &&)
+            if (tc_pestanas.TabPages.Count > 1)
             {
                 TabPage aux = tc_pestanas.SelectedTab;
                 Console.WriteLine(tc_pestanas.SelectedIndex);

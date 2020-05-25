@@ -88,10 +88,10 @@ namespace Web_Browser
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             Semaforo s = (Semaforo)AppContext.Instance.get("Semaforo");
-            elemento e;
-            e.url = webBrowser1.Url.ToString();
-            e.html = webBrowser1.DocumentText;
-            s.EscribirCache(e);
+            elemento elem;
+            elem.url = webBrowser1.Url.ToString();
+            elem.html = webBrowser1.DocumentText;
+            s.EscribirCache(elem);
             textBox1.Text = webBrowser1.Url.ToString();
         }
 
