@@ -101,12 +101,19 @@ namespace Web_Browser
             if (tc_pestanas.TabPages.Count > 1)
             {
                 TabPage aux = tc_pestanas.SelectedTab;
-                int index = tc_pestanas.SelectedIndex - 1;
-                tc_pestanas.TabPages.Remove(tc_pestanas.SelectedTab);
-                if (tc_pestanas.SelectedIndex != 0 && aux.Text != "Descargas" && aux.Text != "Cache" && aux.Text != "Historial")
+                if(aux != tabPage1)
                 {
-                    ventanas.Remove(ventanas[index]);
-                    hilos.Remove(hilos[index]);
+                    int index = tc_pestanas.SelectedIndex - 1;
+                    tc_pestanas.TabPages.Remove(tc_pestanas.SelectedTab);
+                    if (aux.Text != "Descargas" && aux.Text != "Cache" && aux.Text != "Historial")
+                    {
+                        ventanas.Remove(ventanas[index]);
+                        hilos.Remove(hilos[index]);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No se puede cerrar esta ventana", "Quitar Ventana", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }
