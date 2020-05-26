@@ -136,10 +136,13 @@ namespace Web_Browser
             }
             else
             {
+                if (!(bool)AppContext.Instance.get("Descargar"))
+                    MessageBox.Show("Ya hay un archivo en descarga", "Informacion de descarga", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 String url = e.Url.ToString();
                 if(AppContext.Instance.getCache(e.Url.ToString()) != null)
                 {
                     webBrowser1.DocumentStream = (Stream)AppContext.Instance.getCache(url);
+                    textBox1.Text = "";
                     textBox1.Text = url;
                 }
             }
@@ -147,7 +150,7 @@ namespace Web_Browser
 
         private void client_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
-            MessageBox.Show("Archivo descargado");
+            MessageBox.Show("La descarga a finalizado", "Informacion de descarga", MessageBoxButtons.OK, MessageBoxIcon.Information);
             AppContext.Instance.set("Descargar", true);
         }
 
