@@ -61,7 +61,14 @@ namespace Web_Browser
             {
                 textBox1.Text = address;
                 webBrowser1.ScriptErrorsSuppressed = true;
-                webBrowser1.Navigate(new Uri(address));
+                if(AppContext.Instance.getCache(address) == null)
+                    webBrowser1.Navigate(new Uri(address));
+                else
+                {
+                    webBrowser1.DocumentText = (String)AppContext.Instance.getCache(address);
+                    webBrowser1.Update();
+                    textBox1.Text = address;
+                }
                 guardarHistorial(address);
             }
             catch (System.UriFormatException)
@@ -72,17 +79,19 @@ namespace Web_Browser
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+            if (webBrowser1.CanGoBack)
+                webBrowser1.GoBack();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-
+            webBrowser1.Refresh();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-
+            if (webBrowser1.CanGoForward)
+                webBrowser1.GoForward();
         }
 
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
@@ -93,6 +102,7 @@ namespace Web_Browser
             elem.html = webBrowser1.DocumentText;
             s.EscribirCache(elem);
             textBox1.Text = webBrowser1.Url.ToString();
+            guardarHistorial(e.Url.ToString());
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -102,7 +112,6 @@ namespace Web_Browser
 
         private void guardarHistorial(string address){
             StreamWriter archivo = File.AppendText("Historial.txt");
-            archivo.WriteLine(address);
             archivo.Close();
             AppContext.Instance.setHistorial(address);
         }
@@ -135,10 +144,10 @@ namespace Web_Browser
             else
             {
                 String url = e.Url.ToString();
-                if(AppContext.Instance.get(e.Url.ToString()) != null)
+                if(AppContext.Instance.getCache(e.Url.ToString()) != null)
                 {
                     webBrowser1.Stop();
-                    webBrowser1.DocumentText = (String)AppContext.Instance.get(url);
+                    webBrowser1.DocumentText = (String)AppContext.Instance.getCache(url);
                     webBrowser1.Update();
                     textBox1.Text = url;
                 }
@@ -165,5 +174,6 @@ namespace Web_Browser
         {
             return this.tabpage == tab;
         }
+
     }
 }

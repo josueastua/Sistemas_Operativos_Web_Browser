@@ -32,7 +32,6 @@ namespace Web_Browser
             Semaforo s = new Semaforo(true);
             s.initSemaforo();
             AppContext.Instance.set("Semaforo", s);
-            AppContext.Instance.set("Carga", false);
             cargarHistorial();
             cargarDescargas();
         }
@@ -52,16 +51,9 @@ namespace Web_Browser
             ventanas.Add(nav);
         }
 
-        private void Home_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void nuevaVentana(Navegador nav)
         {
-            
             nav.Show();
-
         }
 
         private void cargarHistorial()
@@ -109,7 +101,6 @@ namespace Web_Browser
             if (tc_pestanas.TabPages.Count > 1)
             {
                 TabPage aux = tc_pestanas.SelectedTab;
-                Console.WriteLine(tc_pestanas.SelectedIndex);
                 int index = tc_pestanas.SelectedIndex - 1;
                 tc_pestanas.TabPages.Remove(tc_pestanas.SelectedTab);
                 if (tc_pestanas.SelectedIndex != 0 && aux.Text != "Descargas" && aux.Text != "Cache" && aux.Text != "Historial")
@@ -142,17 +133,10 @@ namespace Web_Browser
             ventInformacion.Show();
         }
 
-        private void Home_KeyDown(object sender, KeyEventArgs e)
+        private void Home_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(e.KeyData == Keys.N)
-            {
-                Console.WriteLine("NOOOOOOOOOOOOOOOOOOOOOOO");
-            }
-        }
-
-        private void Home_KeyDown1(object sender, KeyEventHandler e)
-        {
-
+            System.Windows.Forms.Application.Exit();
+            System.Environment.Exit(1);
         }
     }
 }

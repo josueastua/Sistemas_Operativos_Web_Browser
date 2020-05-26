@@ -35,7 +35,7 @@ namespace Web_Browser
             if (recurso)
             {
                 recurso = false;
-                AppContext.Instance.set(e.url, e.html);
+                AppContext.Instance.setCahce(e.url, e.html);
                 recurso = true;
             }
             else

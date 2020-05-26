@@ -53,7 +53,6 @@ namespace Web_Browser
             {
                 String[] cont = { a.ToString(), lista[a] };
                 lvInformacion.Items.Add(new ListViewItem(cont));
-                Console.WriteLine(lista.ElementAt<string>(a));
             }
         }
 
@@ -81,6 +80,7 @@ namespace Web_Browser
             if(uso == 3)
             {
                 AppContext.Instance.getPaginas().Clear();
+                AppContext.Instance.clear();
                 lvInformacion.Items.Clear();
             }
         }
@@ -137,7 +137,8 @@ namespace Web_Browser
                 {
                     int index = lvInformacion.Items.IndexOf(lvInformacion.SelectedItems[0]);
                     lvInformacion.Items.Remove(lvInformacion.SelectedItems[0]);
-                    AppContext.Instance.getHistorial().RemoveAt(index);
+                    AppContext.Instance.removeCache(AppContext.Instance.getPaginas()[index]);
+                    AppContext.Instance.getPaginas().RemoveAt(index);
                 }
                 catch (ArgumentOutOfRangeException)
                 {

@@ -11,6 +11,7 @@ namespace Web_Browser
     {
         private static AppContext instance = null;
         private static Hashtable cache = new Hashtable();
+        private static Hashtable context = new Hashtable();
         private static List<String> paginas = new List<string>();
         private static List<String> historial = new List<string>();
         private static List<String> descargas = new List<string>();
@@ -29,12 +30,29 @@ namespace Web_Browser
 
         public Object get(String key)
         {
-            return cache[key];
+            return context[key];
         }
 
         public void set(String key, Object obj)
         {
             if(get(key) == null)
+            {
+                context.Add(key, obj);
+            }
+            else
+            {
+                context[key] = obj;
+            }
+        }
+
+        public Object getCache(String key)
+        {
+            return cache[key];
+        }
+
+        public void setCahce(String key, Object obj)
+        {
+            if(getCache(key) == null)
             {
                 paginas.Add(key);
                 cache.Add(key, obj);
@@ -76,5 +94,9 @@ namespace Web_Browser
             return cache;
         }
 
+        public void removeCache(String key)
+        {
+            cache.Remove(key);
+        }
     }
 }
