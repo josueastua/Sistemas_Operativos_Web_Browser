@@ -161,5 +161,11 @@ namespace Web_Browser
             ventanas.Add(nav);
             nav.Navegar(url);
         }
+
+        public void escribirLabel(String text)
+        {
+            label1.Text = text;
+        }
+    
     }
 }

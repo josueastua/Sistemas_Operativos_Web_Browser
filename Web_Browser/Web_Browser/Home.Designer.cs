@@ -35,6 +35,7 @@
             this.btnCache = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tc_pestanas = new System.Windows.Forms.TabControl();
+            this.label1 = new System.Windows.Forms.Label();
             this.tc_pestanas.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,7 +61,7 @@
             this.btnHistorial.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnHistorial.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(29)))), ((int)(((byte)(29)))));
             this.btnHistorial.Location = new System.Drawing.Point(399, 12);
-            this.btnHistorial.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnHistorial.Margin = new System.Windows.Forms.Padding(2);
             this.btnHistorial.Name = "btnHistorial";
             this.btnHistorial.Size = new System.Drawing.Size(180, 40);
             this.btnHistorial.TabIndex = 2;
@@ -133,12 +134,21 @@
             this.tc_pestanas.Size = new System.Drawing.Size(1236, 647);
             this.tc_pestanas.TabIndex = 0;
             // 
+            // label1
+            // 
+            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label1.Location = new System.Drawing.Point(927, 12);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(314, 40);
+            this.label1.TabIndex = 6;
+            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1254, 724);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnCache);
             this.Controls.Add(this.btnDescargas);
             this.Controls.Add(this.btnQuitar);
@@ -163,6 +173,7 @@
         private System.Windows.Forms.Button btnCache;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabControl tc_pestanas;
+        private System.Windows.Forms.Label label1;
     }
 }
 

@@ -131,6 +131,7 @@ namespace Web_Browser
                     filepath = saveFileDialog1.FileName;
                     WebClient client = new WebClient();
                     client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
+                    client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_progresoDescarga);
                     AppContext.Instance.setDescargas(filepath);
                     client.DownloadFileAsync(e.Url, filepath);
                     guardarDescarga(filepath);
@@ -163,6 +164,12 @@ namespace Web_Browser
         {
             MessageBox.Show("La descarga a finalizado", "Informacion de descarga", MessageBoxButtons.OK, MessageBoxIcon.Information);
             AppContext.Instance.set("Descargar", true);
+        }
+
+        private void client_progresoDescarga(object sender, DownloadProgressChangedEventArgs e)
+        {
+            Home home = (Home)AppContext.Instance.get("Home");
+            home.escribirLabel("Porcentaje de descarga: " + e.ProgressPercentage.ToString());
         }
 
         private Boolean extension(Uri url)
