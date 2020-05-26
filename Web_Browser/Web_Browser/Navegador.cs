@@ -61,14 +61,7 @@ namespace Web_Browser
             {
                 textBox1.Text = address;
                 webBrowser1.ScriptErrorsSuppressed = true;
-                if(AppContext.Instance.getCache(address) == null)
-                    webBrowser1.Navigate(new Uri(address));
-                else
-                {
-                    webBrowser1.DocumentText = (String)AppContext.Instance.getCache(address);
-                    webBrowser1.Update();
-                    textBox1.Text = address;
-                }
+                webBrowser1.Navigate(new Uri(address));
                 guardarHistorial(address);
             }
             catch (System.UriFormatException)
@@ -99,7 +92,7 @@ namespace Web_Browser
             Semaforo s = (Semaforo)AppContext.Instance.get("Semaforo");
             elemento elem;
             elem.url = webBrowser1.Url.ToString();
-            elem.html = webBrowser1.DocumentText;
+            elem.html = webBrowser1.DocumentStream;
             s.EscribirCache(elem);
             textBox1.Text = webBrowser1.Url.ToString();
             guardarHistorial(e.Url.ToString());
@@ -146,9 +139,8 @@ namespace Web_Browser
                 String url = e.Url.ToString();
                 if(AppContext.Instance.getCache(e.Url.ToString()) != null)
                 {
-                    webBrowser1.Stop();
-                    webBrowser1.DocumentText = (String)AppContext.Instance.getCache(url);
-                    webBrowser1.Update();
+                    webBrowser1.DocumentStream = (Stream)AppContext.Instance.getCache(url);
+                    //webBrowser1.Update();
                     textBox1.Text = url;
                 }
             }
@@ -175,5 +167,14 @@ namespace Web_Browser
             return this.tabpage == tab;
         }
 
+        private void webBrowser1_FileDownload(object sender, EventArgs e)
+        {
+            (webBrowser1.ActiveXInstance as SHDocVw.ShellBrowserWindow).FileDownload += browser_FileDownload;
+        }
+
+        private void browser_FileDownload(bool ActivateDocument, ref bool Cancel)
+        {
+            Cancel = true;
+        }
     }
 }

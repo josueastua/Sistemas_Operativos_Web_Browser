@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 struct elemento
 {
     public String url;
-    public String html;
+    public Stream html;
 }
 
 namespace Web_Browser
