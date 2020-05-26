@@ -140,7 +140,6 @@ namespace Web_Browser
                 if(AppContext.Instance.getCache(e.Url.ToString()) != null)
                 {
                     webBrowser1.DocumentStream = (Stream)AppContext.Instance.getCache(url);
-                    //webBrowser1.Update();
                     textBox1.Text = url;
                 }
             }
