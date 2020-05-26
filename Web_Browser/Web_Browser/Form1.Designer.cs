@@ -33,6 +33,7 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.btnAbrir = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lvInformacion
@@ -45,7 +46,7 @@
             this.lvInformacion.GridLines = true;
             this.lvInformacion.HideSelection = false;
             this.lvInformacion.Location = new System.Drawing.Point(11, 11);
-            this.lvInformacion.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lvInformacion.Margin = new System.Windows.Forms.Padding(2);
             this.lvInformacion.MultiSelect = false;
             this.lvInformacion.Name = "lvInformacion";
             this.lvInformacion.Size = new System.Drawing.Size(1201, 553);
@@ -88,17 +89,31 @@
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.accionBorraSeleccionado);
             // 
+            // btnAbrir
+            // 
+            this.btnAbrir.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnAbrir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAbrir.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAbrir.Location = new System.Drawing.Point(479, 569);
+            this.btnAbrir.Name = "btnAbrir";
+            this.btnAbrir.Size = new System.Drawing.Size(230, 33);
+            this.btnAbrir.TabIndex = 3;
+            this.btnAbrir.Text = "Abrir";
+            this.btnAbrir.UseVisualStyleBackColor = false;
+            this.btnAbrir.Click += new System.EventHandler(this.accionAbrir);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1223, 615);
+            this.Controls.Add(this.btnAbrir);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.lvInformacion);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -113,5 +128,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnAbrir;
     }
 }

@@ -138,5 +138,21 @@ namespace Web_Browser
             System.Windows.Forms.Application.Exit();
             System.Environment.Exit(1);
         }
+
+        public void nuevaVentana(String url)
+        {
+            TabPage myTabPage = new TabPage(url);
+            tc_pestanas.TabPages.Add(myTabPage);
+            Navegador nav = new Navegador((TabPage)myTabPage);
+            nav.TopLevel = false;
+            myTabPage.Controls.Add(nav);
+            myTabPage.Tag = nav;
+            var @delegate = new showForm(nuevaVentana);
+            Task hilo = new Task(() => myTabPage.BeginInvoke(@delegate, nav));
+            hilo.Start();
+            hilos.Add(hilo);
+            ventanas.Add(nav);
+            nav.Navegar(url);
+        }
     }
 }

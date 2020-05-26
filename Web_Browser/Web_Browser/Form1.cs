@@ -43,6 +43,8 @@ namespace Web_Browser
                 lvInformacion.Columns[0].Text = "ID";
                 lvInformacion.Columns[1].Text = "Direccion Url";
                 agregarElementos(AppContext.Instance.getPaginas());
+                btnAbrir.Enabled = false;
+                btnAbrir.Visible = false;
             }
 
         }
@@ -146,6 +148,25 @@ namespace Web_Browser
                 }
 
             }
+        }
+
+        private void accionAbrir(object sender, EventArgs e)
+        {
+            if (lvInformacion.SelectedItems[0] != null)
+            {
+                int index = lvInformacion.Items.IndexOf(lvInformacion.SelectedItems[0]);
+                if(uso == 1)
+                {
+                    Home home = (Home)AppContext.Instance.get("Home");
+                    home.nuevaVentana(AppContext.Instance.getHistorial()[index]);
+                }else if(uso == 2)
+                {
+                    String path = AppContext.Instance.getDescargas()[index];
+                    System.Diagnostics.Process.Start(path);
+                }
+            }
+            else
+                MessageBox.Show("No hay un elemento seleccionado", "Informacion de seleccion", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

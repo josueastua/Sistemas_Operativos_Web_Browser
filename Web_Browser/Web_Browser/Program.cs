@@ -16,7 +16,9 @@ namespace Web_Browser
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Home());
+            Home home = new Home();
+            AppContext.Instance.set("Home", home);
+            Application.Run(home);
         }
     }
 }

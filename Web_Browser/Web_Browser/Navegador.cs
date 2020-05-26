@@ -17,6 +17,7 @@ namespace Web_Browser
     {
         TabPage tabpage;
         List<String> tipoArchivo = new List<string>();
+        bool nueva = false;
         public Navegador(TabPage tabpage)
         {
             InitializeComponent();
@@ -41,9 +42,9 @@ namespace Web_Browser
         }
 
 
-        private void Navegar(string address)
+        public void Navegar(string address)
         {
-            tabpage.Text = address;
+            tabpage.Text = nombreTab(address);
             if (String.IsNullOrEmpty(address))
             {
                 return;
@@ -96,6 +97,7 @@ namespace Web_Browser
             s.EscribirCache(elem);
             textBox1.Text = webBrowser1.Url.ToString();
             guardarHistorial(e.Url.ToString());
+            tabpage.Text = nombreTab(e.Url.ToString());
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -139,11 +141,20 @@ namespace Web_Browser
                 if (!(bool)AppContext.Instance.get("Descargar"))
                     MessageBox.Show("Ya hay un archivo en descarga", "Informacion de descarga", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 String url = e.Url.ToString();
-                if(AppContext.Instance.getCache(e.Url.ToString()) != null)
+                if (nueva)
                 {
-                    webBrowser1.DocumentStream = (Stream)AppContext.Instance.getCache(url);
-                    textBox1.Text = "";
-                    textBox1.Text = url;
+                    Home home = (Home)tabpage.FindForm();
+                    home.nuevaVentana(url);
+                    nueva = false;
+                }
+                else
+                {
+                    if (AppContext.Instance.getCache(e.Url.ToString()) != null)
+                    {
+                        webBrowser1.DocumentStream = (Stream)AppContext.Instance.getCache(url);
+                        textBox1.Text = "";
+                        textBox1.Text = url;
+                    }
                 }
             }
         }
@@ -177,6 +188,28 @@ namespace Web_Browser
         private void browser_FileDownload(bool ActivateDocument, ref bool Cancel)
         {
             Cancel = true;
+        }
+
+        private void webBrowser1_NewWindow(object sender, CancelEventArgs e)
+        {
+            e.Cancel = true;
+            nueva = true;
+        }
+
+        public String nombreTab(String url)
+        {
+            String tabname = "";
+            int contBarra = 0;
+            for(int i = 0; i < url.Length; i++)
+            {
+                if (url[i] == '/')
+                    contBarra++;
+                if (contBarra <= 2)
+                    tabname += url[i];
+                else
+                    break;
+            }
+            return tabname;
         }
     }
 }
