@@ -162,7 +162,15 @@ namespace Web_Browser
                 }else if(uso == 2)
                 {
                     String path = AppContext.Instance.getDescargas()[index];
-                    System.Diagnostics.Process.Start(path);
+                    try
+                    {
+                        System.Diagnostics.Process.Start(path);
+                    }
+                    catch(Exception ex)
+                    {
+                        MessageBox.Show("El archivo ya no existe o fue movido", "Informacion de seleccion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    
                 }
             }
             else
