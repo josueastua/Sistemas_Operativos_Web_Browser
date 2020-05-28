@@ -35,6 +35,7 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.btnDetener = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -68,7 +69,7 @@
             this.button3.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(194, 5);
+            this.button3.Location = new System.Drawing.Point(289, 5);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(89, 37);
             this.button3.TabIndex = 2;
@@ -94,10 +95,10 @@
             this.textBox1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(289, 5);
+            this.textBox1.Location = new System.Drawing.Point(384, 5);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(820, 37);
+            this.textBox1.Size = new System.Drawing.Size(725, 37);
             this.textBox1.TabIndex = 4;
             // 
             // webBrowser1
@@ -112,12 +113,26 @@
             this.webBrowser1.Navigating += new System.Windows.Forms.WebBrowserNavigatingEventHandler(this.webBrowser1_Navigating_1);
             this.webBrowser1.NewWindow += new System.ComponentModel.CancelEventHandler(this.webBrowser1_NewWindow);
             // 
+            // btnDetener
+            // 
+            this.btnDetener.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnDetener.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDetener.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDetener.Location = new System.Drawing.Point(194, 5);
+            this.btnDetener.Name = "btnDetener";
+            this.btnDetener.Size = new System.Drawing.Size(89, 37);
+            this.btnDetener.TabIndex = 6;
+            this.btnDetener.Text = "Detener";
+            this.btnDetener.UseVisualStyleBackColor = false;
+            this.btnDetener.Click += new System.EventHandler(this.accionDetener);
+            // 
             // Navegador
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1228, 621);
+            this.Controls.Add(this.btnDetener);
             this.Controls.Add(this.webBrowser1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button4);
@@ -141,5 +156,6 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.WebBrowser webBrowser1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.Button btnDetener;
     }
 }

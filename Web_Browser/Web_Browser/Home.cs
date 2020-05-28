@@ -87,7 +87,7 @@ namespace Web_Browser
 
         private void button2_Click(object sender, EventArgs e)
         {
-            TabPage myTabPage = new TabPage("Hstorial");
+            TabPage myTabPage = new TabPage("Historial");
             tc_pestanas.TabPages.Add(myTabPage);
             Form1 ventInformacion = new Form1(1);
             ventInformacion.TopLevel = false;

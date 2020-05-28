@@ -17,7 +17,9 @@ namespace Web_Browser
     {
         TabPage tabpage;
         List<String> tipoArchivo = new List<string>();
+        List<String> hist = new List<string>();
         bool nueva = false;
+        int actual = -1;
         public Navegador(TabPage tabpage)
         {
             InitializeComponent();
@@ -73,8 +75,11 @@ namespace Web_Browser
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (webBrowser1.CanGoBack)
-                webBrowser1.GoBack();
+            if(actual > 0)
+            {
+                actual--;
+                Navegar(hist[actual]);
+            }
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -84,8 +89,11 @@ namespace Web_Browser
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if (webBrowser1.CanGoForward)
-                webBrowser1.GoForward();
+            if(actual < hist.Count - 1)
+            {
+                actual++;
+                Navegar(hist[actual]);
+            }
         }
 
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
@@ -98,6 +106,8 @@ namespace Web_Browser
             textBox1.Text = webBrowser1.Url.ToString();
             guardarHistorial(e.Url.ToString());
             tabpage.Text = nombreTab(e.Url.ToString());
+            actual++;
+            hist.Add(e.Url.ToString());
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -217,6 +227,11 @@ namespace Web_Browser
                     break;
             }
             return tabname;
+        }
+
+        private void accionDetener(object sender, EventArgs e)
+        {
+            webBrowser1.Stop();
         }
     }
 }
