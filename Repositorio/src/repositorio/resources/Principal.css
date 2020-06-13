@@ -1,0 +1,60 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 13/06/2020, 01:08:40 AM
+    Author     : IVAN
+*/
+
+#bpRoot{
+    -fx-background-color: #d3d3d3;
+}
+
+#lblTitulo .image-view{
+    -fx-image: url('../resources/icon.png');
+}
+
+#lblTitulo{
+    -fx-font: bold 35px "Bauhaus 93";
+    -fx-alignment: CENTER;
+    -fx-text-fill: #003366;
+}
+
+#lblTitulo .text{
+    -fx-stroke: white;
+    -fx-stroke-width: 2;
+}
+
+#lblUser{
+    -fx-alignment: CENTER;
+    -fx-content-display: TOP;
+    -fx-font: bold 25px "Bauhaus 93";
+    -fx-text-fill: #464646;
+}
+
+#lblUser .image-view{
+    -fx-image: url('../resources/user.png');
+}
+
+#hbEcabezado{
+    -fx-background-color: #003366;
+}
+
+.button{
+    -fx-font: bold 18px "Bauhaus 93";
+    -fx-text-fill: white;
+}
+
+#btnPapelera, #btnCambiar, #btnVersiones{
+    -fx-background-color: #003366;
+}
+
+#btnCerrar{
+    -fx-background-color: #660000;
+}
+
+#hamMenu StackPane{
+    -fx-background-color: white;
+}

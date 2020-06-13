@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXHamburger?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="bpRoot" prefHeight="700.0" prefWidth="1100.0" stylesheets="@../resources/Principal.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="repositorio.controller.PrincipalController">
+   <left>
+      <VBox fx:id="vbContMenu" prefHeight="630.0" prefWidth="216.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox fx:id="vbMenu" prefHeight="703.0" prefWidth="100.0">
+               <children>
+                  <Label fx:id="lblUser" prefHeight="158.0" prefWidth="206.0" text="UserName">
+                     <VBox.margin>
+                        <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+                     </VBox.margin>
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" smooth="false" />
+                     </graphic>
+                  </Label>
+                  <JFXButton fx:id="btnCambiar" onAction="#accionCambiar" prefHeight="50.0" prefWidth="206.0" text="Cambiar Usuario">
+                     <VBox.margin>
+                        <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+                     </VBox.margin>
+                  </JFXButton>
+                  <JFXButton fx:id="btnVersiones" onAction="#accionVersiones" prefHeight="50.0" prefWidth="206.0" text="Control de Versiones">
+                     <VBox.margin>
+                        <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+                     </VBox.margin>
+                  </JFXButton>
+                  <JFXButton fx:id="btnPapelera" onAction="#accionPapelera" prefHeight="50.0" prefWidth="206.0" text="Papelera">
+                     <VBox.margin>
+                        <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+                     </VBox.margin>
+                  </JFXButton>
+                  <JFXButton fx:id="btnCerrar" onAction="#accionCerrar" prefHeight="50.0" prefWidth="206.0" text="Cerrar Aplicacion">
+                     <VBox.margin>
+                        <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+                     </VBox.margin>
+                  </JFXButton>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </left>
+   <top>
+      <HBox fx:id="hbEcabezado" prefHeight="70.0" prefWidth="1100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="lblTitulo" prefHeight="69.0" prefWidth="1003.0" text="REPOSITORIO OS">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
+               </HBox.margin>
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" smooth="false" />
+               </graphic>
+            </Label>
+            <JFXHamburger fx:id="hamMenu" onMouseClicked="#accionHambueger">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
+               </HBox.margin>
+            </JFXHamburger>
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <VBox fx:id="vbContenedor" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>

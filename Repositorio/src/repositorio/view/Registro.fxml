@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="478.0" prefWidth="470.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="repositorio.controller.RegistroController">
+   <children>
+      <JFXButton fx:id="btn_aceptar" alignment="BOTTOM_CENTER" contentDisplay="RIGHT" graphicTextGap="80.0" layoutX="14.0" layoutY="403.0" onAction="#accionAceptar" prefHeight="43.0" prefWidth="199.0" text="ACEPTAR">
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="btn_Cancelar" contentDisplay="RIGHT" graphicTextGap="70.0" layoutX="243.0" layoutY="403.0" onAction="#accionCancelar" prefHeight="43.0" prefWidth="199.0" text="CANCELAR">
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+         </graphic>
+      </JFXButton>
+      <JFXTextField fx:id="tf_Nombre" alignment="CENTER" layoutX="86.0" layoutY="134.0" prefHeight="40.0" prefWidth="356.0" promptText="Nombre de Usuario" />
+      <JFXTextField fx:id="tf_Apellido" alignment="CENTER" layoutX="86.0" layoutY="219.0" prefHeight="40.0" prefWidth="356.0" promptText="Contraseña" />
+      <JFXTextField fx:id="tf_Cedula" alignment="CENTER" layoutX="86.0" layoutY="304.0" prefHeight="40.0" prefWidth="356.0" promptText="Confirmar Contraseña" />
+      <Label fx:id="lbl_Titulo" layoutX="10.0" prefHeight="65.0" prefWidth="443.0" text="ZONA DE REGISTRO" />
+      <ImageView fx:id="imv_usu" fitHeight="57.0" fitWidth="58.0" layoutX="14.0" layoutY="126.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imv_pass2" fitHeight="57.0" fitWidth="58.0" layoutX="14.0" layoutY="296.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imv_pass" fitHeight="57.0" fitWidth="58.0" layoutX="14.0" layoutY="211.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+   <stylesheets>
+      <URL value="@../../../../../Documentos%20de%20Ivan/Universidad/2019%20-%202%20Ciclo/Progra%20III/ProyectoFinal/Cliente/proyecto/src/proyecto/view/Registro.css" />
+      <URL value="@../resources/Login.css" />
+   </stylesheets>
+</AnchorPane>

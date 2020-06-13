@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="425.0" prefWidth="626.0" stylesheets="@../resources/Login.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="repositorio.controller.LoginController">
+   <children>
+      <Label fx:id="LBL_TITULO" layoutX="22.0" layoutY="14.0" prefHeight="66.0" prefWidth="556.0" text="INICIAR SESION">
+         <font>
+            <Font name="Eras Medium ITC" size="15.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="tF_usuario001" layoutX="124.0" layoutY="122.0" prefHeight="42.0" prefWidth="442.0" promptText="NOMBRE DE USUARIO" />
+      <JFXTextField fx:id="tF_password001" layoutX="124.0" layoutY="211.0" prefHeight="42.0" prefWidth="442.0" promptText="CONTRASEÑA" />
+      <JFXButton fx:id="btn_Registrarse" layoutX="44.0" layoutY="315.0" onAction="#accionRegistrarse" prefHeight="52.0" prefWidth="239.0" text="REGISTRARSE">
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="btn_Acceder" layoutX="339.0" layoutY="315.0" onAction="#accion_Acceder" prefHeight="52.0" prefWidth="239.0" text="ACCEDER">
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+         </graphic>
+      </JFXButton>
+      <ImageView fx:id="iv_usu" fitHeight="66.0" fitWidth="71.0" layoutX="44.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="iv_con" fitHeight="66.0" fitWidth="71.0" layoutX="44.0" layoutY="192.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</AnchorPane>

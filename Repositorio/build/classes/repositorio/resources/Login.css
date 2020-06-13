@@ -1,0 +1,59 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 13/09/2019, 04:18:53 PM
+    Author     : IVAN
+*/
+
+.root{
+    -fx-background-color: #D3D3D3;
+}
+
+#iv_usu, #imv_usu{
+    -fx-image: url('../resources/user.png');
+}
+
+#iv_con, #imv_pass, #imv_pass2{
+    -fx-image: url('../resources/password.png');
+}
+
+.label{
+    -fx-font: bold 35px "Arial";
+    -fx-alignment: CENTER;
+    -fx-text-fill: #003366;
+}
+
+.jfx-button{
+    -fx-background-color: #003366;
+    -fx-text-fill: white;
+    -fx-font: bold 15px "Courier";
+    -jfx-button-type: FLAT;
+    -fx-background-radius: 10;
+}
+
+.jfx-text-field{
+    -fx-opacity: 0.9;
+    -jfx-focus-color: #003366;
+    -jfx-unfocus-color: #464646;
+    -fx-prompt-text-fill: #464646;
+    -fx-font: bold 15px "Courier";
+    -jfx-label-float: true;
+    -fx-text-fill: #464646;
+    -fx-border-width: 5;
+    -jfx-underline-width: 5;
+}
+
+#btn_Acceder, #btn_aceptar{
+    -fx-background-color: #0f6119;
+}
+
+#btn_Acceder .image-view{
+    -fx-image: url('../resources/acceder.png');
+}
+
+#btn_Registrarse .image-view{
+    -fx-image: url('../resources/login.png');
+}
