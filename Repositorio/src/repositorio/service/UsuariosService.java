@@ -35,7 +35,6 @@ public class UsuariosService {
             query.setParameter("usuPassword", pass);
             return new Respuesta(Boolean.TRUE, "", "", "Usuario", new UsuariosDto((Usuarios)query.getSingleResult()));
         }catch(NoResultException ex){
-            Logger.getLogger(UsuariosService.class.getName()).log(Level.SEVERE, "No existe un usuario con esas credenciales.", ex);
             return new Respuesta(false, "No existe un usuario con esas credenciales.", "userLogin NoResultException");
         }catch(NonUniqueResultException ex){
             Logger.getLogger(UsuariosService.class.getName()).log(Level.SEVERE, "Existe mas de un usuario con esas credenciales.", ex);

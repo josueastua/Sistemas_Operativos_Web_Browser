@@ -21,6 +21,13 @@ public class UsuariosDto {
     private List<PermisosDto> permisosOtorgados;
     
     public UsuariosDto(){}
+
+    public UsuariosDto(String usuNombre, String usuPassword, String usuDir) {
+        this.usuId = 0;
+        this.usuNombre = usuNombre;
+        this.usuPassword = usuPassword;
+        this.usuDir = usuDir;
+    }
     
     public UsuariosDto(Usuarios usu){
         this.usuId = usu.getUsuId();

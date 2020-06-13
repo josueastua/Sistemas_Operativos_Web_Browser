@@ -6,9 +6,6 @@
 package repositorio;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import repositorio.util.FlowController;
 
@@ -20,7 +17,7 @@ public class Repositorio extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        FlowController.getInstance().goViewInNoResizableWindow("Principal", Boolean.TRUE);
+        FlowController.getInstance().goViewInNoResizableWindow("Login", Boolean.TRUE);
     }
 
     /**
