@@ -7,6 +7,7 @@ package repositorio.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -15,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javax.swing.filechooser.FileSystemView;
 import repositorio.service.UsuariosService;
 import repositorio.util.FlowController;
 import repositorio.util.Mensaje;
@@ -44,6 +46,9 @@ public class LoginController extends Controller implements Initializable {
 
     @Override
     public void initialize() {
+        File file = new File("C:\\raiz");
+        if(!file.exists())
+            file.mkdir();
     }
 
     @FXML

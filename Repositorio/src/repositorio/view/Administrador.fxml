@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<BorderPane fx:id="bpAdmRoot" prefHeight="730.0" prefWidth="980.0" stylesheets="@../resources/Administrador.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="repositorio.controller.AdministradorController">
+   <top>
+      <HBox alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <JFXButton fx:id="btnBorrar" onAction="#accionBorrar" prefHeight="50.0" prefWidth="200.0" text="Borrar">
+               <HBox.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </HBox.margin>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btnNuevo" layoutX="10.0" layoutY="10.0" onAction="#accionNuevo" prefHeight="50.0" prefWidth="200.0" text="Nuevo">
+               <HBox.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </HBox.margin>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btnEditar" layoutX="62.0" layoutY="10.0" onAction="#accionEditar" prefHeight="50.0" prefWidth="200.0" text="Editar">
+               <HBox.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </HBox.margin>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btnAbrir" layoutX="114.0" layoutY="10.0" prefHeight="50.0" prefWidth="200.0" text="Abrir">
+               <HBox.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </HBox.margin>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+            </JFXButton>
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <ScrollPane fx:id="spContenedor" prefHeight="570.0" prefWidth="980.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+              </content>
+            </ScrollPane>
+         </children>
+      </VBox>
+   </center>
+   <bottom>
+      <HBox alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <JFXButton fx:id="btnUpdate" onAction="#accionUpdate" prefHeight="50.0" prefWidth="200.0" text="Update">
+               <HBox.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </HBox.margin>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btnCommit" onAction="#accionCommit" prefHeight="50.0" prefWidth="200.0" text="Commit">
+               <HBox.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </HBox.margin>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+            </JFXButton>
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>

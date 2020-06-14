@@ -19,9 +19,9 @@
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
          </graphic>
       </JFXButton>
-      <JFXTextField fx:id="txtUnserName" alignment="CENTER" layoutX="86.0" layoutY="134.0" prefHeight="40.0" prefWidth="356.0" promptText="Nombre de Usuario" />
-      <JFXTextField fx:id="txtPass" alignment="CENTER" layoutX="86.0" layoutY="219.0" prefHeight="40.0" prefWidth="356.0" promptText="Contraseña" />
-      <JFXTextField fx:id="txtPass2" alignment="CENTER" layoutX="86.0" layoutY="304.0" prefHeight="40.0" prefWidth="356.0" promptText="Confirmar Contraseña" />
+      <JFXTextField fx:id="txtUnserName" layoutX="86.0" layoutY="134.0" prefHeight="40.0" prefWidth="356.0" promptText="Nombre de Usuario" />
+      <JFXTextField fx:id="txtPass" layoutX="86.0" layoutY="219.0" prefHeight="40.0" prefWidth="356.0" promptText="Contraseña" />
+      <JFXTextField fx:id="txtPass2" layoutX="86.0" layoutY="304.0" prefHeight="40.0" prefWidth="356.0" promptText="Confirmar Contraseña" />
       <Label fx:id="lbl_Titulo" layoutX="10.0" prefHeight="65.0" prefWidth="443.0" text="ZONA DE REGISTRO" />
       <ImageView fx:id="imv_usu" fitHeight="57.0" fitWidth="58.0" layoutX="14.0" layoutY="126.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="imv_pass2" fitHeight="57.0" fitWidth="58.0" layoutX="14.0" layoutY="296.0" pickOnBounds="true" preserveRatio="true" />

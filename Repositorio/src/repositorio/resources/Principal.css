@@ -30,7 +30,7 @@ and open the template in the editor.
 #lblUser{
     -fx-alignment: CENTER;
     -fx-content-display: TOP;
-    -fx-font: bold 25px "Bauhaus 93";
+    -fx-font: bold 25px "Courier";
     -fx-text-fill: #464646;
 }
 
@@ -43,11 +43,11 @@ and open the template in the editor.
 }
 
 .button{
-    -fx-font: bold 18px "Bauhaus 93";
+    -fx-font: bold 18px "Courier";
     -fx-text-fill: white;
 }
 
-#btnPapelera, #btnCambiar, #btnVersiones{
+#btnPapelera, #btnCambiar, #btnVersiones, #btnPermisos{
     -fx-background-color: #003366;
 }
 

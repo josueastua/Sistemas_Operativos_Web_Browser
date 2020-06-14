@@ -2,15 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/Proyectos/Repositorio/src/repositorio/resources/Principal.css</file>
-            <file>file:/D:/Proyectos/Repositorio/src/repositorio/view/Principal.fxml</file>
-            <file>file:/D:/Proyectos/Repositorio/src/repositorio/service/PermisosServices.java</file>
-            <file>file:/D:/Proyectos/Repositorio/src/repositorio/controller/PrincipalController.java</file>
-            <file>file:/D:/Proyectos/Repositorio/src/repositorio/resources/Login.css</file>
-            <file>file:/D:/Proyectos/Repositorio/src/repositorio/service/PapeleraService.java</file>
-            <file>file:/D:/Proyectos/Repositorio/src/repositorio/service/VersionesService.java</file>
-            <file>file:/D:/Proyectos/Repositorio/src/repositorio/service/UsuariosService.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

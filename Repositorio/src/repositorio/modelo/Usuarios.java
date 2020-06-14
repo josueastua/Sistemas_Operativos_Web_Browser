@@ -9,10 +9,11 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.QueryHint;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -29,12 +30,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Usuarios.findByUsuNombre", query = "SELECT u FROM Usuarios u WHERE u.usuNombre = :usuNombre")
     , @NamedQuery(name = "Usuarios.findByUsuPassword", query = "SELECT u FROM Usuarios u WHERE u.usuPassword = :usuPassword")
     , @NamedQuery(name = "Usuarios.findByUsuDir", query = "SELECT u FROM Usuarios u WHERE u.usuDir = :usuDir")
-    , @NamedQuery(name = "Usuarios.userLogin", query = "SELECT u FROM Usuarios u WHERE u.usuNombre = :usuNombre and u.usuPassword = :usuPassword", hints = @QueryHint(name = "eclipselink.refresh", value = "true"))
+    , @NamedQuery(name = "Usuarios.userLogin", query = "SELECT u FROM Usuarios u WHERE u.usuNombre = :usuNombre and u.usuPassword = :usuPassword")
 })
 public class Usuarios implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "UsuId")
     private Integer usuId;
@@ -72,7 +74,7 @@ public class Usuarios implements Serializable {
         this.usuPassword = usu.getUsuPassword();
         this.usuDir = usu.getUsuDir();
     }
-
+    
     public Integer getUsuId() {
         return usuId;
     }

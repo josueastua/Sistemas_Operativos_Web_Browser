@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -50,13 +51,14 @@ public class PrincipalController extends Controller implements Initializable {
     private JFXButton btnCerrar;
     @FXML
     private VBox vbContenedor;
+    @FXML
+    private Button btnPermisos;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
     }    
 
     @FXML
@@ -88,6 +90,10 @@ public class PrincipalController extends Controller implements Initializable {
     @FXML
     private void accionHambueger(MouseEvent event) {
         
+    }
+
+    @FXML
+    private void accionPermisos(ActionEvent event) {
     }
     
 }

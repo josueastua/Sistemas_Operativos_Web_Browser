@@ -59,9 +59,9 @@ and open the template in the editor.
 }
 
 #btn_aceptar .image-view{
-    -fx-image: url('../resources/aceptar.png');
+    -fx-image: url('../resources/guardar.png');
 }
 
 #btn_Cancelar .image-view{
-    -fx-image: url('../resources/cancelar.png');
+    -fx-image: url('../resources/back.png');
 }

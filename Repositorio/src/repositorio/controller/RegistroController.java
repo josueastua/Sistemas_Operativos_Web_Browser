@@ -18,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import repositorio.modelo.UsuariosDto;
 import repositorio.service.UsuariosService;
+import repositorio.util.FlowController;
 import repositorio.util.Mensaje;
 import repositorio.util.Respuesta;
 
@@ -74,10 +75,17 @@ public class RegistroController extends Controller implements Initializable {
     @FXML
     private void accionAceptar(ActionEvent event) {
         if(validarRequeridos()){
+            File carpeta = new File("C:\\raiz\\"+txtUnserName.getText()), temp = new File("C:\\raiz\\"+txtUnserName.getText()+"\\"+"Temporal"), versions = new File("C:\\raiz\\"+txtUnserName.getText()+"\\"+"Versiones");
             UsuariosDto user = new UsuariosDto(txtUnserName.getText(), txtPass.getText(), "C:\\raiz\\"+txtUnserName.getText());
             Respuesta res = service.guardarUsuario(user);
             if(res.getEstado()){
                 men.show(Alert.AlertType.INFORMATION, "Registrarse", "Se registro con exito");
+                if(!carpeta.exists())
+                    carpeta.mkdir();
+                if(!temp.exists())
+                    temp.mkdir();
+                if(!versions.exists())
+                    versions.mkdir();
             }else{
                 men.show(Alert.AlertType.ERROR, "Registrarse", res.getMensaje());
             }
@@ -88,6 +96,8 @@ public class RegistroController extends Controller implements Initializable {
 
     @FXML
     private void accionCancelar(ActionEvent event) {
+        FlowController.getInstance().goViewInNoResizableWindow("Login", Boolean.TRUE);
+        this.getStage().close();
     }
     
 }
