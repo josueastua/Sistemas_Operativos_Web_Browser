@@ -1,0 +1,69 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 14/06/2020, 11:27:09 AM
+    Author     : IVAN
+*/
+
+#vbContenedor{
+    -fx-background-color: #003366;
+    -fx-opacity: 0.9;
+    -fx-background-radius: 15;
+}
+
+#lblNombre{
+    -fx-font: normal 11px "Courier";
+    -fx-text-fill: #003366;
+    -fx-alignment: CENTER;
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+}
+
+#bpAdmRoot{
+    -fx-background-color: #d3d3d3;
+}
+
+.button{
+    -fx-font: bold 22px "Courier";
+    -fx-text-fill: white;
+    -fx-opacity: 0.9;
+}
+
+#btnEditar, #btnAbrir, #btnUpdate, #btnCommit{
+    -fx-background-color: #003366;
+}
+
+#btnBorrar{
+    -fx-background-color: #660000;
+}
+
+#btnNuevo{
+    -fx-background-color: #0f6119;
+}
+
+#btnEditar .image-view{
+    -fx-image: url('../resources/editar.png')
+}
+
+#btnAbrir .image-view{
+    -fx-image: url('../resources/abrir.png')
+}
+
+#btnNuevo .image-view{
+    -fx-image: url('../resources/add-page.png')
+}
+
+#btnBorrar .image-view{
+    -fx-image: url('../resources/delete.png')
+}
+
+#btnUpdate .image-view{
+    -fx-image: url('../resources/8912.png')
+}
+
+#btnCommit .image-view{
+    -fx-image: url('../resources/guardar.png')
+}

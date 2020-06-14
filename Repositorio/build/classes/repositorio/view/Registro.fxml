@@ -9,12 +9,12 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="478.0" prefWidth="470.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="repositorio.controller.RegistroController">
    <children>
-      <JFXButton fx:id="btn_aceptar" alignment="BOTTOM_CENTER" contentDisplay="RIGHT" graphicTextGap="80.0" layoutX="14.0" layoutY="403.0" onAction="#accionAceptar" prefHeight="43.0" prefWidth="199.0" text="ACEPTAR">
+      <JFXButton fx:id="btn_aceptar" alignment="BOTTOM_CENTER" contentDisplay="RIGHT" graphicTextGap="80.0" layoutX="14.0" layoutY="403.0" onAction="#accionAceptar" prefHeight="43.0" prefWidth="199.0" text="Guardar">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="btn_Cancelar" contentDisplay="RIGHT" graphicTextGap="70.0" layoutX="243.0" layoutY="403.0" onAction="#accionCancelar" prefHeight="43.0" prefWidth="199.0" text="CANCELAR">
+      <JFXButton fx:id="btn_Cancelar" contentDisplay="RIGHT" graphicTextGap="70.0" layoutX="243.0" layoutY="403.0" onAction="#accionCancelar" prefHeight="43.0" prefWidth="199.0" text="Atras">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
          </graphic>

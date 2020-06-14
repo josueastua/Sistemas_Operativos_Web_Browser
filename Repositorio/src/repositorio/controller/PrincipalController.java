@@ -19,6 +19,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import repositorio.util.FlowController;
 
 /**
  * FXML Controller class
@@ -85,6 +86,7 @@ public class PrincipalController extends Controller implements Initializable {
                 transition.setRate(transition.getRate()*-1);
                 transition.play();
         });
+        FlowController.getInstance().goViewPanel(vbContenedor, "Administrador");
     }
 
     @FXML

@@ -30,7 +30,7 @@ public class ArchivoController extends Controller implements Initializable {
     private String nombreArch;
     private Image img;
 
-    public ArchivoController(File file, String nombreArch, Image img) {
+    public void cargarDatos(File file, String nombreArch, Image img) {
         this.file = file;
         this.nombreArch = nombreArch;
         this.img = img;
