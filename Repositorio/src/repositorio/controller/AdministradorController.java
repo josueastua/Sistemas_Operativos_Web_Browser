@@ -7,6 +7,7 @@ package repositorio.controller;
 
 
 import com.jfoenix.controls.JFXButton;
+import java.awt.Desktop;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
@@ -256,7 +257,7 @@ public class AdministradorController extends Controller implements Initializable
                         return per.getPerBorrar() == 1;
                     case 3://Editar y cargar
                         return per.getPerEditar() == 1;
-                    case 4://ectura
+                    case 4://lectura
                         return per.getPerLeer() == 1;
                     default:
                         return false;
@@ -278,6 +279,28 @@ public class AdministradorController extends Controller implements Initializable
 
     @FXML
     private void accionAbrir(ActionEvent event) {
+        if(lvArchivos.getSelectionModel().getSelectedItem() != null){
+            CasillaController aux = controladores.get(lvArchivos.getItems().indexOf(lvArchivos.getSelectionModel().getSelectedItem()));
+            if(propiaCarpeta){
+                File file = aux.getFile();
+                try{
+                    Desktop.getDesktop().open(file); 
+                }catch(IOException ex){
+                    men.show(Alert.AlertType.INFORMATION, "Abrir Archivo", "No se pudo abrir el archivo");
+                }
+            }else{
+                if(verificarAccion(4)){
+                    File file = aux.getFile();
+                    try{
+                        Desktop.getDesktop().open(file); 
+                    }catch(IOException ex){
+                        men.show(Alert.AlertType.INFORMATION, "Abrir Archivo", "No se pudo abrir el archivo");
+                    }
+                }else{
+                    men.show(Alert.AlertType.INFORMATION, "Abrir Archivo", "No posee los permisos");
+                }
+            }
+        }
     }
     
 }
