@@ -31,7 +31,7 @@ public class VersionesService {
         try{
             Query query = em.createNamedQuery("Versiones.findByVerIdUsuario", Versiones.class);
             query.setParameter("perUsuario", usuid);
-            return new Respuesta(true, "", "", "Versio es", convertirLista((List<Versiones>)query.getResultList()));
+            return new Respuesta(true, "", "", "Versiones", convertirLista((List<Versiones>)query.getResultList()));
         }catch(NoResultException ex){
             return new Respuesta(false, "No se encontraron coincidencias", "getVersionesByUsuario NoResultException");
         }catch(Exception ex){

@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import java.io.File;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,7 +17,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import repositorio.modelo.PapeleraDto;
+import repositorio.modelo.PermisosDto;
+import repositorio.modelo.UsuariosDto;
+import repositorio.modelo.VersionesDto;
+import repositorio.service.PapeleraService;
+import repositorio.service.PermisosServices;
 import repositorio.service.UsuariosService;
+import repositorio.service.VersionesService;
 import repositorio.util.AppContext;
 import repositorio.util.FlowController;
 import repositorio.util.Mensaje;
@@ -69,6 +77,22 @@ public class LoginController extends Controller implements Initializable {
                 men.show(Alert.AlertType.WARNING, "Iniciar Sesion", res.getMensaje());
             }
         }
+    }
+    
+    private void listaUsuario(UsuariosDto user){
+        PermisosServices perservice = new PermisosServices();
+        PapeleraService papservice = new PapeleraService();
+        VersionesService verservice = new VersionesService();
+        Respuesta res;
+        res = perservice.getPermisosByUsuario(user.getUsuNombre());
+        if(res.getEstado())
+            user.setPermisosOtorgados((List<PermisosDto>) res.getResultado("Permisos"));
+        res = papservice.getPapeleraByIdUsuario(user.getUsuId());
+        if(res.getEstado())
+            user.setPapelera((List<PapeleraDto>) res.getResultado("Papelera"));
+        res = verservice.getVersionesByUsuario(user.getUsuId());
+        if(res.getEstado())
+            user.setVersiones((List<VersionesDto>) res.getResultado("Versiones"));
     }
     
 }

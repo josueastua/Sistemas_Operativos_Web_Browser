@@ -5,6 +5,8 @@
  */
 package repositorio.modelo;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -16,9 +18,10 @@ public class UsuariosDto {
     private String usuNombre;
     private String usuPassword;
     private String usuDir;
-    private List<VersionesDto> versiones;
+    private HashMap<String, List<VersionesDto>> versiones = new HashMap();
     private List<PermisosDto> permisosDados;
     private List<PermisosDto> permisosOtorgados;
+    private List<PapeleraDto> papelera;
     
     public UsuariosDto(){}
 
@@ -69,12 +72,22 @@ public class UsuariosDto {
         this.usuDir = usuDir;
     }
 
-    public List<VersionesDto> getVersiones() {
+    public HashMap<String, List<VersionesDto>> getVersiones() {
         return versiones;
     }
 
     public void setVersiones(List<VersionesDto> versiones) {
-        this.versiones = versiones;
+        List<VersionesDto> aux;
+        for(VersionesDto version: versiones){
+            aux = new ArrayList();
+            for(VersionesDto version2: versiones){
+                if(version.getVerIdentificador().equals(version2.getVerIdentificador())){
+                    aux.add(version2);
+                }
+            }
+            if(this.versiones.get(version.getVerIdentificador()) == null)
+                this.versiones.put(version.getVerIdentificador(), aux);
+        }
     }
 
     public List<PermisosDto> getPermisosDados() {
@@ -91,6 +104,14 @@ public class UsuariosDto {
 
     public void setPermisosOtorgados(List<PermisosDto> permisosOtorgados) {
         this.permisosOtorgados = permisosOtorgados;
+    }
+
+    public List<PapeleraDto> getPapelera() {
+        return papelera;
+    }
+
+    public void setPapelera(List<PapeleraDto> papelera) {
+        this.papelera = papelera;
     }
     
     

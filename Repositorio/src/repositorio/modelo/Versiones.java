@@ -32,6 +32,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Versiones.findByVerIdUsuario", query = "SELECT v FROM Versiones v WHERE v.verIdUsuario = :verIdUsuario")})
 public class Versiones implements Serializable {
 
+    
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,6 +49,9 @@ public class Versiones implements Serializable {
     @Basic(optional = false)
     @Column(name = "verIdUsuario")
     private int verIdUsuario;
+    @Basic(optional = false)
+    @Column(name = "verIdentificador")
+    private String verIdentificador;
 
     public Versiones() {
     }
@@ -71,6 +76,7 @@ public class Versiones implements Serializable {
         this.verArchivo = ver.getVerArchivo();
         this.verCarpeta = ver.getVerCarpeta();
         this.verIdUsuario = ver.getVerIdUsuario();
+        this.verIdentificador = ver.getVerIdentificador();
     }
     
     public Integer getVerId() {
@@ -128,6 +134,14 @@ public class Versiones implements Serializable {
     @Override
     public String toString() {
         return "repositorio.modelo.Versiones[ verId=" + verId + " ]";
+    }
+
+    public String getVerIdentificador() {
+        return verIdentificador;
+    }
+
+    public void setVerIdentificador(String verIdentificador) {
+        this.verIdentificador = verIdentificador;
     }
     
 }
