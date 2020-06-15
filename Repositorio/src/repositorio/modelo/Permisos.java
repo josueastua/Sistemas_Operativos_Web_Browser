@@ -34,6 +34,8 @@ public class Permisos implements Serializable {
 
     
 
+    
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,15 +43,24 @@ public class Permisos implements Serializable {
     @Column(name = "perId")
     private Integer perId;
     @Basic(optional = false)
-    @Column(name = "perTipo")
-    private int perTipo;
-    @Basic(optional = false)
     @Column(name = "perUsuario")
     private int perUsuario;
     @Basic(optional = false)
     @Column(name = "perDueno")
     private String perDueno;
-
+    @Basic(optional = false)
+    @Column(name = "perLeer")
+    private int perLeer;
+    @Basic(optional = false)
+    @Column(name = "perEditar")
+    private int perEditar;
+    @Basic(optional = false)
+    @Column(name = "perBorrar")
+    private int perBorrar;
+    @Basic(optional = false)
+    @Column(name = "perCrear")
+    private int perCrear;
+    
     public Permisos() {
     }
 
@@ -57,12 +68,17 @@ public class Permisos implements Serializable {
         this.perId = perId;
     }
 
-    public Permisos(Integer perId, int perTipo, int perUsuario, String perDueno) {
+    public Permisos(Integer perId, int perUsuario, String perDueno, int perLeer, int perEditar, int perBorrar, int perCrear) {
         this.perId = perId;
-        this.perTipo = perTipo;
         this.perUsuario = perUsuario;
         this.perDueno = perDueno;
+        this.perLeer = perLeer;
+        this.perEditar = perEditar;
+        this.perBorrar = perBorrar;
+        this.perCrear = perCrear;
     }
+
+    
     
     public Permisos(PermisosDto per){
         this.perId = per.getPerId();
@@ -70,9 +86,13 @@ public class Permisos implements Serializable {
     }
     
     public void Actualizar(PermisosDto per){
-        this.perTipo = per.getPerTipo();
         this.perUsuario = per.getPerUsuario();
         this.perDueno = per.getPerDueno();
+        this.perLeer = per.getPerLeer();
+        this.perEditar = per.getPerEditar();
+        this.perBorrar = per.getPerBorrar();
+        this.perCrear = per.getPerCrear();
+        
     }
     
     public Integer getPerId() {
@@ -81,14 +101,6 @@ public class Permisos implements Serializable {
 
     public void setPerId(Integer perId) {
         this.perId = perId;
-    }
-
-    public int getPerTipo() {
-        return perTipo;
-    }
-
-    public void setPerTipo(int perTipo) {
-        this.perTipo = perTipo;
     }
 
     public int getPerUsuario() {
@@ -131,6 +143,38 @@ public class Permisos implements Serializable {
 
     public void setPerDueno(String perDueno) {
         this.perDueno = perDueno;
+    }
+
+    public int getPerLeer() {
+        return perLeer;
+    }
+
+    public void setPerLeer(int perLeer) {
+        this.perLeer = perLeer;
+    }
+
+    public int getPerEditar() {
+        return perEditar;
+    }
+
+    public void setPerEditar(int perEditar) {
+        this.perEditar = perEditar;
+    }
+
+    public int getPerBorrar() {
+        return perBorrar;
+    }
+
+    public void setPerBorrar(int perBorrar) {
+        this.perBorrar = perBorrar;
+    }
+
+    public int getPerCrear() {
+        return perCrear;
+    }
+
+    public void setPerCrear(int perCrear) {
+        this.perCrear = perCrear;
     }
     
 }

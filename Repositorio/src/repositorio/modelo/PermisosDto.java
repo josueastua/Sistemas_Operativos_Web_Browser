@@ -14,12 +14,19 @@ public class PermisosDto {
     private int perTipo;
     private int perUsuario;
     private String perDueno;
+    private int perLeer;
+    private int perEditar;
+    private int perBorrar;
+    private int perCrear;
     
     public PermisosDto(Permisos per){
         this.perId = per.getPerId();
-        this.perTipo = per.getPerTipo();
         this.perUsuario = per.getPerUsuario();
         this.perDueno = per.getPerDueno();
+        this.perLeer = per.getPerLeer();
+        this.perEditar = per.getPerEditar();
+        this.perBorrar = per.getPerBorrar();
+        this.perCrear = per.getPerCrear();
     }
 
     public Integer getPerId() {
@@ -53,6 +60,36 @@ public class PermisosDto {
     public void setPerDueno(String perDueno) {
         this.perDueno = perDueno;
     }
-    
-    
+
+    public int getPerLeer() {
+        return perLeer;
+    }
+
+    public void setPerLeer(int perLeer) {
+        this.perLeer = perLeer;
+    }
+
+    public int getPerEditar() {
+        return perEditar;
+    }
+
+    public void setPerEditar(int perEditar) {
+        this.perEditar = perEditar;
+    }
+
+    public int getPerBorrar() {
+        return perBorrar;
+    }
+
+    public void setPerBorrar(int perBorrar) {
+        this.perBorrar = perBorrar;
+    }
+
+    public int getPerCrear() {
+        return perCrear;
+    }
+
+    public void setPerCrear(int perCrear) {
+        this.perCrear = perCrear;
+    }
 }
