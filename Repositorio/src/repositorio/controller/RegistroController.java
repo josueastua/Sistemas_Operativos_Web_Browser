@@ -75,7 +75,7 @@ public class RegistroController extends Controller implements Initializable {
     @FXML
     private void accionAceptar(ActionEvent event) {
         if(validarRequeridos()){
-            File carpeta = new File("C:\\raiz\\"+txtUnserName.getText()), temp = new File("C:\\raiz\\"+txtUnserName.getText()+"\\"+"Temporal"), versions = new File("C:\\raiz\\"+txtUnserName.getText()+"\\"+"Versiones");
+            File carpeta = new File("C:\\raiz\\"+txtUnserName.getText()), temp = new File("C:\\raiz\\"+txtUnserName.getText()+"\\Temporal"), versions = new File("C:\\raiz\\"+txtUnserName.getText()+"\\Versiones"), permanente = new File("C:\\raiz\\"+txtUnserName.getText()+"\\Permanente");
             UsuariosDto user = new UsuariosDto(txtUnserName.getText(), txtPass.getText(), "C:\\raiz\\"+txtUnserName.getText());
             Respuesta res = service.guardarUsuario(user);
             if(res.getEstado()){
@@ -86,6 +86,8 @@ public class RegistroController extends Controller implements Initializable {
                     temp.mkdir();
                 if(!versions.exists())
                     versions.mkdir();
+                if(!permanente.exists())
+                    permanente.mkdir();
             }else{
                 men.show(Alert.AlertType.ERROR, "Registrarse", res.getMensaje());
             }

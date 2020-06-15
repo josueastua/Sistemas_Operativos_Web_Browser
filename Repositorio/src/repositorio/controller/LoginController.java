@@ -70,7 +70,9 @@ public class LoginController extends Controller implements Initializable {
         if(txtUsuario.getText() != null && !txtUsuario.getText().isEmpty() && txtPassword.getText() != null && !txtPassword.getText().isEmpty()){
             Respuesta res = service.userLogin(txtUsuario.getText(), txtPassword.getText());
             if(res.getEstado()){
-                AppContext.getInstance().set("User", res.getResultado("Usuario"));
+                UsuariosDto user = (UsuariosDto) res.getResultado("Usuario");
+                listaUsuario(user);
+                AppContext.getInstance().set("User", user);
                 FlowController.getInstance().goViewInResizableWindow("Principal", 0, 1100, 0, 700, Boolean.TRUE);
                 this.getStage().close();
             }else{

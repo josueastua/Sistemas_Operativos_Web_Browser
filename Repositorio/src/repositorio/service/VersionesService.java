@@ -30,7 +30,7 @@ public class VersionesService {
     public Respuesta getVersionesByUsuario(int usuid){//Los permisos que le han otorgado al usuario
         try{
             Query query = em.createNamedQuery("Versiones.findByVerIdUsuario", Versiones.class);
-            query.setParameter("perUsuario", usuid);
+            query.setParameter("verIdUsuario", usuid);
             return new Respuesta(true, "", "", "Versiones", convertirLista((List<Versiones>)query.getResultList()));
         }catch(NoResultException ex){
             return new Respuesta(false, "No se encontraron coincidencias", "getVersionesByUsuario NoResultException");

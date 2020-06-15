@@ -42,12 +42,16 @@ and open the template in the editor.
     -fx-opacity: 0.9;
 }
 
-#btnEditar, #btnAtras, #btnUpdate, #btnCommit, #btnGuardar{
+#btnEditar, #btnAtras, #btnUpdate, #btnCommit, #btnGuardar, #btnAbrir{
     -fx-background-color: #003366;
 }
 
 #btnBorrar{
     -fx-background-color: #660000;
+}
+
+#btnAbrir .image-view{
+    -fx-image: url('../resources/abrir.png')
 }
 
 #btnEditar .image-view{

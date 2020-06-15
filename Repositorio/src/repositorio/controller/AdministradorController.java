@@ -31,6 +31,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javax.swing.filechooser.FileSystemView;
 import repositorio.Repositorio;
+import repositorio.modelo.PermisosDto;
 import repositorio.modelo.Usuarios;
 import repositorio.modelo.UsuariosDto;
 import repositorio.util.AppContext;
@@ -53,16 +54,20 @@ public class AdministradorController extends Controller implements Initializable
     @FXML private ListView<CasillaController> lvArchivos;
     @FXML private JFXButton btnAtras;
     @FXML private ComboBox<String> cbNuevo;
+    @FXML private JFXButton btnGuardar;
     private HashMap<String, String> ext = new HashMap();
-    List<CasillaController> controladores = new ArrayList<>();
+    private List<CasillaController> controladores = new ArrayList<>();
     private File actual;
-    Mensaje men;
+    private Mensaje men;
+    private UsuariosDto user;
+    private Boolean propiaCarpeta;
     @FXML
-    private JFXButton btnGuardar;
+    private JFXButton btnAbrir;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         men = new Mensaje();
+        propiaCarpeta = Boolean.FALSE;
     } 
     private void cargarCarpeta(File file){
         List<Object> lista = new ArrayList<>();
@@ -137,7 +142,7 @@ public class AdministradorController extends Controller implements Initializable
 
     @Override
     public void initialize() {
-        UsuariosDto user = (UsuariosDto) AppContext.getInstance().get("User");
+        user = (UsuariosDto) AppContext.getInstance().get("User");
         cargarCarpeta(new File("C:\\raiz"));
         cbNuevo.getItems().add("Imagen .jpg");
         ext.put("Imagen .jpg", ".jpg");
@@ -180,8 +185,25 @@ public class AdministradorController extends Controller implements Initializable
     private void accionList(MouseEvent event) {
         if(lvArchivos.getSelectionModel().getSelectedItem() != null){
             CasillaController aux = controladores.get(lvArchivos.getItems().indexOf(lvArchivos.getSelectionModel().getSelectedItem()));
-            if(aux.isDirectorio())
-                cargarCarpeta(aux.getFile());
+            if(aux.isDirectorio()){
+                if(actual.getAbsolutePath().equals("C:\\raiz")){
+                    if(verificarTienePermisos(aux.getNombre())){
+                        cargarCarpeta(aux.getFile());
+                    }else{
+                        men.show(Alert.AlertType.INFORMATION, "Permisos", "No posee los permisos para entrar");
+                    }     
+                }else{
+                    if(aux.getFile().getAbsolutePath().contains("Permanente")){
+                        men.show(Alert.AlertType.WARNING, "Carpeta Permanente", "Solo puede ver el contenido de esta carpeta");
+                        cargarCarpeta(aux.getFile());
+                    }else if(aux.getFile().getAbsolutePath().contains("Versiones")){
+                        men.show(Alert.AlertType.WARNING, "Carpeta Versiones", "No se puede acceder a esta carpeta");
+                    }else if(aux.getFile().getAbsolutePath().contains("Temporal")){
+                        men.show(Alert.AlertType.WARNING, "Carpeta Temporal", "Aqui puede cargar, crear o borrar archivos\nUse el boton Update para cargar los archivo de carpeta permanente\nUse el boton commit para guradarlos");
+                        cargarCarpeta(aux.getFile());
+                    }
+                }
+            }
         }else
             men.show(Alert.AlertType.ERROR, "Seleccion", "No selecciona un archivo");
     }
@@ -193,8 +215,10 @@ public class AdministradorController extends Controller implements Initializable
             if(!file.getAbsolutePath().equals("C:\\")){
                 cargarCarpeta(file);
             }
-        }else
+        }else{
+            propiaCarpeta = Boolean.FALSE;
             men.show(Alert.AlertType.INFORMATION, "Atras", "Ya no hay mas atras");
+        }
     }
 
     @FXML
@@ -203,6 +227,57 @@ public class AdministradorController extends Controller implements Initializable
 
     @FXML
     private void accionGuardar(ActionEvent event) {
+    }
+    
+    public Boolean verificarTienePermisos(String name){
+        if(name.equals(user.getUsuNombre())){
+            propiaCarpeta = Boolean.TRUE;
+            return true;
+        }
+        for(PermisosDto per: user.getPermisosOtorgados()){
+            if(per.getPerDueno().equals(name)){
+                propiaCarpeta = Boolean.FALSE;
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public Boolean verificarAccion(int accion){
+        if(propiaCarpeta){
+            return true;
+        }else{
+            PermisosDto per = buscarPermiso();
+            if(per != null){
+                switch(accion){
+                    case 1://Crear
+                        return per.getPerCrear() == 1;
+                    case 2://Borrar
+                        return per.getPerBorrar() == 1;
+                    case 3://Editar y cargar
+                        return per.getPerEditar() == 1;
+                    case 4://ectura
+                        return per.getPerLeer() == 1;
+                    default:
+                        return false;
+                }
+            }else{
+                return false;
+            }
+        }
+    }
+    
+    private PermisosDto buscarPermiso(){
+        for(PermisosDto per: user.getPermisosOtorgados()){
+            if(actual.getAbsolutePath().contains(per.getPerDueno())){
+                return per;
+            }
+        }
+        return null;
+    }
+
+    @FXML
+    private void accionAbrir(ActionEvent event) {
     }
     
 }
