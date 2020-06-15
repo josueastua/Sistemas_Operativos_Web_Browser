@@ -76,6 +76,7 @@ public class PrincipalController extends Controller implements Initializable {
 
     @FXML
     private void accionCerrar(ActionEvent event) {
+        this.getStage().close();
     }
 
     @Override

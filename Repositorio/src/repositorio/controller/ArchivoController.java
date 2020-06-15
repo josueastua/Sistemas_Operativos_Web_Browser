@@ -36,6 +36,10 @@ public class ArchivoController extends Controller implements Initializable {
         this.img = img;
     }
 
+    public VBox getVbContenedor() {
+        return vbContenedor;
+    }
+
     public File getFile() {
         return file;
     }
@@ -71,6 +75,7 @@ public class ArchivoController extends Controller implements Initializable {
 
     @FXML
     private void accionArchivo(MouseEvent event) {
+        System.out.println("Click detected");
     }
     
 }

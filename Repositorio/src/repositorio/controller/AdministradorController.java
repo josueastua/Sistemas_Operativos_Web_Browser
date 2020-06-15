@@ -26,12 +26,17 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javax.swing.ImageIcon;
 import javax.swing.filechooser.FileSystemView;
 import repositorio.Repositorio;
+import repositorio.util.AppContext;
+import repositorio.util.FlowController;
 
 
 
@@ -65,22 +70,38 @@ public class AdministradorController extends Controller implements Initializable
             DirectoryStream<Path> contenido = Files.newDirectoryStream(file.toPath());
             for(Path ruta: contenido){
                 files.add(new File(ruta.toString()));
-                ruta.getFileName();
+                System.out.println(ruta);
             }
             ventana = new GridPane();
-            ventana.alignmentProperty().set(Pos.CENTER);
+            ventana.alignmentProperty().set(Pos.TOP_LEFT);
             int filas = files.size()/6;
             if(files.size() % 6 != 0)
                 filas ++;
             FXMLLoader loader;
+            List<Object> lista = new ArrayList<>();
             int index = 0;
             for(int i = 0; i < filas; i++){
                 for(int j = 0; j < 6; j++){
-                    loader = new FXMLLoader(Repositorio.class.getResource("view/Archivo.fxml"));
-                    Node node = loader.getRoot();
-                    ventana.add(node, j, i);
-                    ArchivoController ac = loader.getController();
-                    ac.cargarDatos(files.get(index), files.get(index).getName(), convertirImage(files.get(index)));
+                    if(index < files.size()){
+                        lista.clear();
+                        System.out.println(files.get(index).getName());
+                        lista.add(files.get(index));
+                        lista.add(files.get(index).getName());
+                        lista.add(convertirImage(files.get(index)));
+                        AppContext.getInstance().set("Parametros", lista);
+                    }else{
+                        if(!lista.isEmpty()){
+                            lista.clear();
+                            AppContext.getInstance().set("Parametros", lista);
+                        }
+                    }
+                    if(index < files.size()){
+                        loader = new FXMLLoader(Repositorio.class.getResource("view/Casilla.fxml"));
+                        loader.load();
+                        CasillaController cont = loader.getController();
+                        cont.intermedio();
+                        ventana.add(loader.getRoot(), j, i);
+                    }
                     index++;
                 }
             }
@@ -90,14 +111,15 @@ public class AdministradorController extends Controller implements Initializable
     }
     
     private Image convertirImage(File file){
-        ImageIcon icon = (ImageIcon) FileSystemView.getFileSystemView().getSystemIcon(file);
-        java.awt.Image image = icon.getImage();
+        javax.swing.Icon icon = FileSystemView.getFileSystemView().getSystemIcon(file);
         BufferedImage buffer = new BufferedImage(
-            image.getWidth(null),
-            image.getHeight(null),
-            BufferedImage.TYPE_INT_RGB
+            icon.getIconWidth(),
+            icon.getIconWidth(),
+            BufferedImage.TYPE_INT_ARGB
         );
-        return SwingFXUtils.toFXImage(buffer, null);
+        icon.paintIcon(null, buffer.getGraphics(), 0, 0);
+        Image image = SwingFXUtils.toFXImage(buffer, null);
+        return image;
     }
 
     @FXML

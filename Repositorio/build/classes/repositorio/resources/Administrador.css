@@ -8,10 +8,17 @@ and open the template in the editor.
     Author     : IVAN
 */
 
-#vbContenedor{
-    -fx-background-color: #003366;
+#vbCont{
     -fx-opacity: 0.9;
     -fx-background-radius: 15;
+}
+
+#vbCont:hover{
+    -fx-background-color: #003366;
+}
+
+#vbCont:hover #lblNombre{
+    -fx-border-color: white;
 }
 
 #lblNombre{
@@ -20,6 +27,9 @@ and open the template in the editor.
     -fx-alignment: CENTER;
     -fx-background-color: white;
     -fx-background-radius: 15;
+    -fx-border-color: #003366;
+    -fx-border-width: 3;
+    -fx-border-radius: 15;
 }
 
 #bpAdmRoot{
@@ -27,7 +37,7 @@ and open the template in the editor.
 }
 
 .button{
-    -fx-font: bold 22px "Courier";
+    -fx-font: normal 18px "Courier";
     -fx-text-fill: white;
     -fx-opacity: 0.9;
 }

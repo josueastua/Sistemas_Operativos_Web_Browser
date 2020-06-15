@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -144,7 +145,17 @@ public class FlowController {
             default: break;
         }
     }
-
+    
+    public void addViewInGridPane(GridPane pane, String viewName, int col, int fil) throws IOException{
+        FXMLLoader loader = new FXMLLoader(Repositorio.class.getResource("view/" + viewName + ".fxml"));
+        loader.load();
+        Controller controller = loader.getController();
+        controller.setAccion(null);
+        controller.initialize();
+        Stage stage = controller.getStage();
+        pane.add(loader.getRoot(), col, fil);
+    }
+    
     public void goViewPanel(VBox panel, String viewName){
         FXMLLoader loader = getLoader(viewName);
         Controller controller = loader.getController();
