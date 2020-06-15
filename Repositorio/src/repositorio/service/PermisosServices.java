@@ -28,7 +28,7 @@ public class PermisosServices {
     EntityManager em = EntityManagerHelper.getInstance().getManager();
     private EntityTransaction et;
     
-    public Respuesta getPermisosByUsuario(int usuid){//Los permisos que le han otorgado al usuario
+    public Respuesta getPermisosByUsuario(String usuid){//Los permisos que le han otorgado al usuario
         try{
             Query query = em.createNamedQuery("Permisos.findByPerUsuario", Permisos.class);
             query.setParameter("perUsuario", usuid);

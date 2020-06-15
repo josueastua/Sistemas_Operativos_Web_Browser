@@ -11,8 +11,7 @@ package repositorio.modelo;
  */
 public class PermisosDto {
     private Integer perId;
-    private int perTipo;
-    private int perUsuario;
+    private String perUsuario;
     private String perDueno;
     private int perLeer;
     private int perEditar;
@@ -37,19 +36,11 @@ public class PermisosDto {
         this.perId = perId;
     }
 
-    public int getPerTipo() {
-        return perTipo;
-    }
-
-    public void setPerTipo(int perTipo) {
-        this.perTipo = perTipo;
-    }
-
-    public int getPerUsuario() {
+    public String getPerUsuario() {
         return perUsuario;
     }
 
-    public void setPerUsuario(int perUsuario) {
+    public void setPerUsuario(String perUsuario) {
         this.perUsuario = perUsuario;
     }
 

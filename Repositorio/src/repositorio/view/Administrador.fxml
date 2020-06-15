@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -13,7 +14,7 @@
          <children>
             <JFXButton fx:id="btnAtras" layoutX="114.0" layoutY="10.0" onAction="#accionAtras" prefHeight="50.0" prefWidth="200.0" text="Atras">
                <HBox.margin>
-                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </HBox.margin>
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
@@ -21,7 +22,7 @@
             </JFXButton>
             <JFXButton fx:id="btnCommit" onAction="#accionCommit" prefHeight="50.0" prefWidth="200.0" text="Commit">
                <HBox.margin>
-                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </HBox.margin>
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
@@ -29,7 +30,7 @@
             </JFXButton>
             <JFXButton fx:id="btnUpdate" onAction="#accionUpdate" prefHeight="50.0" prefWidth="200.0" text="Update">
                <HBox.margin>
-                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </HBox.margin>
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
@@ -37,28 +38,30 @@
             </JFXButton>
             <JFXButton fx:id="btnBorrar" onAction="#accionBorrar" prefHeight="50.0" prefWidth="200.0" text="Borrar">
                <HBox.margin>
-                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </HBox.margin>
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="btnNuevo" layoutX="10.0" layoutY="10.0" onAction="#accionNuevo" prefHeight="50.0" prefWidth="200.0" text="Nuevo">
-               <HBox.margin>
-                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-               </HBox.margin>
+            <JFXButton fx:id="btnGuardar" layoutX="504.0" layoutY="25.0" onAction="#accionGuardar" prefHeight="50.0" prefWidth="200.0" text="Guardar">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
             </JFXButton>
             <JFXButton fx:id="btnEditar" layoutX="62.0" layoutY="10.0" onAction="#accionEditar" prefHeight="50.0" prefWidth="200.0" text="Editar">
                <HBox.margin>
-                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </HBox.margin>
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
             </JFXButton>
+            <ComboBox fx:id="cbNuevo" minHeight="50.0" onAction="#accionCombo" prefWidth="200.0" promptText="Nuevo">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+            </ComboBox>
          </children>
       </HBox>
    </top>

@@ -17,12 +17,14 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
@@ -45,15 +47,18 @@ public class AdministradorController extends Controller implements Initializable
 
     @FXML private BorderPane bpAdmRoot;
     @FXML private JFXButton btnBorrar;
-    @FXML private JFXButton btnNuevo;
     @FXML private JFXButton btnEditar;
     @FXML private JFXButton btnUpdate;
     @FXML private JFXButton btnCommit;
     @FXML private ListView<CasillaController> lvArchivos;
+    @FXML private JFXButton btnAtras;
+    @FXML private ComboBox<String> cbNuevo;
+    private HashMap<String, String> ext = new HashMap();
     List<CasillaController> controladores = new ArrayList<>();
     private File actual;
     Mensaje men;
-    @FXML private JFXButton btnAtras;
+    @FXML
+    private JFXButton btnGuardar;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -105,7 +110,6 @@ public class AdministradorController extends Controller implements Initializable
             men.show(Alert.AlertType.INFORMATION, "Borrar", "No tiene permisos para borrar aqui");
     }
 
-    @FXML
     private void accionNuevo(ActionEvent event) {
         if(!actual.getAbsolutePath().equals("C:\\raiz")){
             
@@ -135,6 +139,41 @@ public class AdministradorController extends Controller implements Initializable
     public void initialize() {
         UsuariosDto user = (UsuariosDto) AppContext.getInstance().get("User");
         cargarCarpeta(new File("C:\\raiz"));
+        cbNuevo.getItems().add("Imagen .jpg");
+        ext.put("Imagen .jpg", ".jpg");
+        cbNuevo.getItems().add("Imagen .png");
+        ext.put("Imagen .png", ".png");
+        cbNuevo.getItems().add("Imagen .jpeg");
+        ext.put("Imagen .jpeg", ".jpeg");
+        cbNuevo.getItems().add("Imagen .gif");
+        ext.put("Imagen .gif", ".gif");
+        
+        cbNuevo.getItems().add("Texto .doc");
+        ext.put("Texto .doc", ".doc");
+        cbNuevo.getItems().add("Textp .docx");
+        ext.put("Texto .docx", ".docx");
+        cbNuevo.getItems().add("Texto .pdf");
+        ext.put("Texto .pdf", ".pdf");
+        
+        cbNuevo.getItems().add("Media .mp3");
+        ext.put("Media .mp3", ".mp3");
+        cbNuevo.getItems().add("Media .mp4");
+        ext.put("Media .mp4", ".mp4");
+        
+        cbNuevo.getItems().add("Presentacion .ppt");
+        ext.put("Presentacion .ppt", ".ppt");
+        cbNuevo.getItems().add("Presentacion .pptx");
+        ext.put("Presentacion .pptx", ".pptx");
+        
+        cbNuevo.getItems().add("Comprimido .zip");
+        ext.put("Comprimido .zip", ".zip");
+        cbNuevo.getItems().add("Comprimido .rar");
+        ext.put("Comprimido .rar", ".rar");
+        
+        cbNuevo.getItems().add("Hojas de calculo .xls");
+        ext.put("Hojas de calculo .xls", ".xls");
+        cbNuevo.getItems().add("Hojas de calculo .xlsx");
+        ext.put("Hojas de calculo .xlsx", ".xlsx");
     }
 
     @FXML
@@ -156,6 +195,14 @@ public class AdministradorController extends Controller implements Initializable
             }
         }else
             men.show(Alert.AlertType.INFORMATION, "Atras", "Ya no hay mas atras");
+    }
+
+    @FXML
+    private void accionCombo(ActionEvent event) {
+    }
+
+    @FXML
+    private void accionGuardar(ActionEvent event) {
     }
     
 }

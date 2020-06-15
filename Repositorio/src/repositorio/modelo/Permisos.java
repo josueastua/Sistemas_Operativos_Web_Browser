@@ -27,10 +27,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Permisos.findAll", query = "SELECT p FROM Permisos p")
     , @NamedQuery(name = "Permisos.findByPerId", query = "SELECT p FROM Permisos p WHERE p.perId = :perId")
-    , @NamedQuery(name = "Permisos.findByPerTipo", query = "SELECT p FROM Permisos p WHERE p.perTipo = :perTipo")
     , @NamedQuery(name = "Permisos.findByPerUsuario", query = "SELECT p FROM Permisos p WHERE p.perUsuario = :perUsuario")
     , @NamedQuery(name = "Permisos.findByPerDueno", query = "SELECT p FROM Permisos p WHERE p.perDueno = :perDueno")})
 public class Permisos implements Serializable {
+
+    
 
     
 
@@ -42,9 +43,6 @@ public class Permisos implements Serializable {
     @Basic(optional = false)
     @Column(name = "perId")
     private Integer perId;
-    @Basic(optional = false)
-    @Column(name = "perUsuario")
-    private int perUsuario;
     @Basic(optional = false)
     @Column(name = "perDueno")
     private String perDueno;
@@ -60,6 +58,9 @@ public class Permisos implements Serializable {
     @Basic(optional = false)
     @Column(name = "perCrear")
     private int perCrear;
+    @Basic(optional = false)
+    @Column(name = "perUsuario")
+    private String perUsuario;
     
     public Permisos() {
     }
@@ -68,7 +69,7 @@ public class Permisos implements Serializable {
         this.perId = perId;
     }
 
-    public Permisos(Integer perId, int perUsuario, String perDueno, int perLeer, int perEditar, int perBorrar, int perCrear) {
+    public Permisos(Integer perId, String perUsuario, String perDueno, int perLeer, int perEditar, int perBorrar, int perCrear) {
         this.perId = perId;
         this.perUsuario = perUsuario;
         this.perDueno = perDueno;
@@ -103,13 +104,6 @@ public class Permisos implements Serializable {
         this.perId = perId;
     }
 
-    public int getPerUsuario() {
-        return perUsuario;
-    }
-
-    public void setPerUsuario(int perUsuario) {
-        this.perUsuario = perUsuario;
-    }
 
 
     @Override
@@ -175,6 +169,14 @@ public class Permisos implements Serializable {
 
     public void setPerCrear(int perCrear) {
         this.perCrear = perCrear;
+    }
+
+    public String getPerUsuario() {
+        return perUsuario;
+    }
+
+    public void setPerUsuario(String perUsuario) {
+        this.perUsuario = perUsuario;
     }
     
 }

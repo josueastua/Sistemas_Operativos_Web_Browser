@@ -42,16 +42,12 @@ and open the template in the editor.
     -fx-opacity: 0.9;
 }
 
-#btnEditar, #btnAtras, #btnUpdate, #btnCommit{
+#btnEditar, #btnAtras, #btnUpdate, #btnCommit, #btnGuardar{
     -fx-background-color: #003366;
 }
 
 #btnBorrar{
     -fx-background-color: #660000;
-}
-
-#btnNuevo{
-    -fx-background-color: #0f6119;
 }
 
 #btnEditar .image-view{
@@ -60,10 +56,6 @@ and open the template in the editor.
 
 #btnAtras .image-view{
     -fx-image: url('../resources/back.png')
-}
-
-#btnNuevo .image-view{
-    -fx-image: url('../resources/add-page.png')
 }
 
 #btnBorrar .image-view{
@@ -76,4 +68,38 @@ and open the template in the editor.
 
 #btnCommit .image-view{
     -fx-image: url('../resources/guardar.png')
+}
+
+#btnGuardar .image-view{
+    -fx-image: url('../resources/guardar.png')
+}
+
+.combo-box{
+    -fx-font: bold 18px "Courier";
+    -fx-background-color: #017001;
+    -fx-opacity: 0.9;
+    
+} 
+
+.combo-box .arrow-button{
+    -fx-background-color: transparent;
+}
+
+.combo-box .arrow-button .arrow{
+    -fx-background-color: #0db30d;
+}
+
+
+.combo-box .list-cell{
+    -fx-alignment: CENTER;
+    -fx-font: bold 18px "Courier";
+    -fx-prompt-text-fill: white;
+    -fx-background-color: #017001;
+    -fx-text-fill: white;
+    -fx-font: bold 18px "Courier";
+}
+
+.combo-box .list-cell:hover{
+    -fx-background-color: white;
+    -fx-text-fill: #0db30d;
 }
