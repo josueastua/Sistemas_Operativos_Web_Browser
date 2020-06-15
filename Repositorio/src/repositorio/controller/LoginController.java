@@ -16,8 +16,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javax.swing.filechooser.FileSystemView;
 import repositorio.service.UsuariosService;
+import repositorio.util.AppContext;
 import repositorio.util.FlowController;
 import repositorio.util.Mensaje;
 import repositorio.util.Respuesta;
@@ -62,6 +62,7 @@ public class LoginController extends Controller implements Initializable {
         if(txtUsuario.getText() != null && !txtUsuario.getText().isEmpty() && txtPassword.getText() != null && !txtPassword.getText().isEmpty()){
             Respuesta res = service.userLogin(txtUsuario.getText(), txtPassword.getText());
             if(res.getEstado()){
+                AppContext.getInstance().set("User", res.getResultado("Usuario"));
                 FlowController.getInstance().goViewInResizableWindow("Principal", 0, 1100, 0, 700, Boolean.TRUE);
                 this.getStage().close();
             }else{

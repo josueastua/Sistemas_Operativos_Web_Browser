@@ -22,21 +22,17 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.PixelWriter;
-import javafx.scene.image.WritableImage;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javax.swing.ImageIcon;
 import javax.swing.filechooser.FileSystemView;
 import repositorio.Repositorio;
+import repositorio.modelo.Usuarios;
+import repositorio.modelo.UsuariosDto;
 import repositorio.util.AppContext;
-import repositorio.util.FlowController;
+import repositorio.util.Mensaje;
 
 
 
@@ -51,62 +47,41 @@ public class AdministradorController extends Controller implements Initializable
     @FXML private JFXButton btnBorrar;
     @FXML private JFXButton btnNuevo;
     @FXML private JFXButton btnEditar;
-    @FXML private JFXButton btnAbrir;
     @FXML private JFXButton btnUpdate;
     @FXML private JFXButton btnCommit;
-    @FXML private ScrollPane spContenedor;
-    private GridPane ventana;
-    @FXML
-    private VBox vbScroll;
+    @FXML private ListView<CasillaController> lvArchivos;
+    List<CasillaController> controladores = new ArrayList<>();
+    private File actual;
+    Mensaje men;
+    @FXML private JFXButton btnAtras;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        men = new Mensaje();
     } 
-    
     private void cargarCarpeta(File file){
-        List<File> files = new ArrayList<>();
+        List<Object> lista = new ArrayList<>();
+        File archivo;
+        FXMLLoader loader;
+        lvArchivos.getItems().clear();
+        controladores.clear();
         try{
             DirectoryStream<Path> contenido = Files.newDirectoryStream(file.toPath());
             for(Path ruta: contenido){
-                files.add(new File(ruta.toString()));
-                System.out.println(ruta);
+                lista.clear();
+                archivo = new File(ruta.toString());
+                lista.add(archivo);
+                lista.add(archivo.getName());
+                lista.add(convertirImage(archivo));
+                AppContext.getInstance().set("Parametros", lista);
+                loader = new FXMLLoader(Repositorio.class.getResource("view/Casilla.fxml"));
+                loader.load();
+                CasillaController cont = loader.getController();
+                cont.intermedio();
+                controladores.add(cont);
+                lvArchivos.getItems().add(loader.getRoot());
             }
-            ventana = new GridPane();
-            ventana.alignmentProperty().set(Pos.TOP_LEFT);
-            int filas = files.size()/6;
-            if(files.size() % 6 != 0)
-                filas ++;
-            FXMLLoader loader;
-            List<Object> lista = new ArrayList<>();
-            int index = 0;
-            for(int i = 0; i < filas; i++){
-                for(int j = 0; j < 6; j++){
-                    if(index < files.size()){
-                        lista.clear();
-                        System.out.println(files.get(index).getName());
-                        lista.add(files.get(index));
-                        lista.add(files.get(index).getName());
-                        lista.add(convertirImage(files.get(index)));
-                        AppContext.getInstance().set("Parametros", lista);
-                    }else{
-                        if(!lista.isEmpty()){
-                            lista.clear();
-                            AppContext.getInstance().set("Parametros", lista);
-                        }
-                    }
-                    if(index < files.size()){
-                        loader = new FXMLLoader(Repositorio.class.getResource("view/Casilla.fxml"));
-                        loader.load();
-                        CasillaController cont = loader.getController();
-                        cont.intermedio();
-                        ventana.add(loader.getRoot(), j, i);
-                    }
-                    index++;
-                }
-            }
-            vbScroll.getChildren().clear();
-            vbScroll.getChildren().add(ventana);
+            actual = file;
         }catch(IOException ex){}
     }
     
@@ -124,27 +99,63 @@ public class AdministradorController extends Controller implements Initializable
 
     @FXML
     private void accionBorrar(ActionEvent event) {
+        if(!actual.getAbsolutePath().equals("C:\\raiz")){
+            
+        }else
+            men.show(Alert.AlertType.INFORMATION, "Borrar", "No tiene permisos para borrar aqui");
     }
 
     @FXML
     private void accionNuevo(ActionEvent event) {
+        if(!actual.getAbsolutePath().equals("C:\\raiz")){
+            
+        }else
+            men.show(Alert.AlertType.INFORMATION, "Nuevo", "No tiene permisos para crear aqui");
     }
 
     @FXML
     private void accionEditar(ActionEvent event) {
+        if(!actual.getAbsolutePath().equals("C:\\raiz")){
+            
+        }else
+            men.show(Alert.AlertType.INFORMATION, "Editar", "No tiene permisos para editar aqui");
     }
 
     @FXML
     private void accionUpdate(ActionEvent event) {
+        
     }
 
     @FXML
     private void accionCommit(ActionEvent event) {
+        
     }
 
     @Override
     public void initialize() {
+        UsuariosDto user = (UsuariosDto) AppContext.getInstance().get("User");
         cargarCarpeta(new File("C:\\raiz"));
+    }
+
+    @FXML
+    private void accionList(MouseEvent event) {
+        if(lvArchivos.getSelectionModel().getSelectedItem() != null){
+            CasillaController aux = controladores.get(lvArchivos.getItems().indexOf(lvArchivos.getSelectionModel().getSelectedItem()));
+            if(aux.isDirectorio())
+                cargarCarpeta(aux.getFile());
+        }else
+            men.show(Alert.AlertType.ERROR, "Seleccion", "No selecciona un archivo");
+    }
+
+    @FXML
+    private void accionAtras(ActionEvent event) {
+        if(!actual.getAbsolutePath().equals("C:\\raiz")){
+            File file = actual.getParentFile();
+            if(!file.getAbsolutePath().equals("C:\\")){
+                cargarCarpeta(file);
+            }
+        }else
+            men.show(Alert.AlertType.INFORMATION, "Atras", "Ya no hay mas atras");
     }
     
 }

@@ -15,8 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
+import org.apache.commons.io.FilenameUtils;
 import repositorio.util.AppContext;
 
 /**
@@ -26,13 +25,12 @@ import repositorio.util.AppContext;
  */
 public class CasillaController extends Controller implements Initializable {
 
-    @FXML private AnchorPane AnchorPane;
     @FXML private Label lblNombre;
-    @FXML private VBox vbCont;
     @FXML private ImageView imvArchivo;
     private File file;
     private String nombre;
     private Image imagen;
+    @FXML private Label lblExtension;
 
     public File getFile() {
         return file;
@@ -64,7 +62,10 @@ public class CasillaController extends Controller implements Initializable {
         this.imagen = imagen;
         lblNombre.setText(nombre);
         imvArchivo.setImage(imagen);
-        System.out.println("Nombre: "+nombre);
+        if(file.isFile())
+            lblExtension.setText(FilenameUtils.getExtension(nombre));
+        else
+            lblExtension.setText("Carpeta");
     }
     
     public void intermedio(){
@@ -86,6 +87,10 @@ public class CasillaController extends Controller implements Initializable {
     @Override
     public void initialize() {
         
+    }
+    
+    public Boolean isDirectorio(){
+        return file.isDirectory();
     }
     
 }

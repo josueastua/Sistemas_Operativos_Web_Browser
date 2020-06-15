@@ -3,24 +3,24 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="175.0" prefWidth="150.0" stylesheets="@../resources/Administrador.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="repositorio.controller.CasillaController">
+<HBox onMouseClicked="#accionArchivo" prefHeight="80.0" prefWidth="980.0" stylesheets="@../resources/Administrador.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="repositorio.controller.CasillaController">
    <children>
-      <VBox fx:id="vbCont" alignment="CENTER" onMouseClicked="#accionArchivo" prefHeight="175.0" prefWidth="150.0">
-         <children>
-            <ImageView fx:id="imvArchivo" fitHeight="59.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-            </ImageView>
-            <Label fx:id="lblNombre" prefHeight="82.0" prefWidth="136.0" text="Label" wrapText="true">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-            </Label>
-         </children>
-      </VBox>
+      <ImageView fx:id="imvArchivo" fitHeight="70.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true">
+         <HBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </HBox.margin>
+      </ImageView>
+      <Label fx:id="lblNombre" prefHeight="70.0" prefWidth="777.0" text="Label" wrapText="true">
+         <HBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </HBox.margin>
+      </Label>
+      <Label fx:id="lblExtension" prefHeight="70.0" prefWidth="96.0" text="Label">
+         <HBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </HBox.margin>
+      </Label>
    </children>
-</AnchorPane>
+</HBox>

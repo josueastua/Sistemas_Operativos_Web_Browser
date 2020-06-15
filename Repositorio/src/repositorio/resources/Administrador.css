@@ -21,7 +21,7 @@ and open the template in the editor.
     -fx-border-color: white;
 }
 
-#lblNombre{
+#lblNombre, #lblExtension{
     -fx-font: normal 11px "Courier";
     -fx-text-fill: #003366;
     -fx-alignment: CENTER;
@@ -42,7 +42,7 @@ and open the template in the editor.
     -fx-opacity: 0.9;
 }
 
-#btnEditar, #btnAbrir, #btnUpdate, #btnCommit{
+#btnEditar, #btnAtras, #btnUpdate, #btnCommit{
     -fx-background-color: #003366;
 }
 
@@ -58,8 +58,8 @@ and open the template in the editor.
     -fx-image: url('../resources/editar.png')
 }
 
-#btnAbrir .image-view{
-    -fx-image: url('../resources/abrir.png')
+#btnAtras .image-view{
+    -fx-image: url('../resources/back.png')
 }
 
 #btnNuevo .image-view{
