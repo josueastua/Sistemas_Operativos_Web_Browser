@@ -59,11 +59,15 @@ public class UsuariosService {
                 ent.Actualizar(user);
                 ent = em.merge(ent);
             }else{
-                ent = new Usuarios(user);
-                em.persist(ent);
+                if(!find(user.getUsuNombre())){
+                    ent = new Usuarios(user);
+                    em.persist(ent);
+                    et.commit();
+                    return new Respuesta(true, "", "", "Usuario", new UsuariosDto(ent));
+                }
             }
-            et.commit();
-            return new Respuesta(true, "", "", "Usuario", new UsuariosDto(ent));
+            et.rollback();
+                return new Respuesta(false, "Nombre de usuario repetido.", "guardarUsuario");
         }catch(Exception ex){
             et.rollback();
             Logger.getLogger(UsuariosService.class.getName()).log(Level.SEVERE, "Ocurrio un error al guardar el usuario.", ex);
@@ -81,6 +85,19 @@ public class UsuariosService {
         }catch(Exception ex){
             Logger.getLogger(UsuariosService.class.getName()).log(Level.SEVERE, "Ocurrio un error al obtener los usuarios.", ex);
             return new Respuesta(false, "Ocurrio un error al obtener los usuarios.", "getUsuariosByName " + ex.getMessage());
+        }
+    }
+    
+    public Boolean find(String nombre){
+        try{
+            Query query = em.createNamedQuery("Usuarios.findByUsuNombre");
+            query.setParameter("usuNombre", nombre);
+            query.getSingleResult();
+            return true;
+        }catch(NoResultException ex){
+            return false;
+        }catch(Exception ex){
+            return false;
         }
     }
     

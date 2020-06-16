@@ -5,13 +5,13 @@
  */
 package repositorio.controller;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 
@@ -20,18 +20,16 @@ import javafx.scene.input.MouseEvent;
  *
  * @author IVAN
  */
-public class MantVersionesController implements Initializable {
+public class BuscarUserController implements Initializable {
 
     @FXML
-    private TableView<?> tvVersiones;
+    private JFXTextField txtNombre;
     @FXML
-    private TableColumn<?, ?> colCarpeta;
+    private JFXButton btnBuscar;
     @FXML
-    private TableColumn<?, ?> colArchivo;
+    private TableView<?> tvUser;
     @FXML
-    private ListView<?> lvVersiones;
-    @FXML
-    private Label lblTitulo;
+    private JFXButton btnSeleccionar;
 
     /**
      * Initializes the controller class.
@@ -42,11 +40,15 @@ public class MantVersionesController implements Initializable {
     }    
 
     @FXML
+    private void accionBuscar(ActionEvent event) {
+    }
+
+    @FXML
     private void accionTabla(MouseEvent event) {
     }
 
     @FXML
-    private void accionBorrar(MouseEvent event) {
+    private void accionSeleccionar(ActionEvent event) {
     }
     
 }
