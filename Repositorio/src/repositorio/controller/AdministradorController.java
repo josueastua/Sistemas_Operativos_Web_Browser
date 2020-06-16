@@ -196,7 +196,7 @@ public class AdministradorController extends Controller implements Initializable
     public void moverDirectorio(List<DirectoryStream<Path>> contenidos, List<File> lista, String carpeta, File file){
         lista.add(0, file);
         File papelera = new File(carpeta+file.getName());
-        if(!papelera.exists() && papelera.getName().equals("Permanente") && papelera.getName().equals("Temporal")){
+        if(!papelera.exists() && !papelera.getName().equals("Permanente") && !papelera.getName().equals("Temporal")){
             papelera.mkdir();
         }
         try {
@@ -225,7 +225,9 @@ public class AdministradorController extends Controller implements Initializable
                 }
             }
             
-        } catch (IOException ex) {}
+        } catch (IOException ex) {
+            System.out.println(ex);
+        }
     }
 
     @FXML
@@ -272,11 +274,11 @@ public class AdministradorController extends Controller implements Initializable
                     }
                     for(File file : lista){
                         try{
-                            if(!file.getName().equals("Temporal"))
+                            if(!file.getName().equals("Temporal") && !file.getName().equals("Permanente"))
                                 file.delete();
                         }catch(Exception ex){}
                     }
-                    moverDirectorio(cont, lista, actual.getAbsolutePath()+"\\", new File("C:\\raiz\\"+usu+"\\Permanente\\"));
+                    moverDirectorio(cont, lista, actual.getAbsolutePath()+"\\", new File("C:\\raiz\\"+usu+"\\Permanente"));
                     cargarCarpeta(actual);
                 }else{
                     System.out.println("NO");
@@ -330,7 +332,7 @@ public class AdministradorController extends Controller implements Initializable
         String iden = date.toString();
         System.out.println(iden);
         File papelera = new File(carpeta+file.getName());
-        if(!papelera.exists() && papelera.getName().equals("Permanente") && papelera.getName().equals("Temporal")){
+        if(!papelera.exists() && !papelera.getName().equals("Permanente") && !papelera.getName().equals("Temporal")){
             papelera.mkdir();
         }
         try {
@@ -363,7 +365,7 @@ public class AdministradorController extends Controller implements Initializable
     }
     
     public String getUserName(){
-        for(PermisosDto dto:user.getPermisosOtorgados()){
+        for(PermisosDto dto : user.getPermisosOtorgados()){
             if(actual.getAbsolutePath().contains(dto.getPerDueno()))
                 return dto.getPerDueno();
         }
@@ -521,7 +523,7 @@ public class AdministradorController extends Controller implements Initializable
             propiaCarpeta = Boolean.TRUE;
             return true;
         }
-        for(PermisosDto per: user.getPermisosDados()){
+        for(PermisosDto per: user.getPermisosOtorgados()){
             if(per.getPerDueno().equals(name)){
                 propiaCarpeta = Boolean.FALSE;
                 return true;
@@ -551,7 +553,7 @@ public class AdministradorController extends Controller implements Initializable
     }
     
     private PermisosDto buscarPermiso(){
-        for(PermisosDto per: user.getPermisosDados()){
+        for(PermisosDto per: user.getPermisosOtorgados()){
             if(actual.getAbsolutePath().contains(per.getPerDueno())){
                 return per;
             }

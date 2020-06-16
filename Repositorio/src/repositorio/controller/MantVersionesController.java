@@ -14,24 +14,28 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
+import repositorio.modelo.UsuariosDto;
+import repositorio.modelo.VersionesDto;
+import repositorio.util.AppContext;
 
 /**
  * FXML Controller class
  *
  * @author IVAN
  */
-public class MantVersionesController implements Initializable {
+public class MantVersionesController extends Controller implements Initializable {
 
     @FXML
-    private TableView<?> tvVersiones;
+    private TableView<VersionesDto> tvVersiones;
     @FXML
-    private TableColumn<?, ?> colCarpeta;
+    private TableColumn<VersionesDto, String> colCarpeta;
     @FXML
-    private TableColumn<?, ?> colArchivo;
+    private TableColumn<VersionesDto, String> colArchivo;
     @FXML
-    private ListView<?> lvVersiones;
+    private ListView<Label> lvVersiones;
     @FXML
     private Label lblTitulo;
+    
 
     /**
      * Initializes the controller class.
@@ -47,6 +51,12 @@ public class MantVersionesController implements Initializable {
 
     @FXML
     private void accionBorrar(MouseEvent event) {
+    }
+
+    @Override
+    public void initialize() {
+        UsuariosDto user = (UsuariosDto) AppContext.getInstance().get("User");
+        user.setVersiones();
     }
     
 }

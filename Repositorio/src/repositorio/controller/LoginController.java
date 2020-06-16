@@ -75,7 +75,7 @@ public class LoginController extends Controller implements Initializable {
                 UsuariosDto user = (UsuariosDto) res.getResultado("Usuario");
                 listaUsuario(user);
                 AppContext.getInstance().set("User", user);
-                FlowController.getInstance().goViewInResizableWindow("Principal", 0, 1100, 0, 700, Boolean.TRUE);
+                FlowController.getInstance().goViewInNoResizableWindow("Principal", Boolean.TRUE);
                 this.getStage().close();
             }else{
                 men.show(Alert.AlertType.WARNING, "Iniciar Sesion", res.getMensaje());
@@ -88,10 +88,10 @@ public class LoginController extends Controller implements Initializable {
         PapeleraService papservice = new PapeleraService();
         VersionesService verservice = new VersionesService();
         Respuesta res;
-        res = perservice.getPermisosByDueno(user.getUsuNombre());
+        res = perservice.getPermisosByUsuario(user.getUsuNombre());
         if(res.getEstado())
             user.setPermisosOtorgados((List<PermisosDto>) res.getResultado("Permisos"));
-        res = perservice.getPermisosByUsuario(user.getUsuNombre());
+        res = perservice.getPermisosByDueno(user.getUsuNombre());
         if(res.getEstado())
             user.setPermisosDados((List<PermisosDto>) res.getResultado("Permisos"));
         res = papservice.getPapeleraByIdUsuario(user.getUsuId());

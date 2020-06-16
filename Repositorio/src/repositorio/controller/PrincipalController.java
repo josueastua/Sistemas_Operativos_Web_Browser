@@ -72,6 +72,7 @@ public class PrincipalController extends Controller implements Initializable {
 
     @FXML
     private void accionVersiones(ActionEvent event) {
+        FlowController.getInstance().goViewInNoResizableWindow("MantVersiones", Boolean.TRUE);
     }
 
     @FXML
