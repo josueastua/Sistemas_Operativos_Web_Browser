@@ -1,0 +1,87 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 16/06/2020, 06:55:17 AM
+    Author     : IVAN
+*/
+
+#lblTitulo{
+    -fx-background-color: #003366;
+    -fx-opacity: 0.9;
+    -fx-font: bold 25px "Courier";
+    -fx-text-fill: white;
+    -fx-alignment: CENTER;
+}
+
+.table-view{
+    -fx-control-inner-background: white;
+    -fx-font: bold 16px "Bodoni MT";
+    -fx-text-background-color: #003366;
+    -fx-focus-color: #003366;
+    -fx-border-color: #003366;
+}
+
+.table-view .column-header-background{
+    -fx-background-color: white;
+}
+.table-view .column-header .label{
+    -fx-font: bold 14pt "Courier";
+    -fx-text-fill: white;
+}
+
+.table-view .column-header, .table-view .filler{
+    -fx-size: 30;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color:  #003366;
+    -fx-border-color: #003366;
+    -fx-border-insets: 0 10 0 10;
+}
+
+.table-row-cell{
+    -fx-background-color: -fx-table-cell-border-color, #d3d3d3;
+    -fx-text-fill: #d3d3d3;
+    -fx-font: bold 14px "Courier";
+}
+
+.table-view:focused .table-row-cell:filled:focused:selected{
+    -fx-background-color: #003366;
+    -fx-opacity: 5;
+    -fx-text-background-color: #D3D3D3;
+    -fx-table-cell-border-color: #003366;
+    -fx-table-header-border-color: #003366;  
+    -fx-opacity: 0.9;
+}
+
+.button{
+    -fx-background-color: #017001;
+    -fx-font: bold 20px "Courier";
+    -fx-text-fill: white;
+}
+
+#btnBuscar{
+    -fx-background-color: #003366;
+}
+
+#txtNombre{
+    -jfx-focus-color: #017001;
+    -jfx-unfocus-color: #1d1d1d;
+    -fx-font: bold 15px "Courier";
+    
+}
+
+#lblUser{
+    -fx-font: bold 15px "Courier";
+    -fx-border-color: #003366;
+    -fx-border-width: 0 0 2 0;
+}
+
+.toggle-button{
+    -fx-font: bold 15px "Courier";
+    -jfx-toggle-color: #003366;
+    -jfx-toggle-line-color: royalblue;
+    -jfx-untoggle-color: #464646;
+    -jfx-untoggle-line-color: lightgray;
+}

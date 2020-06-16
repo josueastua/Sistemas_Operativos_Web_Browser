@@ -88,18 +88,20 @@ public class AdministradorController extends Controller implements Initializable
         try{
             DirectoryStream<Path> contenido = Files.newDirectoryStream(file.toPath());
             for(Path ruta: contenido){
-                lista.clear();
-                archivo = new File(ruta.toString());
-                lista.add(archivo);
-                lista.add(archivo.getName());
-                lista.add(convertirImage(archivo));
-                AppContext.getInstance().set("Parametros", lista);
-                loader = new FXMLLoader(Repositorio.class.getResource("view/Casilla.fxml"));
-                loader.load();
-                CasillaController cont = loader.getController();
-                cont.intermedio();
-                controladores.add(cont);
-                lvArchivos.getItems().add(loader.getRoot());
+                if(ruta != null){
+                    lista.clear();
+                    archivo = new File(ruta.toString());
+                    lista.add(archivo);
+                    lista.add(archivo.getName());
+                    lista.add(convertirImage(archivo));
+                    AppContext.getInstance().set("Parametros", lista);
+                    loader = new FXMLLoader(Repositorio.class.getResource("view/Casilla.fxml"));
+                    loader.load();
+                    CasillaController cont = loader.getController();
+                    cont.intermedio();
+                    controladores.add(cont);
+                    lvArchivos.getItems().add(loader.getRoot());
+                }
             }
             actual = file;
         }catch(IOException ex){}
@@ -160,13 +162,20 @@ public class AdministradorController extends Controller implements Initializable
                         }
                     }else if(aux.getFile().isDirectory()){
                         List<File> lista = new ArrayList<>();
+                        List<DirectoryStream<Path>> cont  = new ArrayList<>();
                         int index = lvArchivos.getSelectionModel().getSelectedIndex();
-                        borrarDirectorio(lista, "C:\\raiz\\Papelera\\", aux.getFile());
-                        for(File file : lista){
-                            System.out.println(file.getAbsolutePath());
-                            if(file.delete()){
-                                System.out.println("borrao");
+                        borrarDirectorio(cont, lista, "C:\\raiz\\Papelera\\", aux.getFile());
+                        for(DirectoryStream<Path> c:cont){
+                            try {
+                                c.close();
+                            } catch (IOException ex) {
+                                Logger.getLogger(AdministradorController.class.getName()).log(Level.SEVERE, null, ex);
                             }
+                        }
+                        for(File file : lista){
+                            try{
+                                file.delete();
+                            }catch(Exception ex){}
                         }
                         lvArchivos.getItems().remove(index);
                     }
@@ -178,7 +187,7 @@ public class AdministradorController extends Controller implements Initializable
             men.show(Alert.AlertType.INFORMATION, "Borrar", "No tiene permisos para borrar aqui");
     }
     
-    public void borrarDirectorio(List<File> lista, String carpeta, File file){
+    public void borrarDirectorio(List<DirectoryStream<Path>> contenidos, List<File> lista, String carpeta, File file){
         lista.add(0, file);
         File papelera = new File(carpeta+file.getName());
         if(!papelera.exists()){
@@ -187,14 +196,20 @@ public class AdministradorController extends Controller implements Initializable
         try {
             File cont;
             DirectoryStream<Path> contenido = Files.newDirectoryStream(file.toPath());
+            contenidos.add(0, contenido);
             for(Path ruta : contenido){
                 cont = new File(ruta.toString());
                 if(cont.isFile()){
                     Path destino = Paths.get(papelera.getAbsolutePath()+"\\"), origen;
                     origen = Paths.get(cont.getAbsolutePath());
                     Files.move(origen, destino.resolve(origen.getFileName()));
+                    PapeleraDto pap = new PapeleraDto(user.getUsuId(), actual.getAbsolutePath(), papelera.getAbsolutePath()+"\\"+file.getName());
+                    Respuesta res = service.guardarPapelera(pap);
+                    if(res.getEstado()){
+                        System.out.println("Exito");
+                    }
                 }else if(cont.isDirectory()){
-                    borrarDirectorio(lista, papelera.getAbsolutePath()+"\\" ,cont);
+                    borrarDirectorio(contenidos, lista, papelera.getAbsolutePath()+"\\" ,cont);
                 }
             }
             

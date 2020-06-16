@@ -6,8 +6,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="416.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="repositorio.controller.BuscarUserController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="416.0" stylesheets="@../resources/Emergentes.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="repositorio.controller.BuscarUserController">
    <children>
       <JFXTextField fx:id="txtNombre" layoutX="14.0" layoutY="14.0" prefHeight="49.0" prefWidth="212.0" promptText="Nombre" />
       <JFXButton fx:id="btnBuscar" layoutX="240.0" layoutY="20.0" onAction="#accionBuscar" prefHeight="49.0" prefWidth="165.0" text="Buscar" />
@@ -17,6 +16,6 @@
           <TableColumn prefWidth="317.0" text="NOMBRE" />
         </columns>
       </TableView>
-      <JFXButton fx:id="btnSeleccionar" layoutX="48.0" layoutY="337.0" onAction="#accionSeleccionar" prefHeight="49.0" prefWidth="304.0" text="Seleccionar" />
+      <JFXButton fx:id="btnSeleccionar" layoutX="45.0" layoutY="344.0" onAction="#accionSeleccionar" prefHeight="49.0" prefWidth="304.0" text="Seleccionar" />
    </children>
 </AnchorPane>
