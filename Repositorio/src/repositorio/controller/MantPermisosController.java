@@ -77,7 +77,7 @@ public class MantPermisosController extends Controller implements Initializable 
         colGuardar.setCellValueFactory(new PropertyValueFactory("perEditar"));
         colLeer.setCellValueFactory(new PropertyValueFactory("perLeer"));
         tvPermisos.getItems().clear();
-        tvPermisos.getItems().addAll(user.getPermisosOtorgados());
+        tvPermisos.getItems().addAll(user.getPermisosDados());
     }
     
     public void mostrarDatos(){
@@ -98,7 +98,7 @@ public class MantPermisosController extends Controller implements Initializable 
                     Respuesta res = service.eliminarPermiso(per.getPerId());
                     if(res.getEstado()){
                         men.show(Alert.AlertType.INFORMATION, "Eliminar Permiso", "Permiso eliminado");
-                        user.getPermisosOtorgados().remove(per);
+                        user.getPermisosDados().remove(per);
                     }
                 }
             }
@@ -134,9 +134,9 @@ public class MantPermisosController extends Controller implements Initializable 
             Respuesta res = service.guardarPermiso(newPap);
             if(res.getEstado()){
                 men.show(Alert.AlertType.INFORMATION, "Crear Permiso", "Permiso creado");
-                user.addPermisoOtorgado((PermisosDto) res.getResultado("Permiso"));
+                user.addPermisoDados((PermisosDto) res.getResultado("Permiso"));
                 tvPermisos.getItems().clear();
-                tvPermisos.getItems().addAll(user.getPermisosOtorgados());
+                tvPermisos.getItems().addAll(user.getPermisosDados());
             }
         }else{
             if(userselect != null){
@@ -150,7 +150,7 @@ public class MantPermisosController extends Controller implements Initializable 
                 Respuesta res = service.guardarPermiso(newPap);
             if(res.getEstado()){
                 men.show(Alert.AlertType.INFORMATION, "Crear Permiso", "Permiso creado");
-                user.addPermisoOtorgado((PermisosDto) res.getResultado("Permiso"));
+                user.addPermisoDados((PermisosDto) res.getResultado("Permiso"));
                 tvPermisos.getItems().clear();
                 tvPermisos.getItems().addAll(user.getPermisosOtorgados());
             }
