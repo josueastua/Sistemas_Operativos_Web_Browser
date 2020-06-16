@@ -185,7 +185,6 @@ public class AdministradorController extends Controller implements Initializable
                 }
             }
         }else{
-            event.consume();
             men.show(Alert.AlertType.INFORMATION, "Borrar", "No tiene permisos para borrar aqui");
         }
     }
@@ -193,7 +192,7 @@ public class AdministradorController extends Controller implements Initializable
     public void moverDirectorio(List<DirectoryStream<Path>> contenidos, List<File> lista, String carpeta, File file){
         lista.add(0, file);
         File papelera = new File(carpeta+file.getName());
-        if(!papelera.exists()){
+        if(!papelera.exists() && papelera.getName().equals("Permanente") && papelera.getName().equals("Temporal")){
             papelera.mkdir();
         }
         try {
@@ -203,7 +202,12 @@ public class AdministradorController extends Controller implements Initializable
             for(Path ruta : contenido){
                 cont = new File(ruta.toString());
                 if(cont.isFile()){
-                    Path destino = Paths.get(papelera.getAbsolutePath()+"\\"), origen;
+                    Path destino, origen; 
+                    if(papelera.exists()){
+                        destino = Paths.get(papelera.getAbsolutePath()+"\\");
+                    }else{
+                        destino = Paths.get(carpeta);
+                    }
                     origen = Paths.get(cont.getAbsolutePath());
                     Files.move(origen, destino.resolve(origen.getFileName()));
                     PapeleraDto pap = new PapeleraDto(user.getUsuId(), actual.getAbsolutePath(), papelera.getAbsolutePath()+"\\"+file.getName());
@@ -242,14 +246,19 @@ public class AdministradorController extends Controller implements Initializable
 
     @FXML
     private void accionUpdate(ActionEvent event) {
-        System.out.println(actual);
         if(actual.getAbsolutePath().contains("Temporal")){
-            if(propiaCarpeta){
+            String usu;
+            if(propiaCarpeta || verificarAccion(3)){
+                if(propiaCarpeta){
+                    usu = user.getUsuNombre();
+                }else{
+                    usu = getUserName();
+                }
+                System.out.println(usu);
                 if(men.showConfirmation("Update", this.getStage(), "Si hay archivos el temporal se perderan")){
                     List<File> lista = new ArrayList<>();
                     List<DirectoryStream<Path>> cont  = new ArrayList<>();
-                    borrarDirectorio(cont, lista, new File("C:\\raiz\\"+user.getUsuNombre()+"\\Temporal"));
-                    borrarDirectorio(cont, lista, actual);
+                    moverDirectorio(cont, lista, "C:\\raiz\\Papelera\\", actual);
                     for(DirectoryStream<Path> c:cont){
                         try {
                             c.close();
@@ -259,66 +268,64 @@ public class AdministradorController extends Controller implements Initializable
                     }
                     for(File file : lista){
                         try{
-                            file.delete();
+                            if(!file.getName().equals("Temporal"))
+                                file.delete();
                         }catch(Exception ex){}
                     }
-                    moverDirectorio("C:\\raiz\\"+user.getUsuNombre()+"\\Permanente", actual);
+                    moverDirectorio(cont, lista, actual.getAbsolutePath()+"\\", new File("C:\\raiz\\"+usu+"\\Permanente\\"));
+                    cargarCarpeta(actual);
+                }else{
+                    System.out.println("NO");
                 }
             }
         }else{
             men.show(Alert.AlertType.INFORMATION, "Update", "Debe encontrarse el la carpeta Temporal");
         }
-    }
-    
-    public void borrarDirectorio(List<DirectoryStream<Path>> contenidos, List<File> lista, File file){
-        if(!file.getName().equals("Temporal"))    
-            lista.add(0, file);
-        try {
-            File cont;
-            DirectoryStream<Path> contenido = Files.newDirectoryStream(file.toPath());
-            contenidos.add(0, contenido);
-            for(Path ruta : contenido){
-                cont = new File(ruta.toString());
-                if(cont.isFile()){
-                    Path destino = Paths.get("C:\\raiz\\Papelera\\"+file.getName()), origen;
-                    origen = Paths.get(cont.getAbsolutePath());
-                    Files.move(origen, destino.resolve(origen.getFileName()));
-                    if(cont.delete())
-                        System.out.println("Archivo borrado");
-                }else if(cont.isDirectory()){
-                    borrarDirectorio(contenidos, lista, cont);
-                }
-            }
-        } catch (IOException ex) {}
-    }
-    
-    public void moverDirectorio(String Carpeta, File file){
-        try {
-            File cont;
-            DirectoryStream<Path> contenido = Files.newDirectoryStream(file.toPath());
-            for(Path ruta : contenido){
-                cont = new File(ruta.toString());
-                if(cont.isFile()){
-                    Path destino = Paths.get(Carpeta+file.getName()), origen;
-                    origen = Paths.get(cont.getAbsolutePath());
-                    Files.move(origen, destino.resolve(origen.getFileName()));
-                    if(file.delete())
-                        System.out.println("Archivo borrado");
-                }else if(cont.isDirectory()){
-                    moverDirectorio(Carpeta+file.getName(), cont);
-                }
-            }
-        } catch (IOException ex) {}
     }
 
     @FXML
     private void accionCommit(ActionEvent event) {
-        if(!actual.getAbsolutePath().contains("Temporal")){
-            
+        if(actual.getAbsolutePath().contains("Temporal")){
+            String usu = "";
+            if(propiaCarpeta || verificarAccion(3)){
+                if(propiaCarpeta){
+                    usu = user.getUsuNombre();
+                }else{
+                    usu = getUserName();
+                }
+                if(men.showConfirmation("Commit", this.getStage(), "Desea hacer el commit?")){
+                    List<File> lista = new ArrayList<>();
+                    List<DirectoryStream<Path>> cont  = new ArrayList<>();
+                    moverDirectorio(cont, lista, "C:\\raiz\\"+usu+"\\Permanente\\", actual);
+                    for(DirectoryStream<Path> c:cont){
+                        try {
+                            c.close();
+                        } catch (IOException ex) {
+                            Logger.getLogger(AdministradorController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    for(File file : lista){
+                        try{
+                            if(!file.getName().equals("Temporal"))
+                                file.delete();
+                        }catch(Exception ex){}
+                    }
+                    cargarCarpeta(actual);
+                }else{
+                    System.out.println("NO");
+                }
+            }
         }else{
             men.show(Alert.AlertType.INFORMATION, "Update", "Debe encontrarse el la carpeta Temporal");
         }
-        
+    }
+    
+    public String getUserName(){
+        for(PermisosDto dto:user.getPermisosOtorgados()){
+            if(actual.getAbsolutePath().contains(dto.getPerDueno()))
+                return dto.getPerDueno();
+        }
+        return "";
     }
 
     @Override
