@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
+import repositorio.modelo.UsuariosDto;
 
 /**
  * FXML Controller class
@@ -27,7 +28,7 @@ public class BuscarUserController implements Initializable {
     @FXML
     private JFXButton btnBuscar;
     @FXML
-    private TableView<?> tvUser;
+    private TableView<UsuariosDto> tvUser;
     @FXML
     private JFXButton btnSeleccionar;
 

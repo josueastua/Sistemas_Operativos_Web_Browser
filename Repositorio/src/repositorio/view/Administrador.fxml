@@ -20,7 +20,7 @@
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="btnGuardar" layoutX="504.0" layoutY="25.0" onAction="#accionGuardar" prefHeight="50.0" prefWidth="200.0" text="Guardar">
+            <JFXButton fx:id="btnGuardar" layoutX="504.0" layoutY="25.0" onAction="#accionGuardar" prefHeight="50.0" prefWidth="200.0" text="Cargar">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>

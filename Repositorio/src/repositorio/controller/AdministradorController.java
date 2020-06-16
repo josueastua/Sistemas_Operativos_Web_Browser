@@ -14,12 +14,17 @@ import javafx.fxml.Initializable;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.CopyOption;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,6 +35,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
 import javax.swing.filechooser.FileSystemView;
 import repositorio.Repositorio;
 import repositorio.modelo.PermisosDto;
@@ -96,6 +102,25 @@ public class AdministradorController extends Controller implements Initializable
         }catch(IOException ex){}
     }
     
+    public void crearRepresentacion(File archivo){
+        try {
+            List<Object> lista = new ArrayList<>();
+            lista.add(archivo);
+            lista.add(archivo.getName());
+            lista.add(convertirImage(archivo));
+            AppContext.getInstance().set("Parametros", lista);
+            FXMLLoader loader = new FXMLLoader(Repositorio.class.getResource("view/Casilla.fxml"));
+            loader.load();
+            CasillaController cont = loader.getController();
+            cont.intermedio();
+            controladores.add(cont);
+            lvArchivos.getItems().add(loader.getRoot());
+        } catch (IOException ex) {
+            Logger.getLogger(AdministradorController.class.getName()).log(Level.SEVERE, null, ex);
+            men.show(Alert.AlertType.INFORMATION, "Cargar Representacion", "Ocurrio un error al cargar la representacion: "+ex);
+        }
+    }
+    
     private Image convertirImage(File file){
         javax.swing.Icon icon = FileSystemView.getFileSystemView().getSystemIcon(file);
         BufferedImage buffer = new BufferedImage(
@@ -114,13 +139,6 @@ public class AdministradorController extends Controller implements Initializable
             
         }else
             men.show(Alert.AlertType.INFORMATION, "Borrar", "No tiene permisos para borrar aqui");
-    }
-
-    private void accionNuevo(ActionEvent event) {
-        if(!actual.getAbsolutePath().equals("C:\\raiz")){
-            
-        }else
-            men.show(Alert.AlertType.INFORMATION, "Nuevo", "No tiene permisos para crear aqui");
     }
 
     @FXML
@@ -145,6 +163,9 @@ public class AdministradorController extends Controller implements Initializable
     public void initialize() {
         user = (UsuariosDto) AppContext.getInstance().get("User");
         cargarCarpeta(new File("C:\\raiz"));
+        cbNuevo.getItems().add("Nueva Carpeta");
+        ext.put("Nueva Carpeta", "carpeta");
+        
         cbNuevo.getItems().add("Imagen .jpg");
         ext.put("Imagen .jpg", ".jpg");
         cbNuevo.getItems().add("Imagen .png");
@@ -156,7 +177,7 @@ public class AdministradorController extends Controller implements Initializable
         
         cbNuevo.getItems().add("Texto .doc");
         ext.put("Texto .doc", ".doc");
-        cbNuevo.getItems().add("Textp .docx");
+        cbNuevo.getItems().add("Texto .docx");
         ext.put("Texto .docx", ".docx");
         cbNuevo.getItems().add("Texto .pdf");
         ext.put("Texto .pdf", ".pdf");
@@ -170,11 +191,6 @@ public class AdministradorController extends Controller implements Initializable
         ext.put("Presentacion .ppt", ".ppt");
         cbNuevo.getItems().add("Presentacion .pptx");
         ext.put("Presentacion .pptx", ".pptx");
-        
-        cbNuevo.getItems().add("Comprimido .zip");
-        ext.put("Comprimido .zip", ".zip");
-        cbNuevo.getItems().add("Comprimido .rar");
-        ext.put("Comprimido .rar", ".rar");
         
         cbNuevo.getItems().add("Hojas de calculo .xls");
         ext.put("Hojas de calculo .xls", ".xls");
@@ -224,10 +240,63 @@ public class AdministradorController extends Controller implements Initializable
 
     @FXML
     private void accionCombo(ActionEvent event) {
+        if(cbNuevo.getSelectionModel().getSelectedItem() != null){
+            if(!actual.getAbsolutePath().equals("C:\\raiz")){
+                if(propiaCarpeta || verificarAccion(1)){
+                    String extension = ext.get(cbNuevo.getSelectionModel().getSelectedItem());
+                    if(!extension.equals("carpeta")){
+                        String nombre = men.textInputDialog("Crear archivo", "Ingrese el nombre");
+                        if(!nombre.isEmpty()){
+                            try{
+                                File file = new File(actual.getAbsolutePath()+"\\"+nombre+extension);
+                                if(!file.exists()){
+                                    file.createNewFile();
+                                    crearRepresentacion(file);
+                                }else{
+                                    men.show(Alert.AlertType.INFORMATION, "Crear archivo", "El archivo ya existe");
+                                }
+                            }catch(IOException ex){
+                                men.show(Alert.AlertType.INFORMATION, "Crear Archivo", "Ocurrio un error al tratar de crear el archivo");
+                            }
+                        }
+                    }else if(extension.equals("carpeta")){
+                        String nombre = men.textInputDialog("Crear carpeta", "Ingrese el nombre");
+                        if(!nombre.isEmpty()){
+                            File file = new File(actual.getAbsolutePath()+"\\"+nombre);
+                            if(!file.exists()){
+                                file.mkdir();
+                                crearRepresentacion(file);
+                            }else{
+                                men.show(Alert.AlertType.INFORMATION, "Crear carpeta", "El una carpeta ya existe");
+                            }
+                        }
+                    }
+                }else{
+                    men.show(Alert.AlertType.INFORMATION, "Crear Archivo", "No tiene permisos para crear aqui");
+                }
+            }else{
+                men.show(Alert.AlertType.INFORMATION, "Nuevo", "No tiene permisos para crear aqui");
+            }
+            cbNuevo.getSelectionModel().clearSelection();
+        }
     }
 
     @FXML
     private void accionGuardar(ActionEvent event) {
+        if(propiaCarpeta || verificarAccion(3)){
+            FileChooser selecter = new FileChooser();
+            List<File> files = selecter.showOpenMultipleDialog(this.getStage());
+            Path destino = Paths.get(actual.getAbsoluteFile()+"\\"), origen;
+            try{
+                for(File f : files){
+                    origen = Paths.get(f.getAbsolutePath());
+                    Files.copy(origen, destino.resolve(origen.getFileName()));
+                    crearRepresentacion(new File(actual+"\\"+f.getName()));
+                }
+            }catch(IOException ex){
+                System.out.println(ex);
+            }
+        }
     }
     
     public Boolean verificarTienePermisos(String name){
@@ -245,26 +314,22 @@ public class AdministradorController extends Controller implements Initializable
     }
     
     public Boolean verificarAccion(int accion){
-        if(propiaCarpeta){
-            return true;
-        }else{
-            PermisosDto per = buscarPermiso();
-            if(per != null){
-                switch(accion){
-                    case 1://Crear
-                        return per.getPerCrear() == 1;
-                    case 2://Borrar
-                        return per.getPerBorrar() == 1;
-                    case 3://Editar y cargar
-                        return per.getPerEditar() == 1;
-                    case 4://lectura
-                        return per.getPerLeer() == 1;
-                    default:
-                        return false;
-                }
-            }else{
+        PermisosDto per = buscarPermiso();
+        if(per != null){
+            switch(accion){
+            case 1://Crear
+                return per.getPerCrear() == 1;
+            case 2://Borrar
+                return per.getPerBorrar() == 1;
+            case 3://Editar y cargar
+                return per.getPerEditar() == 1;
+            case 4://lectura
+                return per.getPerLeer() == 1;
+            default:
                 return false;
             }
+        }else{
+            return false;
         }
     }
     
@@ -281,7 +346,7 @@ public class AdministradorController extends Controller implements Initializable
     private void accionAbrir(ActionEvent event) {
         if(lvArchivos.getSelectionModel().getSelectedItem() != null){
             CasillaController aux = controladores.get(lvArchivos.getItems().indexOf(lvArchivos.getSelectionModel().getSelectedItem()));
-            if(propiaCarpeta){
+            if(propiaCarpeta || verificarAccion(4)){
                 File file = aux.getFile();
                 try{
                     Desktop.getDesktop().open(file); 
@@ -289,16 +354,7 @@ public class AdministradorController extends Controller implements Initializable
                     men.show(Alert.AlertType.INFORMATION, "Abrir Archivo", "No se pudo abrir el archivo");
                 }
             }else{
-                if(verificarAccion(4)){
-                    File file = aux.getFile();
-                    try{
-                        Desktop.getDesktop().open(file); 
-                    }catch(IOException ex){
-                        men.show(Alert.AlertType.INFORMATION, "Abrir Archivo", "No se pudo abrir el archivo");
-                    }
-                }else{
-                    men.show(Alert.AlertType.INFORMATION, "Abrir Archivo", "No posee los permisos");
-                }
+                men.show(Alert.AlertType.INFORMATION, "Abrir Archivo", "No posee los permisos");
             }
         }
     }

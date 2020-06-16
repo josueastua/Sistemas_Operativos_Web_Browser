@@ -13,6 +13,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.Window;
@@ -128,5 +129,17 @@ public class Mensaje {
             retorno = 0;
         }
         return retorno;
+    }
+    
+    public String textInputDialog(String titulo, String mensaje){
+        TextInputDialog td = new TextInputDialog();
+        td.setHeaderText(null);
+        td.setTitle(titulo);
+        td.setContentText(mensaje);
+        td.showAndWait();
+        if(td.getEditor().getText().isEmpty()){
+            return "";
+        }
+        return td.getEditor().getText();
     }
 }
