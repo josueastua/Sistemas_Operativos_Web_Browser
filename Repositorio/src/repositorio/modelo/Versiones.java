@@ -47,11 +47,11 @@ public class Versiones implements Serializable {
     @Column(name = "verCarpeta")
     private String verCarpeta;
     @Basic(optional = false)
-    @Column(name = "verIdUsuario")
-    private int verIdUsuario;
-    @Basic(optional = false)
     @Column(name = "verIdentificador")
     private String verIdentificador;
+    @Basic(optional = false)
+    @Column(name = "verIdUsuario")
+    private String verIdUsuario;
 
     public Versiones() {
     }
@@ -60,7 +60,7 @@ public class Versiones implements Serializable {
         this.verId = verId;
     }
 
-    public Versiones(Integer verId, String verArchivo, String verCarpeta, int verIdUsuario) {
+    public Versiones(Integer verId, String verArchivo, String verCarpeta, String verIdUsuario) {
         this.verId = verId;
         this.verArchivo = verArchivo;
         this.verCarpeta = verCarpeta;
@@ -103,13 +103,6 @@ public class Versiones implements Serializable {
         this.verCarpeta = verCarpeta;
     }
 
-    public int getVerIdUsuario() {
-        return verIdUsuario;
-    }
-
-    public void setVerIdUsuario(int verIdUsuario) {
-        this.verIdUsuario = verIdUsuario;
-    }
 
     @Override
     public int hashCode() {
@@ -142,6 +135,14 @@ public class Versiones implements Serializable {
 
     public void setVerIdentificador(String verIdentificador) {
         this.verIdentificador = verIdentificador;
+    }
+
+    public String getVerIdUsuario() {
+        return verIdUsuario;
+    }
+
+    public void setVerIdUsuario(String verIdUsuario) {
+        this.verIdUsuario = verIdUsuario;
     }
     
 }

@@ -27,7 +27,7 @@ public class VersionesService {
     EntityManager em = EntityManagerHelper.getInstance().getManager();
     private EntityTransaction et;
     
-    public Respuesta getVersionesByUsuario(int usuid){//Los permisos que le han otorgado al usuario
+    public Respuesta getVersionesByUsuario(String usuid){//Los permisos que le han otorgado al usuario
         try{
             Query query = em.createNamedQuery("Versiones.findByVerIdUsuario", Versiones.class);
             query.setParameter("verIdUsuario", usuid);

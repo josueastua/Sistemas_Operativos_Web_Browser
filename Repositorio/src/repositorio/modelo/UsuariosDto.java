@@ -19,6 +19,7 @@ public class UsuariosDto {
     private String usuPassword;
     private String usuDir;
     private HashMap<String, List<VersionesDto>> versiones = new HashMap();
+    private List<VersionesDto> verlist = new ArrayList<>();
     private List<PermisosDto> permisosDados;
     private List<PermisosDto> permisosOtorgados;
     private List<PapeleraDto> papelera;
@@ -38,8 +39,15 @@ public class UsuariosDto {
         this.usuPassword = usu.getUsuPassword();
         this.usuDir = usu.getUsuDir();
     }
-    
 
+    public List<VersionesDto> getVerlist() {
+        return verlist;
+    }
+
+    public void setVerlist(List<VersionesDto> verlist) {
+        this.verlist = verlist;
+    }
+    
     public Integer getUsuId() {
         return usuId;
     }
@@ -76,11 +84,12 @@ public class UsuariosDto {
         return versiones;
     }
 
-    public void setVersiones(List<VersionesDto> versiones) {
+    public void setVersiones() {
+        versiones.clear();
         List<VersionesDto> aux;
-        for(VersionesDto version: versiones){
+        for(VersionesDto version: verlist){
             aux = new ArrayList();
-            for(VersionesDto version2: versiones){
+            for(VersionesDto version2: verlist){
                 if(version.getVerIdentificador().equals(version2.getVerIdentificador())){
                     aux.add(version2);
                 }

@@ -97,9 +97,9 @@ public class LoginController extends Controller implements Initializable {
         res = papservice.getPapeleraByIdUsuario(user.getUsuId());
         if(res.getEstado())
             user.setPapelera((List<PapeleraDto>) res.getResultado("Papelera"));
-        res = verservice.getVersionesByUsuario(user.getUsuId());
+        res = verservice.getVersionesByUsuario(user.getUsuNombre());
         if(res.getEstado())
-            user.setVersiones((List<VersionesDto>) res.getResultado("Versiones"));
+            user.setVerlist((List<VersionesDto>) res.getResultado("Versiones"));
     }
     
 }

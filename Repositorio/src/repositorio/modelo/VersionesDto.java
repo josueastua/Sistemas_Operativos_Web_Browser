@@ -13,7 +13,7 @@ public class VersionesDto {
     private Integer verId;
     private String verArchivo;
     private String verCarpeta;
-    private int verIdUsuario;
+    private String verIdUsuario;
     private String verIdentificador;
     
     public VersionesDto(){}
@@ -25,6 +25,16 @@ public class VersionesDto {
         this.verIdUsuario = ver.getVerIdUsuario();
         this.verIdentificador = ver.getVerIdentificador();
     }
+
+    public VersionesDto(String verArchivo, String verCarpeta, String verIdUsuario, String verIdentificador) {
+        this.verId = 0;
+        this.verArchivo = verArchivo;
+        this.verCarpeta = verCarpeta;
+        this.verIdUsuario = verIdUsuario;
+        this.verIdentificador = verIdentificador;
+    }
+    
+    
 
     public Integer getVerId() {
         return verId;
@@ -50,11 +60,11 @@ public class VersionesDto {
         this.verCarpeta = verCarpeta;
     }
 
-    public int getVerIdUsuario() {
+    public String getVerIdUsuario() {
         return verIdUsuario;
     }
 
-    public void setVerIdUsuario(int verIdUsuario) {
+    public void setVerIdUsuario(String verIdUsuario) {
         this.verIdUsuario = verIdUsuario;
     }
 

@@ -21,6 +21,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
@@ -42,7 +43,9 @@ import repositorio.modelo.PapeleraDto;
 import repositorio.modelo.PermisosDto;
 import repositorio.modelo.Usuarios;
 import repositorio.modelo.UsuariosDto;
+import repositorio.modelo.VersionesDto;
 import repositorio.service.PapeleraService;
+import repositorio.service.VersionesService;
 import repositorio.util.AppContext;
 import repositorio.util.Mensaje;
 import repositorio.util.Respuesta;
@@ -73,6 +76,7 @@ public class AdministradorController extends Controller implements Initializable
     private Boolean propiaCarpeta;
     @FXML private JFXButton btnAbrir;
     PapeleraService service = new PapeleraService();
+    VersionesService verser = new VersionesService();
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -296,7 +300,7 @@ public class AdministradorController extends Controller implements Initializable
                 if(men.showConfirmation("Commit", this.getStage(), "Desea hacer el commit?")){
                     List<File> lista = new ArrayList<>();
                     List<DirectoryStream<Path>> cont  = new ArrayList<>();
-                    moverDirectorio(cont, lista, "C:\\raiz\\"+usu+"\\Permanente\\", actual);
+                    moverDirectorio2("C:\\raiz\\"+usu+"\\Permanente\\",cont, lista, "C:\\raiz\\"+usu+"\\Permanente\\", actual);
                     for(DirectoryStream<Path> c:cont){
                         try {
                             c.close();
@@ -318,6 +322,44 @@ public class AdministradorController extends Controller implements Initializable
         }else{
             men.show(Alert.AlertType.INFORMATION, "Update", "Debe encontrarse el la carpeta Temporal");
         }
+    }
+    
+    public void moverDirectorio2(String folder, List<DirectoryStream<Path>> contenidos, List<File> lista, String carpeta, File file){
+        lista.add(0, file);
+        Date date = new Date();
+        String iden = date.toString();
+        System.out.println(iden);
+        File papelera = new File(carpeta+file.getName());
+        if(!papelera.exists() && papelera.getName().equals("Permanente") && papelera.getName().equals("Temporal")){
+            papelera.mkdir();
+        }
+        try {
+            File cont;
+            DirectoryStream<Path> contenido = Files.newDirectoryStream(file.toPath());
+            contenidos.add(0, contenido);
+            for(Path ruta : contenido){
+                cont = new File(ruta.toString());
+                if(cont.isFile()){
+                    Path destino, origen; 
+                    if(papelera.exists()){
+                        destino = Paths.get(papelera.getAbsolutePath()+"\\");
+                    }else{
+                        destino = Paths.get(carpeta);
+                    }
+                    origen = Paths.get(cont.getAbsolutePath());
+                    Files.move(origen, destino.resolve(origen.getFileName()));
+                    VersionesDto dto = new VersionesDto(cont.getName(), carpeta, getUserName(), iden);
+                    Respuesta res = verser.guardarVersion(dto);
+                    if(res.getEstado()){
+                        System.out.println("Exito");
+                        user.getVerlist().add((VersionesDto) res.getResultado("Version"));
+                    }
+                }else if(cont.isDirectory()){
+                    moverDirectorio(contenidos, lista, papelera.getAbsolutePath()+"\\" ,cont);
+                }
+            }
+            
+        } catch (IOException ex) {}
     }
     
     public String getUserName(){
