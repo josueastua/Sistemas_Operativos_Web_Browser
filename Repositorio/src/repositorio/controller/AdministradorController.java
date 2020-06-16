@@ -38,11 +38,14 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javax.swing.filechooser.FileSystemView;
 import repositorio.Repositorio;
+import repositorio.modelo.PapeleraDto;
 import repositorio.modelo.PermisosDto;
 import repositorio.modelo.Usuarios;
 import repositorio.modelo.UsuariosDto;
+import repositorio.service.PapeleraService;
 import repositorio.util.AppContext;
 import repositorio.util.Mensaje;
+import repositorio.util.Respuesta;
 
 
 
@@ -68,8 +71,8 @@ public class AdministradorController extends Controller implements Initializable
     private Mensaje men;
     private UsuariosDto user;
     private Boolean propiaCarpeta;
-    @FXML
-    private JFXButton btnAbrir;
+    @FXML private JFXButton btnAbrir;
+    PapeleraService service = new PapeleraService();
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -136,15 +139,84 @@ public class AdministradorController extends Controller implements Initializable
     @FXML
     private void accionBorrar(ActionEvent event) {
         if(!actual.getAbsolutePath().equals("C:\\raiz")){
-            
+            if(lvArchivos.getSelectionModel().getSelectedItem() != null){
+                CasillaController aux = controladores.get(lvArchivos.getItems().indexOf(lvArchivos.getSelectionModel().getSelectedItem()));
+                if(propiaCarpeta || verificarAccion(4)){
+                    if(!aux.getFile().isDirectory()){
+                        try {
+                            int index = lvArchivos.getItems().indexOf(lvArchivos.getSelectionModel().getSelectedItem());
+                            File file = aux.getFile();
+                            Path destino = Paths.get("C:\\raiz\\Papelera\\"), origen;
+                            origen = Paths.get(file.getAbsolutePath());
+                            Files.move(origen, destino.resolve(origen.getFileName()));
+                            PapeleraDto pap = new PapeleraDto(user.getUsuId(), actual.getAbsolutePath(), "C:\\raiz\\Papelera\\"+file.getName());
+                            Respuesta res = service.guardarPapelera(pap);
+                            if(res.getEstado()){
+                                System.out.println("Exito");
+                            }
+                            lvArchivos.getItems().remove(index);
+                        } catch (IOException ex) {
+                            Logger.getLogger(AdministradorController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }else if(aux.getFile().isDirectory()){
+                        List<File> lista = new ArrayList<>();
+                        int index = lvArchivos.getSelectionModel().getSelectedIndex();
+                        borrarDirectorio(lista, "C:\\raiz\\Papelera\\", aux.getFile());
+                        for(File file : lista){
+                            System.out.println(file.getAbsolutePath());
+                            if(file.delete()){
+                                System.out.println("borrao");
+                            }
+                        }
+                        lvArchivos.getItems().remove(index);
+                    }
+                }else{
+                    men.show(Alert.AlertType.INFORMATION, "Abrir Archivo", "No posee los permisos");
+                }
+            }
         }else
             men.show(Alert.AlertType.INFORMATION, "Borrar", "No tiene permisos para borrar aqui");
+    }
+    
+    public void borrarDirectorio(List<File> lista, String carpeta, File file){
+        lista.add(0, file);
+        File papelera = new File(carpeta+file.getName());
+        if(!papelera.exists()){
+            papelera.mkdir();
+        }
+        try {
+            File cont;
+            DirectoryStream<Path> contenido = Files.newDirectoryStream(file.toPath());
+            for(Path ruta : contenido){
+                cont = new File(ruta.toString());
+                if(cont.isFile()){
+                    Path destino = Paths.get(papelera.getAbsolutePath()+"\\"), origen;
+                    origen = Paths.get(cont.getAbsolutePath());
+                    Files.move(origen, destino.resolve(origen.getFileName()));
+                }else if(cont.isDirectory()){
+                    borrarDirectorio(lista, papelera.getAbsolutePath()+"\\" ,cont);
+                }
+            }
+            
+        } catch (IOException ex) {}
     }
 
     @FXML
     private void accionEditar(ActionEvent event) {
         if(!actual.getAbsolutePath().equals("C:\\raiz")){
-            
+            if(lvArchivos.getSelectionModel().getSelectedItem() != null){
+                CasillaController aux = controladores.get(lvArchivos.getItems().indexOf(lvArchivos.getSelectionModel().getSelectedItem()));
+                if(propiaCarpeta || verificarAccion(4)){
+                    File file = aux.getFile();
+                    try{
+                        Desktop.getDesktop().edit(file); 
+                    }catch(IOException ex){
+                        men.show(Alert.AlertType.INFORMATION, "Abrir Archivo", "No se pudo abrir el archivo");
+                    }
+                }else{
+                    men.show(Alert.AlertType.INFORMATION, "Abrir Archivo", "No posee los permisos");
+                }
+            }
         }else
             men.show(Alert.AlertType.INFORMATION, "Editar", "No tiene permisos para editar aqui");
     }
@@ -200,7 +272,7 @@ public class AdministradorController extends Controller implements Initializable
 
     @FXML
     private void accionList(MouseEvent event) {
-        if(lvArchivos.getSelectionModel().getSelectedItem() != null){
+        if(lvArchivos.getSelectionModel().getSelectedItem() != null && event.getClickCount() == 2){
             CasillaController aux = controladores.get(lvArchivos.getItems().indexOf(lvArchivos.getSelectionModel().getSelectedItem()));
             if(aux.isDirectorio()){
                 if(actual.getAbsolutePath().equals("C:\\raiz")){
@@ -216,12 +288,13 @@ public class AdministradorController extends Controller implements Initializable
                     }else if(aux.getFile().getAbsolutePath().contains("Versiones")){
                         men.show(Alert.AlertType.WARNING, "Carpeta Versiones", "No se puede acceder a esta carpeta");
                     }else if(aux.getFile().getAbsolutePath().contains("Temporal")){
-                        men.show(Alert.AlertType.WARNING, "Carpeta Temporal", "Aqui puede cargar, crear o borrar archivos\nUse el boton Update para cargar los archivo de carpeta permanente\nUse el boton commit para guradarlos");
+                        if(aux.getFile().getParentFile().getParent().equals("C:\\raiz"))
+                            men.show(Alert.AlertType.WARNING, "Carpeta Temporal", "Aqui puede cargar, crear o borrar archivos\nUse el boton Update para cargar los archivo de carpeta permanente\nUse el boton commit para guradarlos");
                         cargarCarpeta(aux.getFile());
                     }
                 }
             }
-        }else
+        }else if(lvArchivos.getSelectionModel().getSelectedItem() == null)
             men.show(Alert.AlertType.ERROR, "Seleccion", "No selecciona un archivo");
     }
 
@@ -277,7 +350,7 @@ public class AdministradorController extends Controller implements Initializable
             }else{
                 men.show(Alert.AlertType.INFORMATION, "Nuevo", "No tiene permisos para crear aqui");
             }
-            cbNuevo.getSelectionModel().clearSelection();
+            cbNuevo.getSelectionModel().clearSelection(cbNuevo.getItems().indexOf(cbNuevo.getSelectionModel().getSelectedIndex()));
         }
     }
 
@@ -344,19 +417,23 @@ public class AdministradorController extends Controller implements Initializable
 
     @FXML
     private void accionAbrir(ActionEvent event) {
-        if(lvArchivos.getSelectionModel().getSelectedItem() != null){
-            CasillaController aux = controladores.get(lvArchivos.getItems().indexOf(lvArchivos.getSelectionModel().getSelectedItem()));
-            if(propiaCarpeta || verificarAccion(4)){
-                File file = aux.getFile();
-                try{
-                    Desktop.getDesktop().open(file); 
-                }catch(IOException ex){
-                    men.show(Alert.AlertType.INFORMATION, "Abrir Archivo", "No se pudo abrir el archivo");
+        if(!actual.getAbsolutePath().equals("C:\\raiz")){
+            if(lvArchivos.getSelectionModel().getSelectedItem() != null){
+                CasillaController aux = controladores.get(lvArchivos.getItems().indexOf(lvArchivos.getSelectionModel().getSelectedItem()));
+                if(propiaCarpeta || verificarAccion(4)){
+                    File file = aux.getFile();
+                    try{
+                        Desktop.getDesktop().open(file); 
+                    }catch(IOException ex){
+                        men.show(Alert.AlertType.INFORMATION, "Abrir Archivo", "No se pudo abrir el archivo");
+                    }
+                }else{
+                    men.show(Alert.AlertType.INFORMATION, "Abrir Archivo", "No posee los permisos");
                 }
-            }else{
-                men.show(Alert.AlertType.INFORMATION, "Abrir Archivo", "No posee los permisos");
             }
-        }
+        }else
+            men.show(Alert.AlertType.INFORMATION, "Borrar", "No tiene permisos para borrar aqui");
+        
     }
     
 }

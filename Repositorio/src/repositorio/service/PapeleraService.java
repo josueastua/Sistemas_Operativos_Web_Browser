@@ -50,7 +50,7 @@ public class PapeleraService {
                 ent = em.find(Papelera.class, pap.getPapId());
                 if(ent == null){
                     et.rollback();
-                    return new Respuesta(false, "No se encontro el permiso a modificar", "guardarPermiso NoResultException");
+                    return new Respuesta(false, "No se encontro la papelera a modificar", "guardarPermiso NoResultException");
                 }
                 ent.Actualizar(pap);
                 ent = em.merge(ent);
@@ -59,11 +59,11 @@ public class PapeleraService {
                 em.persist(ent);
             }
             et.commit();
-            return new Respuesta(true, "", "", "Usuario", new PapeleraDto(ent));
+            return new Respuesta(true, "", "", "Papelera", new PapeleraDto(ent));
         }catch(Exception ex){
             et.rollback();
-            Logger.getLogger(UsuariosService.class.getName()).log(Level.SEVERE, "Ocurrio un error al guardar el permiso .", ex);
-            return new Respuesta(false, "Ocurrio un error al guardar el permiso.", "guardarPermiso" + ex.getMessage());
+            Logger.getLogger(UsuariosService.class.getName()).log(Level.SEVERE, "Ocurrio un error al guardar la papelera .", ex);
+            return new Respuesta(false, "Ocurrio un error al guardar la papelera.", "guardarPermiso" + ex.getMessage());
         }
     }
     

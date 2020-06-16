@@ -15,6 +15,13 @@ public class PapeleraDto {
     private int papIdUser;
     private String papDir;
     private String papNombreArch;
+
+    public PapeleraDto(int papIdUser, String papDir, String papNombreArch) {
+        this.papId = 0;
+        this.papIdUser = papIdUser;
+        this.papDir = papDir;
+        this.papNombreArch = papNombreArch;
+    }
     
     public PapeleraDto(Papelera pap){
         this.papId = pap.getPapId();
