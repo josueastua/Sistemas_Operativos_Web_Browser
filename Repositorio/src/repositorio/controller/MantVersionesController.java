@@ -5,12 +5,21 @@
  */
 package repositorio.controller;
 
+import com.jfoenix.controls.JFXButton;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
@@ -20,6 +29,7 @@ import javafx.scene.input.MouseEvent;
 import repositorio.modelo.UsuariosDto;
 import repositorio.modelo.VersionesDto;
 import repositorio.util.AppContext;
+import repositorio.util.Mensaje;
 
 /**
  * FXML Controller class
@@ -40,6 +50,10 @@ public class MantVersionesController extends Controller implements Initializable
     private Label lblTitulo;
     UsuariosDto user;
     HashMap<String, List<VersionesDto>> visualizar;
+    List<VersionesDto> select;
+    @FXML
+    private JFXButton btnRecovery;
+    Mensaje men;
     
 
     /**
@@ -50,9 +64,6 @@ public class MantVersionesController extends Controller implements Initializable
         // TODO
     }    
 
-    @FXML
-    private void accionTabla(MouseEvent event) {
-    }
 
 
     @Override
@@ -86,7 +97,29 @@ public class MantVersionesController extends Controller implements Initializable
         if(lvVersiones.getSelectionModel().getSelectedItem() != null){
             Label aux = lvVersiones.getSelectionModel().getSelectedItem();
             tvVersiones.getItems().clear();
-            tvVersiones.getItems().addAll(visualizar.get(aux.getText()));
+            select = visualizar.get(aux.getText());
+            tvVersiones.getItems().addAll(select);
+        }
+    }
+
+    @FXML
+    private void accionRecuperar(ActionEvent event) {
+        if(select != null){
+            List<File> files = new ArrayList<>();
+            File aux;
+            for(VersionesDto ver : select){
+                aux = new File("C:\\raiz\\"+user.getUsuNombre()+"\\Versiones\\"+ver.getVerArchivo());
+                if(aux.exists()){
+                    try{
+                        Path destino = Paths.get("C:\\raiz\\"+user.getUsuNombre()+"\\Versiones\\"), origen;
+                        origen = Paths.get(aux.getAbsolutePath());
+                        Files.move(origen, destino.resolve(origen.getFileName()));
+                    }catch(IOException ex){
+                        System.out.println(ex);
+                    }
+                }
+            }
+            men.show(Alert.AlertType.INFORMATION, "Recuperar Version", "Version recuperada exitosamente");
         }
     }
 }

@@ -14,12 +14,10 @@ import javafx.fxml.Initializable;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.CopyOption;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -41,7 +39,6 @@ import javax.swing.filechooser.FileSystemView;
 import repositorio.Repositorio;
 import repositorio.modelo.PapeleraDto;
 import repositorio.modelo.PermisosDto;
-import repositorio.modelo.Usuarios;
 import repositorio.modelo.UsuariosDto;
 import repositorio.modelo.VersionesDto;
 import repositorio.service.PapeleraService;
@@ -302,7 +299,7 @@ public class AdministradorController extends Controller implements Initializable
                 if(men.showConfirmation("Commit", this.getStage(), "Desea hacer el commit?")){
                     List<File> lista = new ArrayList<>();
                     List<DirectoryStream<Path>> cont  = new ArrayList<>();
-                    moverDirectorio2("C:\\raiz\\"+usu+"\\Permanente\\",cont, lista, "C:\\raiz\\"+usu+"\\Permanente\\", actual);
+                    moverDirectorio2("C:\\raiz\\"+usu+"\\Versiones\\","C:\\raiz\\"+usu+"\\Permanente\\",cont, lista, "C:\\raiz\\"+usu+"\\Permanente\\", actual);
                     for(DirectoryStream<Path> c:cont){
                         try {
                             c.close();
@@ -326,7 +323,7 @@ public class AdministradorController extends Controller implements Initializable
         }
     }
     
-    public void moverDirectorio2(String folder, List<DirectoryStream<Path>> contenidos, List<File> lista, String carpeta, File file){
+    public void moverDirectorio2(String Versiones, String folder, List<DirectoryStream<Path>> contenidos, List<File> lista, String carpeta, File file){
         lista.add(0, file);
         Date date = new Date();
         String iden = date.toString();
@@ -343,12 +340,14 @@ public class AdministradorController extends Controller implements Initializable
                 cont = new File(ruta.toString());
                 if(cont.isFile()){
                     Path destino, origen; 
+                    destino = Paths.get(Versiones);
+                    origen = Paths.get(cont.getAbsolutePath());
+                    Files.copy(origen, destino.resolve(origen.getFileName()));
                     if(papelera.exists()){
                         destino = Paths.get(papelera.getAbsolutePath()+"\\");
                     }else{
                         destino = Paths.get(carpeta);
                     }
-                    origen = Paths.get(cont.getAbsolutePath());
                     Files.move(origen, destino.resolve(origen.getFileName()));
                     VersionesDto dto = new VersionesDto(cont.getName(), carpeta, getUserName(), iden);
                     Respuesta res = verser.guardarVersion(dto);
@@ -365,6 +364,8 @@ public class AdministradorController extends Controller implements Initializable
     }
     
     public String getUserName(){
+        if(propiaCarpeta)
+            return user.getUsuNombre();
         for(PermisosDto dto : user.getPermisosOtorgados()){
             if(actual.getAbsolutePath().contains(dto.getPerDueno()))
                 return dto.getPerDueno();
