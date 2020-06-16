@@ -17,6 +17,10 @@ public class PermisosDto {
     private int perEditar;
     private int perBorrar;
     private int perCrear;
+
+    public PermisosDto(Integer perId) {
+        this.perId = perId;
+    }
     
     public PermisosDto(Permisos per){
         this.perId = per.getPerId();

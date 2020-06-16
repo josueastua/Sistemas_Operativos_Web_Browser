@@ -24,7 +24,7 @@
       <JFXToggleButton fx:id="tbGuardarEditar" layoutX="437.0" layoutY="219.0" text="Guardar y Editar" />
       <JFXToggleButton fx:id="tbCrear" layoutX="265.0" layoutY="137.0" text="Crear" />
       <JFXToggleButton fx:id="tbLeer" layoutX="265.0" layoutY="219.0" text="Leer" />
-      <Label fx:id="lblUser" layoutX="16.0" layoutY="137.0" prefHeight="56.0" prefWidth="225.0" text="Label" />
-      <JFXButton layoutX="14.0" layoutY="225.0" onKeyPressed="#accionEliminar" prefHeight="44.0" prefWidth="199.0" text="Guardar" />
+      <Label fx:id="lblUser" layoutX="16.0" layoutY="137.0" onMouseClicked="#accionUser" prefHeight="56.0" prefWidth="225.0" text="Label" />
+      <JFXButton layoutX="14.0" layoutY="225.0" onAction="#accionGuardar" prefHeight="44.0" prefWidth="199.0" text="Guardar" />
    </children>
 </AnchorPane>

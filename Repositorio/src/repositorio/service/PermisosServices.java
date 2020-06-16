@@ -72,7 +72,7 @@ public class PermisosServices {
                 em.persist(ent);
             }
             et.commit();
-            return new Respuesta(true, "", "", "Usuario", new PermisosDto(ent));
+            return new Respuesta(true, "", "", "Permiso", new PermisosDto(ent));
         }catch(Exception ex){
             et.rollback();
             Logger.getLogger(UsuariosService.class.getName()).log(Level.SEVERE, "Ocurrio un error al guardar el permiso .", ex);

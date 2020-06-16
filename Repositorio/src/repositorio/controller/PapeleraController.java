@@ -15,20 +15,20 @@ import java.nio.file.Paths;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import repositorio.modelo.PapeleraDto;
 import repositorio.modelo.UsuariosDto;
 import repositorio.service.PapeleraService;
 import repositorio.util.AppContext;
+import repositorio.util.Mensaje;
 import repositorio.util.Respuesta;
 
 /**
@@ -52,6 +52,7 @@ public class PapeleraController extends Controller implements Initializable {
     private JFXButton btnRecuperar;
     UsuariosDto user;
     PapeleraService service = new PapeleraService();
+    Mensaje men = new Mensaje();
 
     /**
      * Initializes the controller class.
@@ -86,6 +87,13 @@ public class PapeleraController extends Controller implements Initializable {
                 } catch (IOException ex) {
                     Logger.getLogger(PapeleraController.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                String mensaje;
+                if(tvPapelera.getSelectionModel().getSelectedItems().size() > 1){
+                    mensaje = "Archivos recuperados";
+                }else{
+                    mensaje = "Archivo recuperado";
+                }
+                men.show(Alert.AlertType.INFORMATION, "Recuperar Archivos", mensaje);
             }
             this.getStage().close();
         }
