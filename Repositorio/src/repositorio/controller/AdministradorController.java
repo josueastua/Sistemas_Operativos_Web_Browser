@@ -140,7 +140,7 @@ public class AdministradorController extends Controller implements Initializable
 
     @FXML
     private void accionBorrar(ActionEvent event) {
-        if(!actual.getAbsolutePath().equals("C:\\raiz")){
+        if(!actual.getAbsolutePath().equals("C:\\raiz") && !actual.getAbsolutePath().contains("Permanente")){
             if(lvArchivos.getSelectionModel().getSelectedItem() != null){
                 CasillaController aux = controladores.get(lvArchivos.getItems().indexOf(lvArchivos.getSelectionModel().getSelectedItem()));
                 if(propiaCarpeta || verificarAccion(4)){
@@ -184,8 +184,10 @@ public class AdministradorController extends Controller implements Initializable
                     men.show(Alert.AlertType.INFORMATION, "Abrir Archivo", "No posee los permisos");
                 }
             }
-        }else
+        }else{
+            event.consume();
             men.show(Alert.AlertType.INFORMATION, "Borrar", "No tiene permisos para borrar aqui");
+        }
     }
     
     public void borrarDirectorio(List<DirectoryStream<Path>> contenidos, List<File> lista, String carpeta, File file){
@@ -220,7 +222,7 @@ public class AdministradorController extends Controller implements Initializable
 
     @FXML
     private void accionEditar(ActionEvent event) {
-        if(!actual.getAbsolutePath().equals("C:\\raiz")){
+        if(!actual.getAbsolutePath().equals("C:\\raiz") && !actual.getAbsolutePath().contains("Permanente")){
             if(lvArchivos.getSelectionModel().getSelectedItem() != null){
                 CasillaController aux = controladores.get(lvArchivos.getItems().indexOf(lvArchivos.getSelectionModel().getSelectedItem()));
                 if(propiaCarpeta || verificarAccion(4)){
@@ -330,8 +332,8 @@ public class AdministradorController extends Controller implements Initializable
 
     @FXML
     private void accionCombo(ActionEvent event) {
-        if(cbNuevo.getSelectionModel().getSelectedItem() != null){
-            if(!actual.getAbsolutePath().equals("C:\\raiz")){
+        if(!actual.getAbsolutePath().equals("C:\\raiz") && !actual.getAbsolutePath().contains("Permanente")){
+            if(cbNuevo.getSelectionModel().getSelectedItem() != null){
                 if(propiaCarpeta || verificarAccion(1)){
                     String extension = ext.get(cbNuevo.getSelectionModel().getSelectedItem());
                     if(!extension.equals("carpeta")){
@@ -364,16 +366,19 @@ public class AdministradorController extends Controller implements Initializable
                 }else{
                     men.show(Alert.AlertType.INFORMATION, "Crear Archivo", "No tiene permisos para crear aqui");
                 }
-            }else{
-                men.show(Alert.AlertType.INFORMATION, "Nuevo", "No tiene permisos para crear aqui");
             }
             cbNuevo.getSelectionModel().clearSelection(cbNuevo.getItems().indexOf(cbNuevo.getSelectionModel().getSelectedIndex()));
+        }else{
+            if(cbNuevo.getSelectionModel().getSelectedItem() != null)
+                cbNuevo.getSelectionModel().clearSelection(cbNuevo.getItems().indexOf(cbNuevo.getSelectionModel().getSelectedIndex()));
+            event.consume();
+            men.show(Alert.AlertType.INFORMATION, "Nuevo", "No tiene permisos para crear aqui");
         }
     }
 
     @FXML
     private void accionGuardar(ActionEvent event) {
-        if(propiaCarpeta || verificarAccion(3)){
+        if((propiaCarpeta || verificarAccion(3) && !actual.getAbsolutePath().equals("C:\\raiz"))  && !actual.getAbsolutePath().contains("Permanente")){
             FileChooser selecter = new FileChooser();
             List<File> files = selecter.showOpenMultipleDialog(this.getStage());
             Path destino = Paths.get(actual.getAbsoluteFile()+"\\"), origen;
@@ -386,6 +391,8 @@ public class AdministradorController extends Controller implements Initializable
             }catch(IOException ex){
                 System.out.println(ex);
             }
+        }else{
+            men.show(Alert.AlertType.INFORMATION, "Nuevo", "No tiene permisos para crear aqui");
         }
     }
     
