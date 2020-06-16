@@ -101,6 +101,21 @@ public class UsuariosDto {
     public List<PermisosDto> getPermisosOtorgados() {
         return permisosOtorgados;
     }
+    
+    public void addPermisoOtorgado(PermisosDto per){
+        Boolean existe = false;
+        int index = 0;
+        for(PermisosDto perm : this.permisosOtorgados){
+            if(perm.getPerUsuario().equals(per.getPerUsuario())){
+                existe = true;
+                index = permisosOtorgados.indexOf(perm);
+            }
+        }
+        if(existe){
+            permisosOtorgados.remove(index);
+            permisosOtorgados.add(per);
+        }
+    }
 
     public void setPermisosOtorgados(List<PermisosDto> permisosOtorgados) {
         this.permisosOtorgados = permisosOtorgados;

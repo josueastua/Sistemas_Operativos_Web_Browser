@@ -58,24 +58,26 @@ public class MantPermisosController extends Controller implements Initializable 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         men = new Mensaje();
-        men.show(Alert.AlertType.INFORMATION, "Eliminar", "Use CTRL+D para eliminar");
+        men.show(Alert.AlertType.INFORMATION, "Eliminar", "Use Suprimir o Delete para eliminar");
     }    
 
     @FXML
     private void accionTabla(MouseEvent event) {
-        if(tvPermisos.getSelectionModel().getSelectedItem() != null)
+        if(tvPermisos.getSelectionModel().getSelectedItem() != null){
+            select = tvPermisos.getSelectionModel().getSelectedItem();
             mostrarDatos();
+        }
     }
     
     private void initTabla(){
-        tvPermisos.getItems().clear();
-        tvPermisos.getItems().addAll(user.getPermisosOtorgados());
         colId.setCellValueFactory(new PropertyValueFactory("perId"));
         colUserName.setCellValueFactory(new PropertyValueFactory("perUsuario"));
         colCrear.setCellValueFactory(new PropertyValueFactory("perCrear"));
         colBorrar.setCellValueFactory(new PropertyValueFactory("perBorrar"));
         colGuardar.setCellValueFactory(new PropertyValueFactory("perEditar"));
         colLeer.setCellValueFactory(new PropertyValueFactory("perLeer"));
+        tvPermisos.getItems().clear();
+        tvPermisos.getItems().addAll(user.getPermisosOtorgados());
     }
     
     public void mostrarDatos(){
@@ -132,12 +134,14 @@ public class MantPermisosController extends Controller implements Initializable 
             Respuesta res = service.guardarPermiso(newPap);
             if(res.getEstado()){
                 men.show(Alert.AlertType.INFORMATION, "Crear Permiso", "Permiso creado");
-                user.getPermisosOtorgados().add((PermisosDto) res.getResultado("Permiso"));
+                user.addPermisoOtorgado((PermisosDto) res.getResultado("Permiso"));
+                tvPermisos.getItems().clear();
+                tvPermisos.getItems().addAll(user.getPermisosOtorgados());
             }
         }else{
             if(userselect != null){
                 newPap = new PermisosDto(0);
-                newPap.setPerDueno(select.getPerDueno());
+                newPap.setPerDueno(user.getUsuNombre());
                 newPap.setPerUsuario(userselect.getUsuNombre());
                 newPap.setPerCrear(tbCrear.isSelected() ? 1 : 0);
                 newPap.setPerBorrar(tbBorrar.isSelected() ? 1 : 0);
@@ -146,7 +150,9 @@ public class MantPermisosController extends Controller implements Initializable 
                 Respuesta res = service.guardarPermiso(newPap);
             if(res.getEstado()){
                 men.show(Alert.AlertType.INFORMATION, "Crear Permiso", "Permiso creado");
-                user.getPermisosOtorgados().add((PermisosDto) res.getResultado("Permiso"));
+                user.addPermisoOtorgado((PermisosDto) res.getResultado("Permiso"));
+                tvPermisos.getItems().clear();
+                tvPermisos.getItems().addAll(user.getPermisosOtorgados());
             }
             }else{
                 men.show(Alert.AlertType.INFORMATION, "Gestinar permisos", "Faltan datos");

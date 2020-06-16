@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Usuarios.findAll", query = "SELECT u FROM Usuarios u")
     , @NamedQuery(name = "Usuarios.findByUsuId", query = "SELECT u FROM Usuarios u WHERE u.usuId = :usuId")
     , @NamedQuery(name = "Usuarios.findByUsuNombre", query = "SELECT u FROM Usuarios u WHERE u.usuNombre = :usuNombre")
+    , @NamedQuery(name = "Usuarios.findByUsuNombreLike", query = "SELECT u FROM Usuarios u WHERE u.usuNombre like :usuNombre")
     , @NamedQuery(name = "Usuarios.findByUsuPassword", query = "SELECT u FROM Usuarios u WHERE u.usuPassword = :usuPassword")
     , @NamedQuery(name = "Usuarios.findByUsuDir", query = "SELECT u FROM Usuarios u WHERE u.usuDir = :usuDir")
     , @NamedQuery(name = "Usuarios.userLogin", query = "SELECT u FROM Usuarios u WHERE u.usuNombre = :usuNombre and u.usuPassword = :usuPassword")

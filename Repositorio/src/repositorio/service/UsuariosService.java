@@ -77,7 +77,7 @@ public class UsuariosService {
     
     public Respuesta getUsuariosByName(String nombre){
         try{
-            Query query = em.createNamedQuery("Usuarios.findByUsuNombre");
+            Query query = em.createNamedQuery("Usuarios.findByUsuNombreLike");
             query.setParameter("usuNombre", nombre);
             return new Respuesta(true, "", "", "Usuarios", convertirLista((List<Usuarios>)query.getResultList()));
         }catch(NoResultException ex){

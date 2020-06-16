@@ -8,6 +8,7 @@ package repositorio.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -61,7 +62,7 @@ public class BuscarUserController extends Controller implements Initializable {
         Respuesta res = service.getUsuariosByName(nombre);
         if(res.getEstado()){
               tvUser.getItems().clear();
-              tvUser.getItems().addAll((UsuariosDto[]) res.getResultado("Usuarios"));
+              tvUser.getItems().addAll((List<UsuariosDto>) res.getResultado("Usuarios"));
         }
     }
 

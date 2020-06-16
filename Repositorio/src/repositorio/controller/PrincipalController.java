@@ -19,6 +19,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import repositorio.modelo.UsuariosDto;
+import repositorio.util.AppContext;
 import repositorio.util.FlowController;
 
 /**
@@ -64,6 +66,8 @@ public class PrincipalController extends Controller implements Initializable {
 
     @FXML
     private void accionCambiar(ActionEvent event) {
+        FlowController.getInstance().goViewInNoResizableWindow("Login", Boolean.TRUE);
+        this.getStage().close();
     }
 
     @FXML
@@ -82,6 +86,8 @@ public class PrincipalController extends Controller implements Initializable {
 
     @Override
     public void initialize() {
+        UsuariosDto user = (UsuariosDto) AppContext.getInstance().get("User");
+        lblUser.setText(user.getUsuNombre());
         HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamMenu);
         transition.setRate(-1);
         hamMenu.addEventHandler(MouseEvent.MOUSE_PRESSED,(e)->{

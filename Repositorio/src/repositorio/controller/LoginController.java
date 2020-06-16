@@ -57,6 +57,8 @@ public class LoginController extends Controller implements Initializable {
         File file = new File("C:\\raiz");
         if(!file.exists())
             file.mkdir();
+        txtUsuario.setText("");
+        txtPassword.setText("");
     }
 
     @FXML
@@ -86,9 +88,12 @@ public class LoginController extends Controller implements Initializable {
         PapeleraService papservice = new PapeleraService();
         VersionesService verservice = new VersionesService();
         Respuesta res;
-        res = perservice.getPermisosByUsuario(user.getUsuNombre());
+        res = perservice.getPermisosByDueno(user.getUsuNombre());
         if(res.getEstado())
             user.setPermisosOtorgados((List<PermisosDto>) res.getResultado("Permisos"));
+        res = perservice.getPermisosByUsuario(user.getUsuNombre());
+        if(res.getEstado())
+            user.setPermisosDados((List<PermisosDto>) res.getResultado("Permisos"));
         res = papservice.getPapeleraByIdUsuario(user.getUsuId());
         if(res.getEstado())
             user.setPapelera((List<PapeleraDto>) res.getResultado("Papelera"));

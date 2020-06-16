@@ -394,7 +394,7 @@ public class AdministradorController extends Controller implements Initializable
             propiaCarpeta = Boolean.TRUE;
             return true;
         }
-        for(PermisosDto per: user.getPermisosOtorgados()){
+        for(PermisosDto per: user.getPermisosDados()){
             if(per.getPerDueno().equals(name)){
                 propiaCarpeta = Boolean.FALSE;
                 return true;
@@ -424,7 +424,7 @@ public class AdministradorController extends Controller implements Initializable
     }
     
     private PermisosDto buscarPermiso(){
-        for(PermisosDto per: user.getPermisosOtorgados()){
+        for(PermisosDto per: user.getPermisosDados()){
             if(actual.getAbsolutePath().contains(per.getPerDueno())){
                 return per;
             }
