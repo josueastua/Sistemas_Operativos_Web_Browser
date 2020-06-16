@@ -119,7 +119,7 @@ public class MantVersionesController extends Controller implements Initializable
                     }
                 }
             }
-            men.show(Alert.AlertType.INFORMATION, "Recuperar Version", "Version recuperada exitosamente");
+            men.show(Alert.AlertType.INFORMATION, "Recuperar Version", "Version recuperada exitosamentess");
         }
     }
 }
