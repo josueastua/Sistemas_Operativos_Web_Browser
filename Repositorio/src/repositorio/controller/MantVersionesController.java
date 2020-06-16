@@ -6,6 +6,8 @@
 package repositorio.controller;
 
 import java.net.URL;
+import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import repositorio.modelo.UsuariosDto;
 import repositorio.modelo.VersionesDto;
@@ -35,6 +38,8 @@ public class MantVersionesController extends Controller implements Initializable
     private ListView<Label> lvVersiones;
     @FXML
     private Label lblTitulo;
+    UsuariosDto user;
+    HashMap<String, List<VersionesDto>> visualizar;
     
 
     /**
@@ -49,14 +54,39 @@ public class MantVersionesController extends Controller implements Initializable
     private void accionTabla(MouseEvent event) {
     }
 
-    @FXML
-    private void accionBorrar(MouseEvent event) {
-    }
 
     @Override
     public void initialize() {
-        UsuariosDto user = (UsuariosDto) AppContext.getInstance().get("User");
+        user = (UsuariosDto) AppContext.getInstance().get("User");
         user.setVersiones();
+        initTabla();
+        initList();
     }
     
+    public void initTabla(){
+        tvVersiones.getItems().clear();
+        colArchivo.setCellValueFactory(new PropertyValueFactory("verArchivo"));
+        colCarpeta.setCellValueFactory(new PropertyValueFactory("verCarpeta"));
+    }
+    
+    public void initList(){
+        lvVersiones.getItems().clear();
+        visualizar = user.getVersiones();
+        Label aux;
+        for(String key: visualizar.keySet()){
+            aux = new Label(key);
+            aux.setPrefSize(266, 40);
+            lvVersiones.getItems().add(aux);
+        }
+        
+    }
+
+    @FXML
+    private void accionMostrar(MouseEvent event) {
+        if(lvVersiones.getSelectionModel().getSelectedItem() != null){
+            Label aux = lvVersiones.getSelectionModel().getSelectedItem();
+            tvVersiones.getItems().clear();
+            tvVersiones.getItems().addAll(visualizar.get(aux.getText()));
+        }
+    }
 }
