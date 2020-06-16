@@ -155,6 +155,7 @@ public class AdministradorController extends Controller implements Initializable
                             Respuesta res = service.guardarPapelera(pap);
                             if(res.getEstado()){
                                 System.out.println("Exito");
+                                user.getPapelera().add(pap);
                             }
                             lvArchivos.getItems().remove(index);
                         } catch (IOException ex) {
@@ -207,6 +208,7 @@ public class AdministradorController extends Controller implements Initializable
                     Respuesta res = service.guardarPapelera(pap);
                     if(res.getEstado()){
                         System.out.println("Exito");
+                        user.getPapelera().add(pap);
                     }
                 }else if(cont.isDirectory()){
                     borrarDirectorio(contenidos, lista, papelera.getAbsolutePath()+"\\" ,cont);

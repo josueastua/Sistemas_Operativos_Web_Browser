@@ -8,7 +8,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="455.0" prefWidth="506.0" stylesheets="@../resources/Emergentes.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="repositorio.controller.PapeleraController">
    <children>
-      <TableView fx:id="tvPapelera" layoutX="14.0" layoutY="64.0" onMouseClicked="#accionTable" prefHeight="318.0" prefWidth="475.0">
+      <TableView fx:id="tvPapelera" layoutX="14.0" layoutY="64.0" prefHeight="318.0" prefWidth="475.0">
         <columns>
           <TableColumn fx:id="colId" prefWidth="75.0" text="ID" />
           <TableColumn fx:id="colDirAnt" prefWidth="200.0" text="Direccion anterior" />

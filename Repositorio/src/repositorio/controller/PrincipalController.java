@@ -72,6 +72,7 @@ public class PrincipalController extends Controller implements Initializable {
 
     @FXML
     private void accionPapelera(ActionEvent event) {
+        FlowController.getInstance().goViewInNoResizableWindow("Papelera", Boolean.TRUE);
     }
 
     @FXML
