@@ -12,16 +12,21 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import repositorio.modelo.UsuariosDto;
+import repositorio.service.UsuariosService;
+import repositorio.util.AppContext;
+import repositorio.util.Respuesta;
 
 /**
  * FXML Controller class
  *
  * @author IVAN
  */
-public class BuscarUserController implements Initializable {
+public class BuscarUserController extends Controller implements Initializable {
 
     @FXML
     private JFXTextField txtNombre;
@@ -31,6 +36,11 @@ public class BuscarUserController implements Initializable {
     private TableView<UsuariosDto> tvUser;
     @FXML
     private JFXButton btnSeleccionar;
+    @FXML
+    private TableColumn<UsuariosDto, Integer> colId;
+    @FXML
+    private TableColumn<UsuariosDto, String> colNombre;
+    UsuariosService service = new UsuariosService();
 
     /**
      * Initializes the controller class.
@@ -39,17 +49,34 @@ public class BuscarUserController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+    
+    private void initable(){
+        colId.setCellValueFactory(new PropertyValueFactory("usuId"));
+        colNombre.setCellValueFactory(new PropertyValueFactory("usuNombre"));
+    }
 
     @FXML
     private void accionBuscar(ActionEvent event) {
+        String nombre = txtNombre.getText().isEmpty() ? "%" : "%"+txtNombre.getText()+"%";
+        Respuesta res = service.getUsuariosByName(nombre);
+        if(res.getEstado()){
+              tvUser.getItems().clear();
+              tvUser.getItems().addAll((UsuariosDto[]) res.getResultado("Usuarios"));
+        }
     }
 
-    @FXML
-    private void accionTabla(MouseEvent event) {
-    }
 
     @FXML
     private void accionSeleccionar(ActionEvent event) {
+        if(tvUser.getSelectionModel().getSelectedItem() != null){
+            AppContext.getInstance().set("Select", tvUser.getSelectionModel().getSelectedItem());
+            this.getStage().close();
+        }
+    }
+
+    @Override
+    public void initialize() {
+        initable();
     }
     
 }

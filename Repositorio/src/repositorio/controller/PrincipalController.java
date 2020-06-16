@@ -98,6 +98,7 @@ public class PrincipalController extends Controller implements Initializable {
 
     @FXML
     private void accionPermisos(ActionEvent event) {
+        FlowController.getInstance().goViewInNoResizableWindow("MantPermisos", Boolean.TRUE);
     }
     
 }
