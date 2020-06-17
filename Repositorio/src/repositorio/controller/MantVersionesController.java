@@ -53,7 +53,7 @@ public class MantVersionesController extends Controller implements Initializable
     List<VersionesDto> select;
     @FXML
     private JFXButton btnRecovery;
-    Mensaje men;
+    Mensaje men = new Mensaje();
     
 
     /**
