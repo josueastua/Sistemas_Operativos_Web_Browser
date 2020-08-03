@@ -130,7 +130,7 @@ public class AdministradorController extends Controller implements Initializable
     private Image convertirImage(File file){
         javax.swing.Icon icon = FileSystemView.getFileSystemView().getSystemIcon(file);
         BufferedImage buffer = new BufferedImage(
-            icon.getIconWidth(),
+            icon.getIconHeight(),
             icon.getIconWidth(),
             BufferedImage.TYPE_INT_ARGB
         );

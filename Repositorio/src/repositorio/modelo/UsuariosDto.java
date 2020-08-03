@@ -8,12 +8,13 @@ package repositorio.modelo;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import repositorio.util.Entidad;
 
 /**
  *
  * @author IVAN
  */
-public class UsuariosDto {
+public class UsuariosDto extends Entidad{
     private Integer usuId;
     private String usuNombre;
     private String usuPassword;
@@ -136,6 +137,11 @@ public class UsuariosDto {
 
     public void setPapelera(List<PapeleraDto> papelera) {
         this.papelera = papelera;
+    }
+
+    @Override
+    public Entidad convert() {
+        return null;
     }
     
 }
